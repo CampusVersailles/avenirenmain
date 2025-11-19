@@ -1,0 +1,84 @@
+body {
+  background-color: #faf7f2;
+}
+
+a {
+  color: #cc4d2b;
+
+  &:hover {
+    color: #a33e22;
+  }
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem;
+  line-height: 3.25rem;
+}
+
+h2 {
+  font-size: 2rem;
+  line-height: 2.75rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+h5 {
+  font-size: 1.375rem;
+  line-height: 1.75rem;
+}
+
+h6 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.main-container {
+  width: 100%;
+  max-width: 53rem;
+  padding: 0 1.5rem;
+  margin: auto;
+  background-color: transparent;
+
+  @media screen and (max-width: 53rem) {
+    padding: 0;
+    max-width: calc(100% - 3rem);
+  }
+
+  @media screen and (max-width: 29.875rem) {
+    max-width: calc(100% - 2rem);
+  }
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+button,
+a {
+  &:focus {
+    outline-offset: 2px;
+    outline: 3px solid var(--primary-50);
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
