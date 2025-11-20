@@ -48,7 +48,7 @@ export default async function Home() {
         </h1>
         <ul style={{ width: "100%", display: "flex", flexDirection: "column", gap: "24px", padding: "24px" }}>
           {metiers.map((metier) => (
-            <JobCard key={metier.Titre} title={metier.Titre} description={metier.Description} />
+            <JobCard key={metier.titre} title={metier.titre} description={metier.description} />
           ))}
         </ul>
       </main>
