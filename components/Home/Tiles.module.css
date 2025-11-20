@@ -1,0 +1,51 @@
+.tiles {
+  display: flex;
+  gap: 2rem;
+
+  @media screen and (max-width: 53rem) {
+    flex-direction: column;
+  }
+}
+
+.tile {
+  position: relative;
+  border-radius: 0.5rem;
+  border: var(--border);
+  padding: 1rem 1rem 2.5rem 1rem;
+  text-decoration: none;
+  flex: 1;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  svg {
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    bottom: 0.5rem;
+    right: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    color: black;
+    border-color: var(--primary-20);
+    svg {
+      transform: translateX(1rem);
+      color: var(--primary-50);
+    }
+  }
+}
+
+.count {
+  width: 100%;
+  text-align: center;
+  color: var(--primary-50);
+  font-size: 2rem;
+}
+
+.number {
+  font-size: 4rem;
+  margin: 0.5rem 0;
+}

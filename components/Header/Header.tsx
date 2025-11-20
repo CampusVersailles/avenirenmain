@@ -10,7 +10,7 @@ const Header = () => {
       <SkipLinks />
       <div className='main-container'>
         <div className={styles.container}>
-          <Link href='/'>
+          <Link href='/' title="Accueil de l'avenir en main">
             <Image src='/images/logo.svg' alt='' width={70} height={70} />
           </Link>
           <nav role='navigation' tabIndex={-1} aria-label='Menu principal'>
