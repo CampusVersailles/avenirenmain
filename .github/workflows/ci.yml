@@ -1,0 +1,54 @@
+name: Run CI
+on:
+  push:
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+      - name: Copy .env
+        run: cp .env.example .env
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Linter
+        run: pnpm lint
+      - name: Run build
+        run: pnpm build
+        env:
+          STRAPI_TOKEN: ${{ secrets.STRAPI_TOKEN }}
+          STRAPI_URL: ${{ secrets.STRAPI_URL }}
+      - name: Start server
+        run: pnpm start &
+        env:
+          STRAPI_TOKEN: ${{ secrets.STRAPI_TOKEN }}
+          STRAPI_URL: ${{ secrets.STRAPI_URL }}
+      - run: mkdir -p ${{ github.workspace }}/tmp/artifacts
+      - name: Lighthouse Check
+        uses: foo-software/lighthouse-check-action@master
+        id: lighthouseCheck
+        with:
+          device: all
+          urls: "http://localhost:3000"
+          outputDirectory: ${{ github.workspace }}/tmp/artifacts
+      - name: Verify Lighthouse Check results
+        uses: foo-software/lighthouse-check-status-action@master
+        with:
+          lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
+          minAccessibilityScore: "100"
+          minBestPracticesScore: "100"
+      - name: Upload Lighthouse artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Lighthouse reports
+          path: ${{ github.workspace }}/tmp/artifacts
