@@ -1,0 +1,17 @@
+.banner {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.video {
+  width: auto;
+  max-height: 45rem;
+  border-radius: 1rem;
+}
