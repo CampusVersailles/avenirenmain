@@ -1,0 +1,19 @@
+.linkButton {
+  padding: 1rem 0.75rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  width: fit-content;
+}
+
+.secondary {
+  background-color: white;
+  color: var(--primary-50);
+  border: var(--border);
+  border-color: white;
+
+  &:hover {
+    border-color: var(--primary-50);
+  }
+}
