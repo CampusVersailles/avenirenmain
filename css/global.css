@@ -1,9 +1,16 @@
 body {
   background-color: #faf7f2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 a {
-  color: #cc4d2b;
+  color: #cc421f;
 
   &:hover {
     color: #a33e22;
@@ -51,7 +58,7 @@ h6 {
 
 .main-container {
   width: 100%;
-  max-width: 53rem;
+  max-width: 49.75rem; /* 53rem - 2 * 1.5 (padding) - scrollbar */
   padding: 0 1.5rem;
   margin: auto;
   background-color: transparent;
