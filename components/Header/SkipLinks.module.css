@@ -32,6 +32,6 @@
   position: absolute;
   width: auto;
   z-index: 9;
-  outline: 3px solid var(--primary);
+  outline: 3px solid var(--primary-50);
   outline-offset: 2px;
 }
