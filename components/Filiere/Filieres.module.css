@@ -36,9 +36,9 @@
 .content {
   position: absolute;
   bottom: 0;
-  height: 7rem;
+  height: 8rem;
   z-index: 1;
-  padding: 2rem;
+  padding: 1rem;
   color: white;
 }
 
@@ -46,7 +46,10 @@
   background-color: var(--primary-50);
   border-radius: 0.5rem;
   padding: 0.5rem;
-  text-align: center;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 0.5rem;
 }
 
