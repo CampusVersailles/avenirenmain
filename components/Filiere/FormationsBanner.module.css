@@ -1,9 +1,24 @@
-.banner {
-  background-color: var(--primary-10);
-  border-radius: 0.5rem;
-  padding: 1rem;
+.content {
+  padding-bottom: 2rem;
 }
 
-.button {
-  margin-top: 1rem;
+.title {
+  margin-bottom: 1rem;
+}
+
+.cta {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 0.5rem;
+  }
 }

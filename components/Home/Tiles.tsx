@@ -1,13 +1,13 @@
-import Link from "next/link"
+import Tile from "../Tile/Tile"
 import styles from "./Tiles.module.css"
 import ArrowRightIcon from "../Icons/ArrowRightIcon"
 const Tiles = () => {
   return (
     <div className={styles.tiles}>
-      <Link href='/metiers' className={styles.tile}>
+      <Tile className={styles.tile} href='/metiers'>
         <div>
-          <h2>Découvrir les métiers</h2>
-          <p>
+          <h2 className={styles.title}>Découvrir les métiers</h2>
+          <p className={styles.text}>
             Que tu aimes les grands espaces ou les petits ateliers, travailler seul ou en groupe, bricoler ou animer,
             esquisse ton futur en explorant les familles de métiers qui te plaisent.
           </p>
@@ -17,11 +17,11 @@ const Tiles = () => {
           <p>Métiers</p>
         </div>
         <ArrowRightIcon />
-      </Link>
-      <Link href='/formations' className={styles.tile}>
+      </Tile>
+      <Tile className={styles.tile} href='/formations'>
         <div>
-          <h2>Trouver ma formation</h2>
-          <p>
+          <h2 className={styles.title}>Trouver ma formation</h2>
+          <p className={styles.text}>
             Prépare ton avenir dans les métiers de l'artisanat en trouvant une formation qui te correspond partout en
             France.
           </p>
@@ -31,7 +31,7 @@ const Tiles = () => {
           <p>Formations</p>
         </div>
         <ArrowRightIcon />
-      </Link>
+      </Tile>
     </div>
   )
 }

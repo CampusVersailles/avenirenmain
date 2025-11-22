@@ -1,0 +1,30 @@
+.tile {
+  position: relative;
+  display: block;
+  border-radius: 1rem;
+  border: 2px solid #f0f0f0;
+  padding: 2rem 2rem 3rem 2rem;
+  text-decoration: none;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  color: #333;
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    color: #333;
+    border-color: var(--primary-50);
+    background: #fff9f5;
+    transform: translateY(-0.5rem);
+    box-shadow: 0 10px 30px rgba(237, 110, 76, 0.15);
+
+    svg {
+      transform: translateX(0.5rem);
+      color: var(--primary-50);
+    }
+  }
+}
