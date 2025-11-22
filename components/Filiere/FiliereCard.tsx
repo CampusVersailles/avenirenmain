@@ -5,6 +5,7 @@ import styles from "./Filieres.module.css"
 import Video from "../Video/Video"
 import Link from "next/link"
 import { useRef } from "react"
+import Image from "next/image"
 
 const FiliereCard = ({ filiere }: { filiere: Filiere }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -17,7 +18,10 @@ const FiliereCard = ({ filiere }: { filiere: Filiere }) => {
       onMouseLeave={() => videoRef.current?.pause()}>
       <Video ref={videoRef} src={filiere.video} onMouseEnter={() => {}} onMouseLeave={() => {}} />
       <div className={styles.content}>
-        <p className={styles.badge}>{filiere.nom}</p>
+        <p className={styles.badge}>
+          <Image src={filiere.icone} alt='' width={24} height={24} />
+          {filiere.nom}
+        </p>
         <p className={styles.title}>{filiere.titre}</p>
       </div>
     </Link>
