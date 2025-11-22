@@ -1,0 +1,58 @@
+.formation {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: var(--border);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.badge {
+  background-color: var(--primary-10);
+  color: var(--primary-90);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.info {
+  display: flex;
+  gap: 1rem;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.icon {
+  font-size: 1rem;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.website {
+  margin-top: 0.5rem;
+}
