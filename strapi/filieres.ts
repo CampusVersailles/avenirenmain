@@ -34,7 +34,7 @@ export const getFiliereById = async (filiereDocumentId: string) => {
   const response = await axiosClient.get<{
     data: FiliereStrapi
   }>(
-    `filieres/${filiereDocumentId}?populate[metiers][populate]=mediaPrincipal&populate=domainesPro&populate[metiers][populate]=codeRomeMetier`,
+    `filieres/${filiereDocumentId}?populate[icone][fields]=url&populate[metiers][populate]=mediaPrincipal&populate=domainesPro&populate[metiers][populate]=codeRomeMetier`,
   )
   console.log(response.data.data)
   return {
@@ -43,6 +43,7 @@ export const getFiliereById = async (filiereDocumentId: string) => {
       ...metier,
       mediaPrincipal: `${process.env.STRAPI_URL}${metier.mediaPrincipal.url}`,
     })),
+    icone: `${process.env.STRAPI_URL}${response.data.data.icone.url}`,
   }
 }
 

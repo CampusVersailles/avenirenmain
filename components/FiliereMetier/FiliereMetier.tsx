@@ -13,12 +13,15 @@ const FiliereMetier = ({
   return (
     <div className={styles.metier}>
       <img className={styles.image} src={metier.mediaPrincipal} alt='' />
-      <p className={styles.domaine}>
-        {filiere.domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))?.description}
-      </p>
-      <h2 className={styles.title}>{metier.titre}</h2>
-      <div className={styles.description}>
-        <BlocksRenderer content={metier.description as BlocksContent} />
+
+      <div className={styles.content}>
+        <p className={styles.title}>{metier.titre}</p>
+        <p className={styles.domaine}>
+          {filiere.domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))?.description}
+        </p>
+        <div className={styles.description}>
+          <BlocksRenderer content={metier.description as BlocksContent} />
+        </div>
       </div>
     </div>
   )

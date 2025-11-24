@@ -1,11 +1,23 @@
 .metier {
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  border: var(--border);
+  border-radius: 0.5rem 0.5rem 0 0;
   background-color: white;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0rem;
+
+  width: calc((100% - 2rem) / 3);
+  aspect-ratio: 0.8;
+  overflow: hidden;
+  text-decoration: none;
+
+  justify-content: space-between;
+}
+
+.content {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .title {
@@ -14,7 +26,20 @@
 }
 
 .description {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* or 1 / 1, 4 / 3, etc. */
+  object-fit: cover;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.domaine {
+  background-color: var(--primary-50);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }

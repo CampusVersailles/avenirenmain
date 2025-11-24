@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import styles from "./Filter.module.css"
+import GridIcon from "@/components/Icons/GridIcon"
 
 interface FilterProps {
   title: string
@@ -40,7 +41,10 @@ const Filter = ({ title, options, onFilterChange, selectAll = false }: FilterPro
 
   return (
     <div className={styles.filter}>
-      <h3 className={styles.title}>{title}</h3>
+      <h3 className={styles.title}>
+        <GridIcon />
+        <span>{title}</span>
+      </h3>
       <div className={styles.options}>
         {selectAll && (
           <button className={`${styles.badge} ${allSelected ? styles.active : ""}`} onClick={toggleSelectAll}>

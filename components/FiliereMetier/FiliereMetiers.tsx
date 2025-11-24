@@ -1,16 +1,18 @@
 "use client"
-import styles from "./FiliereMetier.module.css"
+import styles from "./FiliereMetiers.module.css"
 import FiliereMetier from "./FiliereMetier"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 import Filter from "./Filter/Filter"
 import { useState } from "react"
+import FiliereBanner from "./FiliereBanner"
 
 const FiliereMetiers = ({ filiere }: { filiere: FiliereAvecMetiers }) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
 
   return (
     <div>
-      <Filter title='Domaines professionnels' options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
+      <FiliereBanner filiere={filiere} />
+      <Filter title='Domaines Professionnels' options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
 
       <div className={styles.metiers}>
         {(selectedFilters.length > 0
