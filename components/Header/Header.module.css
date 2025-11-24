@@ -16,6 +16,7 @@
   gap: 0.5rem;
 }
 
+.linkButton,
 .link {
   cursor: pointer;
   color: var(--primary-50);
@@ -33,6 +34,27 @@
 
   &:focus {
     color: var(--primary-70);
+  }
+}
+
+.link.active {
+  color: var(--primary-70);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.linkButton {
+  background-color: var(--primary-50);
+  color: white;
+
+  &:hover {
+    background-color: var(--primary-60);
+    color: white;
+  }
+
+  &:focus {
+    background-color: var(--primary-70);
+    color: white;
   }
 }
 

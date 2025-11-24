@@ -5,10 +5,12 @@ import styles from "./Menu.module.css"
 import headerStyles from "./Header.module.css"
 import Link from "next/link"
 import MenuIcon from "../Icons/MenuIcon"
+import { usePathname } from "next/navigation"
 
 const Menu = () => {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLButtonElement>(null)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleClick = (event: Event) => {
@@ -36,12 +38,18 @@ const Menu = () => {
       </button>
       <ul className={classNames(styles.menu, { [styles.open]: open })} id='mobile-menu'>
         <li>
-          <Link className={headerStyles.link} href='/metiers'>
+          <Link
+            className={classNames(headerStyles.link, { [headerStyles.active]: pathname.startsWith("/metiers") })}
+            href='/metiers'
+            aria-current={pathname.startsWith("/metiers") ? "page" : undefined}>
             Métiers
           </Link>
         </li>
         <li>
-          <Link className={headerStyles.link} href='/formations'>
+          <Link
+            className={classNames(headerStyles.link, { [headerStyles.active]: pathname.startsWith("/formations") })}
+            href='/formations'
+            aria-current={pathname.startsWith("/formations") ? "page" : undefined}>
             Formations
           </Link>
         </li>
