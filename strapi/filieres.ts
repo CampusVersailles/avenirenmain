@@ -1,5 +1,4 @@
 import axiosClient from "@/services/axios"
-import { type BlocksContent } from "@strapi/blocks-react-renderer"
 import { MetierStrapi } from "./metier"
 
 type FiliereStrapi = {
@@ -9,7 +8,7 @@ type FiliereStrapi = {
   nom: string
   video: { url: string }
   icone: { url: string }
-  description: BlocksContent
+  description: string
   metiers: MetierStrapi[]
   domainesPro: {
     code: string
@@ -34,8 +33,17 @@ export type Filiere = Awaited<ReturnType<typeof getFilieres>>[number]
 export const getFiliereById = async (filiereDocumentId: string) => {
   const response = await axiosClient.get<{
     data: FiliereStrapi
-  }>(`filieres/${filiereDocumentId}?populate=*`)
-  return response.data.data
+  }>(
+    `filieres/${filiereDocumentId}?populate[metiers][populate]=mediaPrincipal&populate=domainesPro&populate[metiers][populate]=codeRomeMetier`,
+  )
+  console.log(response.data.data)
+  return {
+    ...response.data.data,
+    metiers: response.data.data.metiers.map((metier) => ({
+      ...metier,
+      mediaPrincipal: `${process.env.STRAPI_URL}${metier.mediaPrincipal.url}`,
+    })),
+  }
 }
 
 export type FiliereAvecMetiers = Awaited<ReturnType<typeof getFiliereById>>

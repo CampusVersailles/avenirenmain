@@ -1,22 +1,25 @@
+"use client"
 import styles from "./FiliereMetier.module.css"
 import FiliereMetier from "./FiliereMetier"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
+import Filter from "./Filter/Filter"
+import { useState } from "react"
 
 const FiliereMetiers = ({ filiere }: { filiere: FiliereAvecMetiers }) => {
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([])
+
   return (
     <div>
-      <div className={styles.filiere}>
-        {filiere.domainesPro.map((domaine: { code: string; description: string }) => (
-          <div key={domaine.code}>
-            <h2>{domaine.code}</h2>
-            <p>{domaine.description}</p>
-          </div>
-        ))}
-      </div>
+      <Filter title='Domaines professionnels' options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
 
       <div className={styles.metiers}>
-        {filiere.metiers.map((metier) => (
-          <FiliereMetier metier={metier} key={metier.id} />
+        {(selectedFilters.length > 0
+          ? filiere.metiers.filter((metier) =>
+              selectedFilters.some((filter) => metier.codeRomeMetier.code.startsWith(filter)),
+            )
+          : filiere.metiers
+        ).map((metier) => (
+          <FiliereMetier metier={metier} filiere={filiere} key={metier.id} />
         ))}
       </div>
     </div>

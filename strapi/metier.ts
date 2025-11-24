@@ -4,6 +4,8 @@ import { type BlocksContent } from "@strapi/blocks-react-renderer"
 export type MetierStrapi = {
   id: number
   titre: string
+  codeRomeMetier: { code: string }
+  mediaPrincipal: { url: string }
   description: BlocksContent
 }
 
