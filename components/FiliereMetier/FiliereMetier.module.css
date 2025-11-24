@@ -1,0 +1,20 @@
+.metier {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: var(--border);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

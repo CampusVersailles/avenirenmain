@@ -13,7 +13,7 @@ const FiliereCard = ({ filiere }: { filiere: Filiere }) => {
   return (
     <Link
       className={styles.filiere}
-      href={`/metiers/${filiere.id}`}
+      href={`/metiers/${filiere.documentId}`}
       onMouseEnter={() => videoRef.current?.play()}
       onMouseLeave={() => videoRef.current?.pause()}>
       <Video ref={videoRef} src={filiere.video} onMouseEnter={() => {}} onMouseLeave={() => {}} />

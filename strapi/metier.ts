@@ -1,7 +1,17 @@
 import axiosClient from "@/services/axios"
 import { type BlocksContent } from "@strapi/blocks-react-renderer"
 
-export const getMetiers = async () => {
-  const response = await axiosClient.get<{ data: { titre: string; description: BlocksContent }[] }>("metiers")
+export type MetierStrapi = {
+  id: number
+  titre: string
+  description: BlocksContent
+}
+
+export const getMetier = async (metierDocumentId: string) => {
+  const response = await axiosClient.get<{
+    data: MetierStrapi
+  }>(`metiers/${metierDocumentId}?populate=*`)
   return response.data.data
 }
+
+export type Metier = Awaited<ReturnType<typeof getMetier>>
