@@ -1,0 +1,55 @@
+.filter {
+  margin: 2rem 0;
+}
+ 
+.title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  color: var(--primary-50);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+ 
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+ 
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem 0.7rem;
+  background: var(--primary-10);
+  border: 2px solid transparent;
+  border-radius: 2rem;
+  color: var(--primary-50);
+  font-size: 0.90rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+ 
+  &:hover {
+    background: var(--primary-10);
+    border-color: var(--primary-50);
+  }
+}
+ 
+.badge.active {
+  background: var(--primary-50);
+  color: white;
+  border-color: var(--primary-50);
+}
+ 
+.icon {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1;
+}
+ 
+.badge.active .icon {
+  transform: rotate(45deg);
+}

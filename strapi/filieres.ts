@@ -1,17 +1,25 @@
 import axiosClient from "@/services/axios"
-import { type BlocksContent } from "@strapi/blocks-react-renderer"
+import { MetierStrapi } from "./metier"
+
+type FiliereStrapi = {
+  id: number
+  documentId: string
+  titre: string
+  nom: string
+  video: { url: string }
+  icone: { url: string }
+  description: string
+  metiers: MetierStrapi[]
+  domainesPro: {
+    code: string
+    description: string
+  }[]
+}
 
 export const getFilieres = async () => {
   const response = await axiosClient.get<{
-    data: {
-      id: number
-      titre: string
-      nom: string
-      video: { url: string }
-      icone: { url: string }
-      description: BlocksContent
-    }[]
-  }>("filieres?populate=*")
+    data: Omit<FiliereStrapi, "metiers">[]
+  }>("filieres?populate=video&populate=icone")
 
   return response.data.data.map((filiere) => ({
     ...filiere,
@@ -21,3 +29,21 @@ export const getFilieres = async () => {
 }
 
 export type Filiere = Awaited<ReturnType<typeof getFilieres>>[number]
+
+export const getFiliereById = async (filiereDocumentId: string) => {
+  const response = await axiosClient.get<{
+    data: FiliereStrapi
+  }>(
+    `filieres/${filiereDocumentId}?populate[icone][fields]=url&populate[metiers][populate]=mediaPrincipal&populate=domainesPro&populate[metiers][populate]=codeRomeMetier`,
+  )
+  return {
+    ...response.data.data,
+    metiers: response.data.data.metiers.map((metier) => ({
+      ...metier,
+      mediaPrincipal: `${process.env.STRAPI_URL}${metier.mediaPrincipal.url}`,
+    })),
+    icone: `${process.env.STRAPI_URL}${response.data.data.icone.url}`,
+  }
+}
+
+export type FiliereAvecMetiers = Awaited<ReturnType<typeof getFiliereById>>
