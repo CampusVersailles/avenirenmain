@@ -20,8 +20,21 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
   })
   const abortControllerRef = useRef<AbortController | null>(null)
 
-  useEffect(() => {
+  // Helper function to manage AbortController lifecycle
+  const createAbortController = () => {
+    // Cancel the previous request if it exists
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+
+    // Create and store a new AbortController for this request
     const controller = new AbortController()
+    abortControllerRef.current = controller
+    return controller
+  }
+
+  useEffect(() => {
+    const controller = createAbortController()
     getFormations(undefined, controller.signal)
       .then((data) => {
         if (!controller.signal.aborted) {
@@ -34,18 +47,14 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
           console.error("Error fetching formations:", error)
         }
       })
-    return () => controller.abort()
+    return () => {
+      controller.abort()
+      abortControllerRef.current = null
+    }
   }, [])
 
   const applyFilters = (newFilters: FilterType) => {
-    // Cancel the previous request if it exists
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort()
-    }
-
-    // Create a new AbortController for this request
-    const controller = new AbortController()
-    abortControllerRef.current = controller
+    const controller = createAbortController()
 
     setFilteredFormations(null)
     getFormations(newFilters, controller.signal)
