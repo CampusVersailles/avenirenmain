@@ -16,12 +16,7 @@ export default function MetierBanner({ filiere, metier }: { filiere: FiliereAvec
         {domaine && <span className={styles.badgeGhost}>{domaine.description}</span>}
       </div>
       <div className={styles.titleAndActionsContainer}>
-        <div className={styles.titleContainer}>
-          <Link href={`/metiers/${filiere.documentId}`}>
-            <LeftChevronIcon className={styles.iconTitle} />
-          </Link>
-          <h1 className={styles.title}>{metier.titre}</h1>
-        </div>
+        <h1 className={styles.title}>{metier.titre}</h1>
         <div className={styles.actionsContainer}>
           <button className={styles.actionButton}>
             <LikeIcon className={styles.icon} />
