@@ -9,6 +9,7 @@ import { CityResult } from "./Filter/CityAutocomplete"
 
 const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux: Option[]; durees: Option[] }) => {
   const [filteredFormations, setFilteredFormations] = useState<FormationType[] | null>(null)
+  const [error, setError] = useState<string | null>(null)
   const [filters, setFilters] = useState<FilterType>({
     search: "",
     city: null,
@@ -19,16 +20,30 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
   })
 
   useEffect(() => {
-    getFormations().then((data) => {
-      setFilteredFormations(data)
-    })
+    getFormations()
+      .then((data) => {
+        setFilteredFormations(data)
+        setError(null)
+      })
+      .catch((err) => {
+        console.error("Failed to load formations on initial load:", err)
+        setError("Erreur lors du chargement initial des formations. Veuillez réessayer plus tard.")
+        setFilteredFormations(null)
+      })
   }, [])
 
   const applyFilters = (newFilters: FilterType) => {
     setFilteredFormations(null)
-    getFormations(newFilters).then((data) => {
-      setFilteredFormations(data)
-    })
+    setError(null)
+    getFormations(newFilters)
+      .then((data) => {
+        setFilteredFormations(data)
+      })
+      .catch((err) => {
+        console.error("Failed to apply filters:", err)
+        setError("Erreur lors de l'application des filtres. Veuillez réessayer.")
+        setFilteredFormations(null)
+      })
   }
 
   const handleFilterChange = (key: keyof typeof filters, value: string) => {
@@ -59,7 +74,9 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
         onDureeChange={(value) => handleFilterChange("duree", value)}
       />
       <div className={styles.formations}>
-        {filteredFormations ? (
+        {error ? (
+          <p className={styles.error}>{error}</p>
+        ) : filteredFormations ? (
           filteredFormations.map((formation) => <Formation formation={formation} key={formation.id} />)
         ) : (
           <p>Chargement des formations en cours...</p>
