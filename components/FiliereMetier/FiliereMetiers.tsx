@@ -13,7 +13,6 @@ const FiliereMetiers = ({ filiere }: { filiere: FiliereAvecMetiers }) => {
     <div>
       <FiliereBanner filiere={filiere} />
       <Filter title='Domaines Professionnels' options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
-
       <div className={styles.metiers}>
         {(selectedFilters.length > 0
           ? filiere.metiers.filter((metier) =>
