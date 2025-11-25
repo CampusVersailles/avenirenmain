@@ -1,8 +1,6 @@
 import styles from "./MetierBanner.module.css"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 import { Metier as MetierType } from "@/strapi/metier"
-import LeftChevronIcon from "../Icons/LeftChevron"
-import Link from "next/link"
 import LikeIcon from "../Icons/Like"
 import ShareIcon from "../Icons/Share"
 
