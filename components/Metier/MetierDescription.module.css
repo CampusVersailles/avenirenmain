@@ -2,7 +2,8 @@
   display: flex;
   gap: 2rem 3rem;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+
 
   @media screen and (max-width: 53rem) {
     flex-direction: column;
@@ -22,7 +23,7 @@
 
 .descriptionImage {
   width: calc((100% - 2rem) / 2);
-  aspect-ratio: 16 / 9;
+  /* aspect-ratio: 16 / 9; */
   object-fit: cover;
   border-radius: 1rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);

@@ -6,12 +6,14 @@ import MetierDescription from "./MetierDescription"
 import MetierCentresInterets from "./MetierSectionCentreInterets"
 import MetierQuotidien from "./MetierSectionQuotidien"
 import MetierPerspectives from "./MetierSectionPerspectives"
+import MetierTrouverFormation from "./MetierTrouverFormation"
 
 const Metier = ({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: MetierType }) => {
   return (
     <div className={styles.metier}>
       <MetierBanner filiere={filiere} metier={metier} />
       <MetierDescription metier={metier} />
+      <MetierTrouverFormation filiere={filiere} metier={metier} />
       <MetierCentresInterets metier={metier} />
       <MetierQuotidien metier={metier} />
       <MetierPerspectives metier={metier} />
