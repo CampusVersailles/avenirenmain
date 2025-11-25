@@ -1,13 +1,72 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import Formation from "./Formation"
-import { Formation as FormationType } from "@/strapi/formations"
+import { FilterType, getFormations, type Option, Formation as FormationType } from "@/strapi/formations"
+import Filter from "./Filter/Filter"
 import styles from "./Formations.module.css"
-const Formations = ({ formations }: { formations: FormationType[] }) => {
+import { CityResult } from "./Filter/CityAutocomplete"
+
+const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux: Option[]; durees: Option[] }) => {
+  const [filteredFormations, setFilteredFormations] = useState<FormationType[] | null>(null)
+  const [filters, setFilters] = useState<FilterType>({
+    search: "",
+    city: null,
+    filiere: "",
+    diplome: "",
+    alternance: "",
+    duree: "",
+  })
+
+  useEffect(() => {
+    getFormations().then((data) => {
+      setFilteredFormations(data)
+    })
+  }, [])
+
+  const applyFilters = (newFilters: FilterType) => {
+    setFilteredFormations(null)
+    getFormations(newFilters).then((data) => {
+      setFilteredFormations(data)
+    })
+  }
+
+  const handleFilterChange = (key: keyof typeof filters, value: string) => {
+    const newFilters = { ...filters, [key]: value }
+    setFilters(newFilters)
+    applyFilters(newFilters)
+  }
+
+  const handleCityChange = (city: CityResult | null) => {
+    const newFilters = { ...filters, city }
+    setFilters(newFilters)
+    applyFilters(newFilters)
+  }
+
   return (
-    <div className={styles.formations}>
-      {formations.map((formation) => (
-        <Formation formation={formation} key={formation.id} />
-      ))}
-    </div>
+    <>
+      <Filter
+        search={filters.search}
+        onSearchChange={(value) => handleFilterChange("search", value)}
+        city={filters.city}
+        onCityChange={(value) => handleCityChange(value)}
+        filieres={filieres}
+        niveaux={niveaux}
+        durees={durees}
+        onFiliereChange={(value) => handleFilterChange("filiere", value)}
+        onDiplomeChange={(value) => handleFilterChange("diplome", value)}
+        onAlternanceChange={(value) => handleFilterChange("alternance", value)}
+        onDureeChange={(value) => handleFilterChange("duree", value)}
+      />
+      <div className={styles.formations}>
+        {filteredFormations ? (
+          filteredFormations.map((formation) => <Formation formation={formation} key={formation.id} />)
+        ) : (
+          <p>Chargement des formations en cours...</p>
+        )}
+      </div>
+    </>
   )
 }
+
 export default Formations
