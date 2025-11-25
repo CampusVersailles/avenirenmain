@@ -72,7 +72,7 @@ const CityAutocomplete = ({
           setActiveIndex(-1)
         }
       } catch (error) {
-        console.error("Error fetching city suggestions:", error)
+        console.error("Error fetching city suggestions for:", text, error)
         setSuggestions([])
       } finally {
         setIsLoading(false)
@@ -104,11 +104,11 @@ const CityAutocomplete = ({
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault()
-        setActiveIndex((prev) => (prev < suggestions.length - 1 ? prev + 1 : prev))
+        setActiveIndex((prev) => (prev + 1) % suggestions.length)
         break
       case "ArrowUp":
         e.preventDefault()
-        setActiveIndex((prev) => (prev > 0 ? prev - 1 : -1))
+        setActiveIndex((prev) => (prev > 0 ? prev - 1 : suggestions.length - 1))
         break
       case "Enter":
         e.preventDefault()
