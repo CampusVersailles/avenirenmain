@@ -11,7 +11,7 @@ const FiliereMetier = ({
   filiere: FiliereAvecMetiers
 }) => {
   return (
-    <div className={styles.metier}>
+    <div className={styles.tile}>
       <img className={styles.image} src={metier.mediaPrincipal} alt='' />
 
       <div className={styles.content}>

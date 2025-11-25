@@ -3,6 +3,7 @@
 import { useState } from "react"
 import styles from "./Filter.module.css"
 import GridIcon from "@/components/Icons/GridIcon"
+import classNames from "classnames"
 
 interface FilterProps {
   title: string
@@ -11,7 +12,7 @@ interface FilterProps {
   selectAll?: boolean
 }
 
-const Filter = ({ title, options, onFilterChange, selectAll = false }: FilterProps) => {
+const Filter = ({ title, options, onFilterChange, selectAll = true }: FilterProps) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
   const [allSelected, setAllSelected] = useState(selectAll)
 
@@ -47,14 +48,14 @@ const Filter = ({ title, options, onFilterChange, selectAll = false }: FilterPro
       </h3>
       <div className={styles.options}>
         {selectAll && (
-          <button className={`${styles.badge} ${allSelected ? styles.active : ""}`} onClick={toggleSelectAll}>
-            <span>Sélectionner toute la catégorie</span>
+          <button className={classNames(styles.badge, { [styles.active]: allSelected })} onClick={toggleSelectAll}>
+            <span>Tous les métiers</span>
           </button>
         )}
         {options.map((option) => (
           <button
             key={option.code}
-            className={`${styles.badge} ${selectedFilters.includes(option.code) ? styles.active : ""}`}
+            className={classNames(styles.badge, { [styles.active]: selectedFilters.includes(option.code) })}
             onClick={() => toggleFilter(option.code)}>
             <span>{option.description}</span>
             <span className={styles.icon}>+</span>
