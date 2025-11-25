@@ -7,6 +7,7 @@ export type MetierStrapi = {
   codeRomeMetier: { code: string }
   mediaPrincipal: { url: string }
   description: BlocksContent
+  documentId: string
 }
 
 export const getMetier = async (metierDocumentId: string) => {

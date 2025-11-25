@@ -36,6 +36,7 @@ export const getFiliereById = async (filiereDocumentId: string) => {
   }>(
     `filieres/${filiereDocumentId}?populate[icone][fields]=url&populate[metiers][populate]=mediaPrincipal&populate=domainesPro&populate[metiers][populate]=codeRomeMetier`,
   )
+  console.log(response.data.data)
   return {
     ...response.data.data,
     metiers: response.data.data.metiers.map((metier) => ({

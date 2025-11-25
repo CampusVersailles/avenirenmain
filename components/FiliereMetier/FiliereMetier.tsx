@@ -1,7 +1,7 @@
 import styles from "./FiliereMetier.module.css"
 import { BlocksContent, BlocksRenderer } from "@strapi/blocks-react-renderer"
-import Image from "next/image"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
+import Link from "next/link"
 
 const FiliereMetier = ({
   metier,
@@ -11,7 +11,7 @@ const FiliereMetier = ({
   filiere: FiliereAvecMetiers
 }) => {
   return (
-    <div className={styles.tile}>
+    <Link href={`/metiers/${filiere.documentId}/${metier.documentId}`} className={styles.tile}>
       <img className={styles.image} src={metier.mediaPrincipal} alt='' />
 
       <div className={styles.content}>
@@ -23,7 +23,7 @@ const FiliereMetier = ({
           <BlocksRenderer content={metier.description as BlocksContent} />
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
