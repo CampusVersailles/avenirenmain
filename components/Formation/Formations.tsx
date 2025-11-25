@@ -26,8 +26,8 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
         setError(null)
       })
       .catch((err) => {
-        console.error("Failed to load formations:", err)
-        setError("Erreur lors du chargement des formations. Veuillez réessayer plus tard.")
+        console.error("Failed to load formations on initial load:", err)
+        setError("Erreur lors du chargement initial des formations. Veuillez réessayer plus tard.")
         setFilteredFormations(null)
       })
   }, [])
@@ -38,11 +38,10 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
     getFormations(newFilters)
       .then((data) => {
         setFilteredFormations(data)
-        setError(null)
       })
       .catch((err) => {
-        console.error("Failed to load formations:", err)
-        setError("Erreur lors du chargement des formations. Veuillez réessayer plus tard.")
+        console.error("Failed to apply filters:", err)
+        setError("Erreur lors de l'application des filtres. Veuillez réessayer.")
         setFilteredFormations(null)
       })
   }
