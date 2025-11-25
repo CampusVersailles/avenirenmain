@@ -35,7 +35,7 @@
   }
 
   &[aria-selected="true"] {
-    background-color: #e3f2fd;
+    background-color: var(--primary-10);
   }
 
   &:not(:last-child) {
