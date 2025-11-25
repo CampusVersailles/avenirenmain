@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='fr' className={`${inter.variable}`}>
+    <html lang='fr' className={inter.variable}>
       <body>
         <Header />
         <main id='contenu' role='main' tabIndex={-1}>
