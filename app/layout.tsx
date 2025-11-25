@@ -1,9 +1,16 @@
 import type { Metadata } from "next"
+import { Inter } from "next/font/google"
 import "../css/reset.css"
 import "../css/variables.css"
 import "../css/global.css"
 import Header from "@/components/Header/Header"
 import Footer from "@/components/Footer/Footer"
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   title: "L’Avenir en Main",
@@ -22,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='fr'>
+    <html lang='fr' className={`${inter.variable}`}>
       <body>
         <Header />
         <main id='contenu' role='main' tabIndex={-1}>

@@ -5,7 +5,7 @@ const Banner = () => {
   return (
     <div className={styles.banner}>
       <div>
-        <h1>Explore les métiers de l'artisanat</h1>
+        <h1 className={styles.title}>Explore les métiers de l'artisanat</h1>
         <p className={styles.text}>
           L'artisanat et le patrimoine, c'est plus d'une centaine de métiers qui ont du sens et de l'avenir.
         </p>

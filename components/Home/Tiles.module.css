@@ -9,7 +9,8 @@
 
 .title {
   margin-bottom: 1rem;
-  color: #1a1a1a;
+  color: var(--title-color);
+  font-size: 1.75rem;
 }
 
 .tile {

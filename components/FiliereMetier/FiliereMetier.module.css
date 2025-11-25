@@ -26,26 +26,25 @@
   gap: 0.5rem;
   max-height: 10rem;
   overflow: hidden;
+  font-size: 1rem;
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 
 .title {
-  font-size: 1.125rem;
   font-weight: 600;
 }
 
+.domaine {
+  color: var(--primary-50);
+  font-weight: 400;
+}
+
 .description {
-  font-size: 1rem;
-  line-height: 1.2;
+  font-weight: 200;
 }
 
 .image {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-}
-
-.domaine {
-  color: var(--primary-50);
-  font-style: italic;
 }
