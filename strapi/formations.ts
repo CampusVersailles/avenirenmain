@@ -17,7 +17,7 @@ export type FilterType = {
   duree: string
 }
 
-export const getFormations = async (filter?: FilterType) => {
+export const getFormations = async (filter?: FilterType, signal?: AbortSignal) => {
   let filterQuery = ""
   if (filter) {
     if (filter.filiere) {
@@ -71,7 +71,7 @@ export const getFormations = async (filter?: FilterType) => {
       romeCodeMetiers: string[]
       origine: string | null
     }[]
-  }>(`formations?populate=adresse${filterQuery}`)
+  }>(`formations?populate=adresse${filterQuery}`, { signal })
 
   return response.data.data
 }

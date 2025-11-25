@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import Formation from "./Formation"
 import { FilterType, getFormations, type Option, Formation as FormationType } from "@/strapi/formations"
 import Filter from "./Filter/Filter"
@@ -17,18 +17,53 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
     alternance: "",
     duree: "",
   })
+  const abortControllerRef = useRef<AbortController | null>(null)
 
   useEffect(() => {
-    getFormations().then((data) => {
-      setFilteredFormations(data)
-    })
+    const controller = new AbortController()
+    getFormations(undefined, controller.signal)
+      .then((data) => {
+        if (!controller.signal.aborted) {
+          setFilteredFormations(data)
+        }
+      })
+      .catch((error) => {
+        // Ignore abort errors as they are intentional
+        if (error.name !== "CanceledError" && error.name !== "AbortError") {
+          console.error("Error fetching formations:", error)
+        }
+      })
+    return () => controller.abort()
   }, [])
 
   const applyFilters = (newFilters: FilterType) => {
+    // Cancel the previous request if it exists
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+
+    // Create a new AbortController for this request
+    const controller = new AbortController()
+    abortControllerRef.current = controller
+
     setFilteredFormations(null)
-    getFormations(newFilters).then((data) => {
-      setFilteredFormations(data)
-    })
+    getFormations(newFilters, controller.signal)
+      .then((data) => {
+        // Only update state if this request hasn't been cancelled
+        if (!controller.signal.aborted) {
+          setFilteredFormations(data)
+        }
+      })
+      .catch((error) => {
+        // Ignore abort errors as they are intentional
+        if (error.name !== "CanceledError" && error.name !== "AbortError") {
+          console.error("Error fetching formations:", error)
+          // Only clear loading state if this is the current request
+          if (!controller.signal.aborted) {
+            setFilteredFormations([])
+          }
+        }
+      })
   }
 
   const handleFilterChange = (key: keyof typeof filters, value: string) => {
