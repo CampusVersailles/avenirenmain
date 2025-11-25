@@ -17,7 +17,7 @@ export type MetierStrapi = {
     description: BlocksContent
   }[]
   pourquoi: {
-    environnementDeTravail: BlocksContent
+    environnementTravail: BlocksContent
     notes: BlocksContent
     opportunites: BlocksContent
     statuts: BlocksContent
