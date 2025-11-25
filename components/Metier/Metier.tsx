@@ -3,66 +3,7 @@ import { FiliereAvecMetiers } from "@/strapi/filieres"
 import { Metier as MetierType } from "@/strapi/metier"
 import MetierBanner from "./MetierBanner"
 import MetierDescription from "./MetierDescription"
-import { BlocksContent, BlocksRenderer } from "@strapi/blocks-react-renderer"
-
-function MetierQuotidien({ metier }: { metier: MetierType }) {
-  return (
-    <div className={styles.sectionBlock}>
-      <h2 className={styles.sectionTitle}>Le métier au quotidien</h2>
-      <div className={styles.tilesContainer}>
-        {metier.tachesQuotidiennes.map((tache) => (
-          <div className={styles.tile} key={tache.titre}>
-            <h3 className={styles.tileTitle}>{tache.titre}</h3>
-            <BlocksRenderer content={tache.description as BlocksContent} />
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function MetierCentresInterets({ metier }: { metier: MetierType }) {
-  return (
-    <div className={styles.sectionBlock}>
-      <h2 className={styles.sectionTitle}>Centres d'intérêts</h2>
-      <div className={styles.tilesContainer}>
-        {metier.centresInterets.map((centreInteret) => (
-          <div className={styles.tile} key={centreInteret.titre}>
-            <h3 className={styles.tileTitle}>{centreInteret.titre}</h3>
-            <BlocksRenderer content={centreInteret.description as BlocksContent} />
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function MetierPerspectives({ metier }: { metier: MetierType }) {
-  console.log(metier.pourquoi)
-  return (
-    <div className={styles.sectionBlock}>
-      <h2 className={styles.sectionTitle}>Perspectives</h2>
-      <div className={styles.tilesContainer}>
-        <div className={styles.tile} key='environnementTravail'>
-          <h3 className={styles.tileTitle}>Environnement de travail</h3>
-          <BlocksRenderer content={metier.pourquoi.environnementTravail as BlocksContent} />
-        </div>
-        <div className={styles.tile} key='statuts'>
-          <h3 className={styles.tileTitle}>Statuts</h3>
-          <BlocksRenderer content={metier.pourquoi.statuts as BlocksContent} />
-        </div>
-        <div className={styles.tile} key='opportunites'>
-          <h3 className={styles.tileTitle}>Opportunités</h3>
-          <BlocksRenderer content={metier.pourquoi.opportunites as BlocksContent} />
-        </div>
-        <div className={styles.tile} key='notes'>
-          <h3 className={styles.tileTitle}>Bon à savoir</h3>
-          <BlocksRenderer content={metier.pourquoi.notes as BlocksContent} />
-        </div>
-      </div>
-    </div>
-  )
-}
+import { MetierCentresInterets, MetierPerspectives, MetierQuotidien } from "./MetierSection"
 
 const Metier = ({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: MetierType }) => {
   return (
