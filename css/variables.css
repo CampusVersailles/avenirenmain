@@ -11,6 +11,9 @@
   --primary-80: #8f361e;
   --primary-90: #7a2f1a;
 
+  --card-color: #ffffff;
+  --card-hover-color: #fff9f5;
+
   --title-color: #333333;
   --text-color: #555555;
 }

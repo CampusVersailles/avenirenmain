@@ -1,9 +1,8 @@
 import styles from "./MetierDescription.module.css"
-import { FiliereAvecMetiers } from "@/strapi/filieres"
 import { Metier as MetierType } from "@/strapi/metier"
 import { BlocksContent, BlocksRenderer } from "@strapi/blocks-react-renderer"
 
-export default function MetierDescription({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: MetierType }) {
+export default function MetierDescription({ metier }: { metier: MetierType }) {
   return (
     <div className={styles.descriptionBlock}>
       <div className={styles.descriptionTitleContainer}>

@@ -8,13 +8,27 @@ export type MetierStrapi = {
   mediaPrincipal: { url: string }
   description: BlocksContent
   documentId: string
+  tachesQuotidiennes: {
+    titre: string
+    description: BlocksContent
+  }[]
+  centresInterets: {
+    titre: string
+    description: BlocksContent
+  }[]
+  pourquoi: {
+    environnementDeTravail: BlocksContent
+    notes: BlocksContent
+    opportunites: BlocksContent
+    statuts: BlocksContent
+  }
 }
 
 export const getMetier = async (metierDocumentId: string) => {
   const response = await axiosClient.get<{
     data: MetierStrapi
   }>(`metiers/${metierDocumentId}?populate=*`)
-
+  console.log(response.data.data)
   return {
     ...response.data.data,
     mediaPrincipal: `${process.env.STRAPI_URL}${response.data.data.mediaPrincipal.url}`,
