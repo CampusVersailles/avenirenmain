@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
+import axios from "axios"
 import Formation from "./Formation"
 import { FilterType, getFormations, type Option, Formation as FormationType } from "@/strapi/formations"
 import Filter from "./Filter/Filter"
@@ -29,7 +30,7 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
       })
       .catch((error) => {
         // Ignore abort errors as they are intentional
-        if (error.name !== "CanceledError" && error.name !== "AbortError") {
+        if (!axios.isCancel(error)) {
           console.error("Error fetching formations:", error)
         }
       })
@@ -56,7 +57,7 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
       })
       .catch((error) => {
         // Ignore abort errors as they are intentional
-        if (error.name !== "CanceledError" && error.name !== "AbortError") {
+        if (!axios.isCancel(error)) {
           console.error("Error fetching formations:", error)
           // Only clear loading state if this is the current request
           if (!controller.signal.aborted) {
