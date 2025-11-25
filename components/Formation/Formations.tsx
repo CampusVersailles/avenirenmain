@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
-import axios from "axios"
 import Formation from "./Formation"
 import { FilterType, getFormations, type Option, Formation as FormationType } from "@/strapi/formations"
 import Filter from "./Filter/Filter"
@@ -20,14 +19,11 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
   })
   const abortControllerRef = useRef<AbortController | null>(null)
 
-  // Helper function to manage AbortController lifecycle
   const createAbortController = () => {
-    // Cancel the previous request if it exists
     if (abortControllerRef.current) {
       abortControllerRef.current.abort()
     }
 
-    // Create and store a new AbortController for this request
     const controller = new AbortController()
     abortControllerRef.current = controller
     return controller
@@ -42,14 +38,15 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
         }
       })
       .catch((error) => {
-        // Ignore abort errors as they are intentional
-        if (!axios.isCancel(error)) {
+        if (error.name !== "AbortError") {
           console.error("Error fetching formations:", error)
         }
       })
     return () => {
       controller.abort()
-      abortControllerRef.current = null
+      if (abortControllerRef.current === controller) {
+        abortControllerRef.current = null
+      }
     }
   }, [])
 
@@ -59,16 +56,13 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
     setFilteredFormations(null)
     getFormations(newFilters, controller.signal)
       .then((data) => {
-        // Only update state if this request hasn't been cancelled
         if (!controller.signal.aborted) {
           setFilteredFormations(data)
         }
       })
       .catch((error) => {
-        // Ignore abort errors as they are intentional
-        if (!axios.isCancel(error)) {
+        if (error.name !== "AbortError") {
           console.error("Error fetching formations:", error)
-          // Only clear loading state if this is the current request
           if (!controller.signal.aborted) {
             setFilteredFormations([])
           }
