@@ -7,7 +7,7 @@ const FormationsBanner = () => {
     <Tile href='/formations'>
       <div className={styles.content}>
         <h2 className={styles.title}>Découvre des métiers d'avenir</h2>
-        <p>
+        <p className={styles.text}>
           Que tu aimes les grands espaces ou les petits ateliers, travailler seul ou en groupe, bricoler ou animer,
           esquisse ton futur en explorant les familles de métiers qui te plaisent.
         </p>

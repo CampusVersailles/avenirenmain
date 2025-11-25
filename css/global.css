@@ -3,6 +3,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: var(--font-inter), sans-serif;
+  color: var(--text-color);
 }
 
 main {
@@ -24,6 +26,7 @@ h5,
 h6 {
   font-weight: bold;
   line-height: 1.2;
+  color: var(--title-color);
 }
 
 h1 {
