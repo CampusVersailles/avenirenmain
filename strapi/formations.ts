@@ -17,6 +17,8 @@ export type FilterType = {
   duree: string
 }
 
+const DEFAULT_RADIUS = 20
+
 export const getFormations = async (filter?: FilterType) => {
   let filterQuery = ""
   if (filter) {
@@ -27,7 +29,7 @@ export const getFormations = async (filter?: FilterType) => {
       filterQuery += `&fuzzy=${filter.search}`
     }
     if (filter.city) {
-      filterQuery += `&latitude=${filter.city.geometry.coordinates[1]}&longitude=${filter.city.geometry.coordinates[0]}&radius=50`
+      filterQuery += `&latitude=${filter.city.geometry.coordinates[1]}&longitude=${filter.city.geometry.coordinates[0]}&radius=${DEFAULT_RADIUS}`
     }
     if (filter.diplome) {
       filterQuery += `&filters[formationNiveaux][documentId][$eq]=${filter.diplome}`
