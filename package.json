@@ -19,7 +19,8 @@
     "postcss-nested": "^7.0.2",
     "postcss-preset-env": "^10.4.0",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -30,7 +31,6 @@
     "eslint-config-next": "16.0.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "prettier": "3.6.2",
-    "typescript": "^5"
+    "prettier": "3.6.2"
   }
 }
