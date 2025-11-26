@@ -15,7 +15,11 @@ import TabFormations from "./Tabs/TabFormations"
 const Metier = ({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: MetierType }) => {
   const tabs: TabItem[] = [
     { id: "formations", label: "Formations", component: <TabFormations /> },
-    { id: "specialisations", label: "Spécialisations", component: <TabSpecialization metier={metier} /> },
+    {
+      id: "specialisations",
+      label: "Spécialisations",
+      component: <TabSpecialization filiere={filiere} metier={metier} />,
+    },
     { id: "metiers", label: "Métiers proches", component: <TabMetiersProches /> },
     { id: "salaire", label: "Salaire estimé", component: <TabSalaire metier={metier} /> },
   ]

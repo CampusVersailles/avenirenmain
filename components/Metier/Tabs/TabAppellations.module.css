@@ -11,11 +11,15 @@
   gap: 0.5rem;
   border-radius: 1rem;
   border: 2px solid var(--card-border-color);
-  padding: 0.7rem 1rem;
+  padding: 0.5rem 0.5rem;
   text-decoration: none;
   background: var(--card-color);
   transition: all 0.3s ease;
-  width: calc((100% - 10rem) / 3);
+  width: calc((100% - 6rem) / 3);
+
+  @media screen and (max-width: 53rem) {
+    width: 100%;
+  }
 
   &:hover {
     color: #333;
@@ -33,16 +37,17 @@
 
   background-color: var(--primary-50);
   color: white;
-  border-radius: 99rem;
+  border-radius: 10rem;
   padding: 0.5rem;
 }
 
 .icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .nom {
   font-size: 0.75rem;
   font-weight: 400;
+  line-height: 1.2;
 }
