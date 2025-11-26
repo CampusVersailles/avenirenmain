@@ -1,4 +1,3 @@
-import WorkIcon from "@/components/Icons/Work"
 import styles from "./TabAppellations.module.css"
 import { Metier as MetierType } from "@/strapi/metier"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
