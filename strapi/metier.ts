@@ -29,6 +29,10 @@ export type MetierStrapi = {
       documentId: string
     }
   }[]
+  salaire: {
+    valeur_basse: number
+    valeur_haute: number
+  }
 }
 
 export const getMetier = async (metierDocumentId: string) => {
