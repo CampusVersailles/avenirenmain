@@ -30,7 +30,7 @@ const Metier = ({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: Meti
       <MetierCentresInterets metier={metier} />
       <MetierQuotidien metier={metier} />
       <MetierPerspectives metier={metier} />
-      <MetiersTabs tabs={tabs} defaultActiveId='specialisations' />
+      <MetiersTabs tabs={tabs} defaultActiveId='specialisations' ariaLabel='Informations supplémentaires' />
     </div>
   )
 }
