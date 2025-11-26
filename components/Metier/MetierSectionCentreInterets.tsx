@@ -1,6 +1,6 @@
 import styles from "./MetierSection.module.css"
 import { Metier as MetierType } from "@/strapi/metier"
-import { BlocksContent, BlocksRenderer } from "@strapi/blocks-react-renderer"
+import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 
 export default function MetierCentresInterets({ metier }: { metier: MetierType }) {
   return (
@@ -10,7 +10,7 @@ export default function MetierCentresInterets({ metier }: { metier: MetierType }
         {metier.centresInterets.map((centreInteret) => (
           <div className={styles.tile} key={centreInteret.titre}>
             <h3 className={styles.tileTitle}>{centreInteret.titre}</h3>
-            <BlocksRenderer content={centreInteret.description as BlocksContent} />
+            <BlocksRenderer content={centreInteret.description} />
           </div>
         ))}
       </div>

@@ -6,20 +6,18 @@ import MetierDescription from "./MetierDescription"
 import MetierCentresInterets from "./MetierSectionCentreInterets"
 import MetierQuotidien from "./MetierSectionQuotidien"
 import MetierPerspectives from "./MetierSectionPerspectives"
-import MetierTrouverFormation from "./MetierTrouverFormation"
 import MetiersTabs, { TabItem } from "./Tabs/MetiersTabs"
+import TabSpecialization from "./Tabs/TabSpecialization"
+import TabSalaire from "./Tabs/TabSalaire"
+import TabMetiersProches from "./Tabs/TabMetiersProches"
+import TabFormations from "./Tabs/TabFormations"
 
 const Metier = ({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: MetierType }) => {
-  const Formations = () => <div className='tab-panel'>Formations content</div>
-  const Specialisations = () => <div className='tab-panel'>Spécialisations content</div>
-  const Metiers = () => <div className='tab-panel'>Métiers proches content</div>
-  const Salaire = () => <div className='tab-panel'>Salaire estimé content</div>
-
   const tabs: TabItem[] = [
-    { id: "formations", label: "Formations", component: <Formations /> },
-    { id: "specialisations", label: "Spécialisations", component: <Specialisations /> },
-    { id: "metiers", label: "Métiers proches", component: <Metiers /> },
-    { id: "salaire", label: "Salaire estimé", component: <Salaire /> },
+    { id: "formations", label: "Formations", component: <TabFormations /> },
+    { id: "specialisations", label: "Spécialisations", component: <TabSpecialization /> },
+    { id: "metiers", label: "Métiers proches", component: <TabMetiersProches /> },
+    { id: "salaire", label: "Salaire estimé", component: <TabSalaire /> },
   ]
 
   return (

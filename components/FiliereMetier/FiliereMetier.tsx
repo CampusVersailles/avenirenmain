@@ -20,7 +20,7 @@ const FiliereMetier = ({
           {filiere.domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))?.description}
         </p>
         <div className={styles.description}>
-          <BlocksRenderer content={metier.description as BlocksContent} />
+          <BlocksRenderer content={metier.description} />
         </div>
       </div>
     </Link>

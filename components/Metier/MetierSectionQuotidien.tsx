@@ -1,6 +1,6 @@
 import styles from "./MetierSection.module.css"
 import { Metier as MetierType } from "@/strapi/metier"
-import { BlocksContent, BlocksRenderer } from "@strapi/blocks-react-renderer"
+import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 
 export default function MetierQuotidien({ metier }: { metier: MetierType }) {
   return (
@@ -10,7 +10,7 @@ export default function MetierQuotidien({ metier }: { metier: MetierType }) {
         {metier.tachesQuotidiennes.map((tache) => (
           <div className={styles.tile} key={tache.titre}>
             <h3 className={styles.tileTitle}>{tache.titre}</h3>
-            <BlocksRenderer content={tache.description as BlocksContent} />
+            <BlocksRenderer content={tache.description} />
           </div>
         ))}
       </div>
