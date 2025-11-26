@@ -1,5 +1,5 @@
 import styles from "./FiliereMetier.module.css"
-import { BlocksContent, BlocksRenderer } from "@strapi/blocks-react-renderer"
+import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 import Link from "next/link"
 

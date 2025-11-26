@@ -2,7 +2,7 @@
   position: relative;
   display: block;
   border-radius: 1rem;
-  border: 2px solid #f0f0f0;
+  border: 2px solid var(--card-border-color);
   padding: 2rem 2rem 3rem 2rem;
   text-decoration: none;
   background: var(--card-color);

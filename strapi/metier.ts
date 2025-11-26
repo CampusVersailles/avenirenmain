@@ -22,6 +22,13 @@ export type MetierStrapi = {
     opportunites: BlocksContent
     statuts: BlocksContent
   }
+  appellations: {
+    nom: string
+    metierDisponible: boolean
+    metier: {
+      documentId: string
+    }
+  }[]
 }
 
 export const getMetier = async (metierDocumentId: string) => {
