@@ -1,17 +1,10 @@
-
 .container {
   display: flex;
+  flex-direction: row;
   gap: 1rem;
-  align-items: center;
-  justify-content: space-between;
   padding: 1rem;
-  border: 2px solid #f0f0f0;
+  justify-content: flex-start;
   border-radius: 1rem;
-  background-color: var(--card-color);
-  
-  @media screen and (max-width: 53rem) {
-    flex-direction: column;
-  }
 }
 
 .text {
@@ -30,6 +23,7 @@
   gap: 1rem;
   text-decoration: none;
   font-weight: 600;
+  width: fit-content;
 
   svg {
     transition: transform 0.3s ease;
@@ -37,7 +31,7 @@
 
   &:hover {
     box-shadow: 0 10px 30px rgba(237, 110, 76, 0.15);
-    
+
     background-color: var(--primary-60);
     color: white;
 
@@ -45,4 +39,11 @@
       transform: translateX(0.5rem);
     }
   }
+}
+
+.arrow {
+  width: 2rem;
+  height: 2rem;
+  color: var(--text-color);
+  margin-top: 0.4rem;
 }

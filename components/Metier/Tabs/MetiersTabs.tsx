@@ -24,7 +24,6 @@ export default function MetiersTabs(tabsProps: TabsProps) {
   const activeTab = tabs.find((tab) => tab.id === activeId)
   const activePanelId = activeTab ? `${activeTab.id}-panel` : undefined
 
-  // Keep refs to tab buttons to move focus with arrow keys
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
 
   const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
@@ -48,8 +47,6 @@ export default function MetiersTabs(tabsProps: TabsProps) {
         break
       case " ":
       case "Enter":
-        // For “manual activation” pattern; here it’s redundant because we
-        // auto-activate on focus/arrow anyway, but harmless.
         setActiveId(tabs[index].id)
         return
       default:

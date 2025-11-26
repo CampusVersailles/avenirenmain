@@ -25,8 +25,7 @@ const Metier = ({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: Meti
   return (
     <div className={styles.metier}>
       <MetierBanner filiere={filiere} metier={metier} />
-      <MetierDescription metier={metier} />
-      <MetierTrouverFormation filiere={filiere} metier={metier} />
+      <MetierDescription filiere={filiere} metier={metier} />
       <MetierCentresInterets metier={metier} />
       <MetierQuotidien metier={metier} />
       <MetierPerspectives metier={metier} />
