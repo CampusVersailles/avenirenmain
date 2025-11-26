@@ -1,30 +1,42 @@
 import { BlocksContent } from "@strapi/blocks-react-renderer"
 
 export function replaceNewlinesInBlocks(content: BlocksContent): BlocksContent {
-  return content.map((block) => processBlock(block))
+  return content.map((block) => processNode(block)) as BlocksContent
 }
 
-function processBlock(block: any): any {
-  if (block.type === "text" && typeof block.text === "string") {
+function isObj(x: unknown): x is Record<string, unknown> {
+  return typeof x === "object" && x !== null
+}
+
+function isTextNode(x: unknown): x is { type: "text"; text: string } {
+  return isObj(x) && x.type === "text" && typeof x.text === "string"
+}
+
+function hasArrayProp<T extends string>(x: unknown, prop: T): x is Record<T, unknown[]> & Record<string, unknown> {
+  return isObj(x) && Array.isArray(x[prop])
+}
+
+function processNode<T>(node: T): T {
+  if (isTextNode(node)) {
     return {
-      ...block,
-      text: block.text.replace(/\\n/g, "\n"),
-    }
+      ...node,
+      text: node.text.replace(/\\n/g, "\n"),
+    } as T
   }
 
-  if (Array.isArray(block.children)) {
+  if (hasArrayProp(node, "children")) {
     return {
-      ...block,
-      children: block.children.map((child: any) => processBlock(child)),
-    }
+      ...node,
+      children: node.children.map(processNode),
+    } as T
   }
 
-  if (Array.isArray(block.value)) {
+  if (hasArrayProp(node, "value")) {
     return {
-      ...block,
-      value: block.value.map((v: any) => processBlock(v)),
-    }
+      ...node,
+      value: node.value.map(processNode),
+    } as T
   }
 
-  return block
+  return node
 }
