@@ -20,7 +20,7 @@ const Metier = ({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: Meti
       label: "Spécialisations",
       component: <TabSpecialization filiere={filiere} metier={metier} />,
     },
-    { id: "metiers", label: "Métiers proches", component: <TabMetiersProches /> },
+    { id: "metiers", label: "Métiers proches", component: <TabMetiersProches metier={metier} /> },
     { id: "salaire", label: "Salaire estimé", component: <TabSalaire metier={metier} /> },
   ]
 

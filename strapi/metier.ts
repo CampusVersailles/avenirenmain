@@ -33,6 +33,9 @@ export type MetierStrapi = {
     valeur_basse: number
     valeur_haute: number
   }
+  metiersProches: {
+    nom: string
+  }[]
 }
 
 export const getMetier = async (metierDocumentId: string) => {

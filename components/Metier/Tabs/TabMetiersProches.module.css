@@ -1,5 +1,74 @@
 .container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 1rem;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  border: 2px solid var(--card-border-color);
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  background: var(--card-color);
+  transition: all 0.3s ease;
+  width: calc((100% - 10rem) / 3);
+
+  @media screen and (max-width: 53rem) {
+    width: 100%;
+  }
+
+  &:hover {
+    color: #333;
+    border-color: var(--primary-50);
+    background: var(--card-hover-color);
+    box-shadow: 0 10px 30px rgba(237, 110, 76, 0.15);
+  }
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.nom {
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.unavailableContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+
+  @media screen and (max-width: 53rem) {
+    flex-direction: column;
+  }
+}
+
+.unavailableText {
+  color: var(--text-color);
+  max-width: calc((100% - 3rem) / 1.5);
+}
+
+.unavailableIcon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.unavailableVerticalSeparator {
+  width: 1px;
+  height: 2.5rem;
+  background-color: var(--text-color);
+
+  @media screen and (max-width: 53rem) {
+    display: none;
+  }
 }
