@@ -6,7 +6,6 @@ export function replaceNewlinesInBlocks(content: BlocksContent): BlocksContent {
 
 function processBlock(block: any): any {
   if (block.type === "text" && typeof block.text === "string") {
-    console.log(block.text)
     return {
       ...block,
       text: block.text.replace(/\\n/g, "\n"),
