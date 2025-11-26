@@ -3,6 +3,7 @@ import { FiliereAvecMetiers } from "@/strapi/filieres"
 import { Metier as MetierType } from "@/strapi/metier"
 import LikeIcon from "../Icons/Like"
 import ShareIcon from "../Icons/Share"
+import Link from "next/link"
 
 export default function MetierBanner({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: MetierType }) {
   const domaine = filiere.domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))
@@ -16,12 +17,12 @@ export default function MetierBanner({ filiere, metier }: { filiere: FiliereAvec
       <div className={styles.titleAndActionsContainer}>
         <h1 className={styles.title}>{metier.titre}</h1>
         <div className={styles.actionsContainer}>
-          <button className={styles.actionButton}>
+          <Link href='#' className={styles.actionButton}>
             <LikeIcon className={styles.icon} aria-label='Liker le métier' />
-          </button>
-          <button className={styles.actionButton}>
+          </Link>
+          <Link href='#' className={styles.actionButton}>
             <ShareIcon className={styles.icon} aria-label='Partager le métier' />
-          </button>
+          </Link>
         </div>
       </div>
     </div>
