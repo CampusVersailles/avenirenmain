@@ -1,3 +1,5 @@
+"use server"
+
 import axiosClient from "@/services/axios"
 import { MetierStrapi } from "./metier"
 

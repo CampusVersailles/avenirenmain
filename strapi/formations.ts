@@ -107,3 +107,15 @@ export const getFormationDurees = async () => {
 }
 
 export type Duree = Awaited<ReturnType<typeof getFormationDurees>>[number]
+
+export const countFormations = async () => {
+  const response = await axiosClient.get<{
+    meta: {
+      pagination: {
+        total: number
+      }
+    }
+  }>("formations?pagination[pageSize]=1")
+
+  return response.data.meta.pagination.total
+}

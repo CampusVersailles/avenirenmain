@@ -1,3 +1,5 @@
+"use server"
+
 import axiosClient from "@/services/axios"
 import { type BlocksContent } from "@strapi/blocks-react-renderer"
 
