@@ -28,7 +28,6 @@ export const getMetier = async (metierDocumentId: string) => {
   const response = await axiosClient.get<{
     data: MetierStrapi
   }>(`metiers/${metierDocumentId}?populate=*`)
-  console.log(response.data.data)
   return {
     ...response.data.data,
     mediaPrincipal: `${process.env.STRAPI_URL}${response.data.data.mediaPrincipal.url}`,

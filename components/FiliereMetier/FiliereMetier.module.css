@@ -1,6 +1,6 @@
 .tile {
   border-radius: 0.75rem;
-  background-color: white;
+  background-color: var(--card-color);
   display: flex;
   flex-direction: column;
   gap: 0rem;
@@ -14,7 +14,7 @@
   color: var(--text-color);
 
   &:hover {
-    background: #fff9f5;
+    background: var(--card-hover-color);
     transform: translateY(-0.5rem);
     box-shadow: 0 10px 30px rgba(237, 110, 76, 0.15);
   }

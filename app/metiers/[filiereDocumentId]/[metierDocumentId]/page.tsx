@@ -8,7 +8,6 @@ export default async function FiliereMetiers({
   params: Promise<{ filiereDocumentId: string; metierDocumentId: string }>
 }) {
   const { filiereDocumentId, metierDocumentId } = await params
-  const filiere = await getFiliereById(filiereDocumentId)
-  const metier = await getMetier(metierDocumentId)
+  const [filiere, metier] = await Promise.all([getFiliereById(filiereDocumentId), getMetier(metierDocumentId)])
   return <MetierPage filiere={filiere} metier={metier} />
 }
