@@ -1,6 +1,6 @@
 import styles from "./Metier.module.css"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
-import { Metier as MetierType } from "@/strapi/metier"
+import { Metier as MetierType } from "@/strapi/metiers"
 import MetierBanner from "./MetierBanner"
 import MetierDescription from "./MetierDescription"
 import MetierCentresInterets from "./MetierSectionCentreInterets"

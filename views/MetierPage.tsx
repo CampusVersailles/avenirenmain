@@ -1,7 +1,7 @@
 import Block from "@/components/Block/Block"
 import Metier from "@/components/Metier/Metier"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
-import { Metier as MetierType } from "@/strapi/metier"
+import { Metier as MetierType } from "@/strapi/metiers"
 
 const MetierPage = ({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: MetierType }) => {
   return (

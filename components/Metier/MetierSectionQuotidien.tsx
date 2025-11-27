@@ -1,5 +1,5 @@
 import styles from "./MetierSection.module.css"
-import { Metier as MetierType } from "@/strapi/metier"
+import { Metier as MetierType } from "@/strapi/metiers"
 import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 
 export default function MetierQuotidien({ metier }: { metier: MetierType }) {

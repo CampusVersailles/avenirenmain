@@ -1,5 +1,5 @@
 import { FiliereAvecMetiers } from "@/strapi/filieres"
-import { Metier as MetierType } from "@/strapi/metier"
+import { Metier as MetierType } from "@/strapi/metiers"
 import styles from "./MetierTrouverFormation.module.css"
 import Link from "next/link"
 import ArrowDownRightIcon from "../Icons/ArrowDownRightIcon"

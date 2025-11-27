@@ -1,6 +1,6 @@
 import SalaryIcon from "@/components/Icons/Salary"
 import styles from "./TabSalaire.module.css"
-import { Metier as MetierType } from "@/strapi/metier"
+import { Metier as MetierType } from "@/strapi/metiers"
 
 export default function TabSalaire({ metier }: { metier: MetierType }) {
   const salaireDisponible = metier.salaire && metier.salaire.valeur_basse && metier.salaire.valeur_haute
