@@ -1,4 +1,5 @@
 import { getFiliereById } from "@/strapi/filieres"
+import { getFormationsByRomeCode } from "@/strapi/formations"
 import { getMetier } from "@/strapi/metiers"
 import MetierPage from "@/views/MetierPage"
 
@@ -9,5 +10,6 @@ export default async function FiliereMetiers({
 }) {
   const { filiereDocumentId, metierDocumentId } = await params
   const [filiere, metier] = await Promise.all([getFiliereById(filiereDocumentId), getMetier(metierDocumentId)])
-  return <MetierPage filiere={filiere} metier={metier} />
+  const formations = await getFormationsByRomeCode({ romeCode: metier.codeRomeMetier.code })
+  return <MetierPage filiere={filiere} metier={metier} formations={formations} />
 }

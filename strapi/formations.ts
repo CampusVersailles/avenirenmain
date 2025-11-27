@@ -17,6 +17,37 @@ export type FilterType = {
   duree: string
 }
 
+export type FormationStrapi = {
+  id: number
+  documentId: string
+  titre: string
+  nomEtablissement: string
+  alternance: boolean
+  siteWeb: string | null
+  contact: string
+  certificat: string | null
+  createdAt: string
+  updatedAt: string
+  publishedAt: string
+  filieres: { documentId: string; nom: string }[]
+  formationDuree: string | null
+  formationNiveaux: string[]
+  adresse: {
+    id: number
+    adresseComplete: string
+    numeroRue: string | null
+    rue: string | null
+    complement: string | null
+    codePostal: string
+    ville: string
+    pays: string
+    latitude: number
+    longitude: number
+  }
+  romeCodeMetiers: string[]
+  origine: string | null
+}
+
 const DEFAULT_RADIUS = 20
 
 export const getFormations = async (filter?: FilterType) => {
@@ -43,37 +74,22 @@ export const getFormations = async (filter?: FilterType) => {
   }
 
   const response = await axiosClient.get<{
-    data: {
-      id: number
-      documentId: string
-      titre: string
-      nomEtablissement: string
-      alternance: boolean
-      siteWeb: string | null
-      contact: string
-      certificat: string | null
-      createdAt: string
-      updatedAt: string
-      publishedAt: string
-      filieres: { documentId: string; nom: string }[]
-      formationDuree: string | null
-      formationNiveaux: string[]
-      adresse: {
-        id: number
-        adresseComplete: string
-        numeroRue: string | null
-        rue: string | null
-        complement: string | null
-        codePostal: string
-        ville: string
-        pays: string
-        latitude: number
-        longitude: number
-      }
-      romeCodeMetiers: string[]
-      origine: string | null
-    }[]
+    data: FormationStrapi[]
   }>(`formations?populate=adresse${filterQuery}`)
+
+  return response.data.data
+}
+
+export const getFormationsByRomeCode = async ({
+  romeCode,
+  maxResults = 5,
+}: {
+  romeCode: string
+  maxResults?: number
+}) => {
+  const response = await axiosClient.get<{
+    data: FormationStrapi[]
+  }>(`formations?populate=adresse&filters[romeCodeMetiers][code][$eq]=${romeCode}&pagination[pageSize]=${maxResults}`)
 
   return response.data.data
 }

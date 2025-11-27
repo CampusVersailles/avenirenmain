@@ -11,10 +11,23 @@ import TabSpecialization from "./Tabs/TabAppellations"
 import TabSalaire from "./Tabs/TabSalaire"
 import TabMetiersProches from "./Tabs/TabMetiersProches"
 import TabFormations from "./Tabs/TabFormations"
+import { Formation } from "@/strapi/formations"
 
-const Metier = ({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: MetierType }) => {
+const Metier = ({
+  filiere,
+  metier,
+  formations,
+}: {
+  filiere: FiliereAvecMetiers
+  metier: MetierType
+  formations: Formation[]
+}) => {
   const tabs: TabItem[] = [
-    { id: "formations", label: "Formations", component: <TabFormations /> },
+    {
+      id: "formations",
+      label: "Formations",
+      component: <TabFormations filiere={filiere} metier={metier} formations={formations} />,
+    },
     {
       id: "specialisations",
       label: "Spécialisations",
