@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, KeyboardEvent } from "react"
 import styles from "./MetiersTabs.module.css"
+import classNames from "classnames"
 
 export interface TabItem {
   id: string
@@ -9,15 +10,17 @@ export interface TabItem {
   component: React.ReactNode
 }
 
-export interface TabsProps {
+export default function MetiersTabs({
+  tabs,
+  defaultActiveId,
+  className,
+  ariaLabel,
+}: {
   tabs: TabItem[]
   defaultActiveId?: string
   className?: string
   ariaLabel?: string
-}
-
-export default function MetiersTabs(tabsProps: TabsProps) {
-  const { tabs, defaultActiveId, className = "", ariaLabel } = tabsProps
+}) {
   const initialId = defaultActiveId || tabs[0]?.id
   const [activeId, setActiveId] = useState(initialId)
 
@@ -83,7 +86,7 @@ export default function MetiersTabs(tabsProps: TabsProps) {
               tabIndex={isActive ? 0 : -1}
               onClick={() => setActiveId(tab.id)}
               onKeyDown={(e) => onKeyDown(e, index)}
-              className={styles.tabsButton + (isActive ? " " + styles.tabsButtonActive : "")}>
+              className={classNames(styles.tabsButton, { [styles.tabsButtonActive]: isActive })}>
               {tab.label}
             </button>
           )

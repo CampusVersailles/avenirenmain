@@ -22,18 +22,3 @@ export default function TabMetiersProches({ metier }: { metier: MetierType }) {
     </div>
   )
 }
-
-{
-  /* <div className={styles.container}>
-<SalaryIcon className={styles.icon} />
-<div className={styles.verticalSeparator} />
-{salaireDisponible ? (
-  <p className={styles.text}>
-    Après plusieurs années d'expérience, vous pouvez espérer un salaire compris entre{" "}
-    {metier.salaire.valeur_basse} € et {metier.salaire.valeur_haute} €.
-  </p>
-) : (
-  <p className={styles.text}>Salaire non renseigné pour ce métier.</p>
-)}
-</div> */
-}
