@@ -10,7 +10,7 @@ const FilieresPage = ({ filieres }: { filieres: Filiere[] }) => {
       <Breadcrumbs
         items={[
           { label: "Accueil", href: "/" },
-          { label: "Filières", href: "/filieres" },
+          { label: "Filières", href: "/metiers" },
         ]}
       />
       <Block>

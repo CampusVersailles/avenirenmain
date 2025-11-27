@@ -9,8 +9,8 @@ const FiliereMetiersPage = ({ filiere }: { filiere: FiliereAvecMetiers }) => {
       <Breadcrumbs
         items={[
           { label: "Accueil", href: "/" },
-          { label: "Filières", href: "/filieres" },
-          { label: filiere.nom, href: `/filieres/${filiere.documentId}` },
+          { label: "Filières", href: "/metiers" },
+          { label: filiere.nom, href: `/metiers/${filiere.documentId}` },
         ]}
       />
       <Block>
