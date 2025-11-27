@@ -1,12 +1,22 @@
 import Block from "@/components/Block/Block"
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs"
 import FiliereMetiers from "@/components/FiliereMetier/FiliereMetiers"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 
 const FiliereMetiersPage = ({ filiere }: { filiere: FiliereAvecMetiers }) => {
   return (
-    <Block>
-      <FiliereMetiers filiere={filiere} />
-    </Block>
+    <>
+      <Breadcrumbs
+        items={[
+          { label: "Accueil", href: "/" },
+          { label: "Filières", href: "/metiers" },
+          { label: filiere.nom, href: `/metiers/${filiere.documentId}` },
+        ]}
+      />
+      <Block>
+        <FiliereMetiers filiere={filiere} />
+      </Block>
+    </>
   )
 }
 
