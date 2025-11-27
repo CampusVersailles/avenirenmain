@@ -18,7 +18,7 @@ export type AnyQuestion = Question<AnyCode>
 
 export const filieresQuestions: Question<FiliereCode>[] = [
   {
-    id: "Q1",
+    id: "F_Q1",
     text: "⚙️ Tu organises une activité avec tes amis. Tu leur proposes...",
     answers: [
       {
@@ -49,7 +49,7 @@ export const filieresQuestions: Question<FiliereCode>[] = [
     ],
   },
   {
-    id: "Q2",
+    id: "F_Q2",
     text: "😴 Enfant, tu rêvais d'être...",
     answers: [
       {
@@ -80,7 +80,7 @@ export const filieresQuestions: Question<FiliereCode>[] = [
     ],
   },
   {
-    id: "Q3",
+    id: "F_Q3",
     text: "🌏 Tu fais un voyage à l'étranger, sur place tu...",
     answers: [
       {
@@ -111,7 +111,7 @@ export const filieresQuestions: Question<FiliereCode>[] = [
     ],
   },
   {
-    id: "Q4",
+    id: "F_Q4",
     text: "🧩 À quoi ressemblaient tes dimanches d'enfance ?",
     answers: [
       {
@@ -142,7 +142,7 @@ export const filieresQuestions: Question<FiliereCode>[] = [
     ],
   },
   {
-    id: "Q5",
+    id: "F_Q5",
     text: "🎓 Si tu pouvais passer une journée entière à apprendre quelque chose, ce serait...",
     answers: [
       {
@@ -173,7 +173,7 @@ export const filieresQuestions: Question<FiliereCode>[] = [
     ],
   },
   {
-    id: "Q6",
+    id: "F_Q6",
     text: "🍿 Si tu devais voir un film...",
     answers: [
       {
@@ -207,7 +207,7 @@ export const filieresQuestions: Question<FiliereCode>[] = [
 
 export const verbesQuestions: Question<VerbeCode>[] = [
   {
-    id: "Q1",
+    id: "V_Q1",
     text: "🤔 Dans les travaux de groupe, c'est souvent toi qui...",
     answers: [
       {
@@ -233,7 +233,7 @@ export const verbesQuestions: Question<VerbeCode>[] = [
     ],
   },
   {
-    id: "Q2",
+    id: "V_Q2",
     text: "🎭 Tu prépares une pièce de théâtre avec tes amis, tu préfères être...",
     answers: [
       {
@@ -259,7 +259,7 @@ export const verbesQuestions: Question<VerbeCode>[] = [
     ],
   },
   {
-    id: "Q3",
+    id: "V_Q3",
     text: "🎂 Tu viens d'avoir une idée de génie pour ta soirée d'anniversaire...",
     answers: [
       {
@@ -285,7 +285,7 @@ export const verbesQuestions: Question<VerbeCode>[] = [
     ],
   },
   {
-    id: "Q4",
+    id: "V_Q4",
     text: "🧠 On te confie un gros projet à l'école ou au travail, tu commences par...",
     answers: [
       {
@@ -311,7 +311,7 @@ export const verbesQuestions: Question<VerbeCode>[] = [
     ],
   },
   {
-    id: "Q5",
+    id: "V_Q5",
     text: "📚 Quand tu apprends quelque chose de nouveau...",
     answers: [
       {
@@ -337,7 +337,7 @@ export const verbesQuestions: Question<VerbeCode>[] = [
     ],
   },
   {
-    id: "Q6",
+    id: "V_Q6",
     text: "🐾 Quel animal te ressemble le plus dans ta façon de travailler ?",
     answers: [
       {
