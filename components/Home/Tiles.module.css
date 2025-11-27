@@ -40,7 +40,7 @@
   text-align: center;
   margin-bottom: 2rem;
   padding-bottom: 2rem;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid var(--card-border-color);
   color: var(--primary-50);
   font-size: 1.25rem;
   font-weight: 600;

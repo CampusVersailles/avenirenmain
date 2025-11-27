@@ -9,13 +9,45 @@ export type MetierStrapi = {
   codeRomeMetier: { code: string }
   mediaPrincipal: { url: string }
   description: BlocksContent
+  documentId: string
+  tachesQuotidiennes: {
+    titre: string
+    description: BlocksContent
+  }[]
+  centresInterets: {
+    titre: string
+    description: BlocksContent
+  }[]
+  pourquoi: {
+    environnementTravail: BlocksContent
+    notes: BlocksContent
+    opportunites: BlocksContent
+    statuts: BlocksContent
+  }
+  appellations: {
+    nom: string
+    metierDisponible: boolean
+    metier: {
+      documentId: string
+    }
+  }[]
+  salaire: {
+    valeur_basse: number
+    valeur_haute: number
+  }
+  metiersProches: {
+    nom: string
+  }[]
 }
 
 export const getMetier = async (metierDocumentId: string) => {
   const response = await axiosClient.get<{
     data: MetierStrapi
   }>(`metiers/${metierDocumentId}?populate=*`)
-  return response.data.data
+  return {
+    ...response.data.data,
+    mediaPrincipal: `${process.env.STRAPI_URL}${response.data.data.mediaPrincipal.url}`,
+  }
 }
 
 export type Metier = Awaited<ReturnType<typeof getMetier>>

@@ -1,0 +1,6 @@
+.metier {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  line-height: 1.4;
+}
