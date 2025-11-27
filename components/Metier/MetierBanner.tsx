@@ -17,11 +17,11 @@ export default function MetierBanner({ filiere, metier }: { filiere: FiliereAvec
       <div className={styles.titleAndActionsContainer}>
         <h1 className={styles.title}>{metier.titre}</h1>
         <div className={styles.actionsContainer}>
-          <Link href='#' className={styles.actionButton}>
-            <LikeIcon className={styles.icon} aria-label='Liker le métier' />
+          <Link href='#' className={styles.actionButton} aria-label='Liker le métier'>
+            <LikeIcon className={styles.icon} />
           </Link>
-          <Link href='#' className={styles.actionButton}>
-            <ShareIcon className={styles.icon} aria-label='Partager le métier' />
+          <Link href='#' className={styles.actionButton} aria-label='Partager le métier'>
+            <ShareIcon className={styles.icon} />
           </Link>
         </div>
       </div>
