@@ -19,3 +19,15 @@ export const getMetier = async (metierDocumentId: string) => {
 }
 
 export type Metier = Awaited<ReturnType<typeof getMetier>>
+
+export const countMetiers = async () => {
+  const response = await axiosClient.get<{
+    meta: {
+      pagination: {
+        total: number
+      }
+    }
+  }>("metiers?pagination[pageSize]=1")
+
+  return response.data.meta.pagination.total
+}

@@ -1,5 +1,5 @@
 import { countFormations } from "@/strapi/formations"
-import { countMetiers } from "@/strapi/metier"
+import { countMetiers } from "@/strapi/metiers"
 import HomePage from "@/views/HomePage"
 
 export default async function Home() {
