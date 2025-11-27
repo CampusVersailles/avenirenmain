@@ -14,16 +14,28 @@ export default function TabFormations({
   metier: MetierType
   formations: FormationType[]
 }) {
+  const hasFormations = formations.length > 0
   return (
     <div className={styles.container}>
-      <div className={styles.formations}>
-        {formations.map((formation) => (
-          <Formation formation={formation} key={formation.documentId} />
-        ))}
-      </div>
-      <Link className={styles.button} href={`/formations`}>
-        <p>Voir toutes les formations pour ce métier</p>
-      </Link>
+      {hasFormations ? (
+        <>
+          <div className={styles.formations}>
+            {formations.map((formation) => (
+              <Formation formation={formation} key={formation.documentId} />
+            ))}
+          </div>
+          <Link className={styles.button} href={`/formations`}>
+            <p>Voir toutes les formations pour ce métier</p>
+          </Link>
+        </>
+      ) : (
+        <>
+          <p>Aucune formation trouvée pour ce métier</p>
+          <Link className={styles.button} href={`/formations`}>
+            <p>Chercher une autre formation</p>
+          </Link>
+        </>
+      )}
     </div>
   )
 }
