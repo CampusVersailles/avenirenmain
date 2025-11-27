@@ -14,7 +14,7 @@ const Formation = ({ formation }: { formation: FormationType }) => {
       <div className={styles.info}>
         <div className={styles.infoItem}>
           <span className={styles.icon}>📍</span>
-          <span>{formation.adresse.ville}</span>
+          <span>{formation.adresse?.ville || "Non renseignée"}</span>
         </div>
         <div className={styles.infoItem}>
           <span className={styles.icon}>🕑</span>
