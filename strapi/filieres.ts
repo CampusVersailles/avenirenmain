@@ -1,5 +1,7 @@
+"use server"
+
 import axiosClient from "@/services/axios"
-import { MetierStrapi } from "./metier"
+import { MetierStrapi } from "./metiers"
 
 type FiliereStrapi = {
   id: number

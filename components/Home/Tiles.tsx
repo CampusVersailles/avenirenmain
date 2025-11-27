@@ -1,13 +1,14 @@
 import Tile from "../Tile/Tile"
 import styles from "./Tiles.module.css"
 import ArrowRightIcon from "../Icons/ArrowRightIcon"
-const Tiles = () => {
+
+const Tiles = ({ formationsCount, metiersCount }: { formationsCount: number; metiersCount: number }) => {
   return (
     <div className={styles.tiles}>
       <Tile className={styles.tile} href='/metiers'>
         <div>
           <div className={styles.count}>
-            <p className={styles.number}>143</p>
+            <p className={styles.number}>{metiersCount.toLocaleString()}</p>
             <p>Métiers</p>
           </div>
           <h2 className={styles.title}>Découvrir les métiers</h2>
@@ -21,7 +22,7 @@ const Tiles = () => {
       <Tile className={styles.tile} href='/formations'>
         <div>
           <div className={styles.count}>
-            <p className={styles.number}>26 913</p>
+            <p className={styles.number}>{formationsCount.toLocaleString()}</p>
             <p>Formations</p>
           </div>
           <h2 className={styles.title}>Trouver ma formation</h2>

@@ -1,5 +1,5 @@
 import { getFiliereById } from "@/strapi/filieres"
-import { getMetier } from "@/strapi/metier"
+import { getMetier } from "@/strapi/metiers"
 import MetierPage from "@/views/MetierPage"
 
 export default async function FiliereMetiers({
