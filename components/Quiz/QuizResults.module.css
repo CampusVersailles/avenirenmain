@@ -1,40 +1,66 @@
-.quizContainer {
-  padding: 2rem;
+.container {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2rem;
 }
 
-.quizTitle {
+.title {
   font-size: 1.4rem;
   color: var(--title-color);
   font-weight: 600;
   line-height: 1.4;
 }
 
-.quizResults {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.description {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  line-height: 1.4;
 }
 
-.quizResultCard {
-  border-radius: 1rem;
-  border: 1px solid var(--card-border-color);
-  background: #fff;
-  padding: 16px 20px;
-}
-
-.quizResultQuestion {
+.metiersTitle {
+  font-size: 1.2rem;
+  color: var(--title-color);
   font-weight: 600;
-  margin-bottom: 4px;
+  line-height: 1.4;
 }
 
-.quizResultAnswer {
-  margin-bottom: 4px;
+.metiers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 1rem;
 }
 
-.quizResultCode {
-  font-size: 14px;
-  color: #777;
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  background-color: var(--primary-50);
+  color: white;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  width: fit-content;
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    box-shadow: 0 10px 30px rgba(237, 110, 76, 0.15);
+
+    background-color: var(--primary-60);
+    color: white;
+
+    svg {
+      transform: translateX(0.5rem);
+    }
+  }
 }
