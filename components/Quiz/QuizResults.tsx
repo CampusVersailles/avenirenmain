@@ -29,25 +29,23 @@ const QuizResults = ({ answers }: { answers: AnswersByQuestionId }) => {
     {} as Record<VerbeCode, number>,
   )
 
-  // let maxVerbe: VerbeCode = "Organiser"
-  let maxVerbe: VerbeCode = "Echanger"
-  // let maxVerbeValue = 0
-  // for (const [key, value] of Object.entries(verbesResults)) {
-  //   if (value > maxVerbeValue) {
-  //     maxVerbeValue = value
-  //     maxVerbe = key as VerbeCode
-  //   }
-  // }
+  let maxVerbe: VerbeCode = "Organiser"
+  let maxVerbeValue = 0
+  for (const [key, value] of Object.entries(verbesResults)) {
+    if (value > maxVerbeValue) {
+      maxVerbeValue = value
+      maxVerbe = key as VerbeCode
+    }
+  }
 
-  // let maxFiliere: FiliereCode = "ART"
-  let maxFiliere: FiliereCode = "TOUR"
-  // let maxFiliereValue = 0
-  // for (const [key, value] of Object.entries(filieresResults)) {
-  //   if (value > maxFiliereValue) {
-  //     maxFiliereValue = value
-  //     maxFiliere = key as FiliereCode
-  //   }
-  // }
+  let maxFiliere: FiliereCode = "ART"
+  let maxFiliereValue = 0
+  for (const [key, value] of Object.entries(filieresResults)) {
+    if (value > maxFiliereValue) {
+      maxFiliereValue = value
+      maxFiliere = key as FiliereCode
+    }
+  }
 
   const result = quizResultsByCombination[maxFiliere][maxVerbe]
 
