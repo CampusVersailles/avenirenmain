@@ -1,0 +1,40 @@
+.quizContainer {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.quizTitle {
+  font-size: 1.4rem;
+  color: var(--title-color);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.quizResults {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.quizResultCard {
+  border-radius: 1rem;
+  border: 1px solid var(--card-border-color);
+  background: #fff;
+  padding: 16px 20px;
+}
+
+.quizResultQuestion {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.quizResultAnswer {
+  margin-bottom: 4px;
+}
+
+.quizResultCode {
+  font-size: 14px;
+  color: #777;
+}

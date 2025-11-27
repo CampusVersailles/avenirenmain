@@ -1,0 +1,85 @@
+.quizContainer {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.quizTitle {
+  font-size: 1.4rem;
+  color: var(--title-color);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.quizOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.quizOption {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 2px solid var(--card-border-color);
+  background: var(--card-color);
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.quizOptionSelected {
+  background: var(--primary-10);
+  border-color: var(--primary-50);
+}
+
+.quizOptionCheckbox {
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 0.5rem;
+  border: 2px solid var(--primary-50);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quizOptionCheckboxInner {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 2px;
+  background: var(--primary-50);
+}
+
+.quizOptionText {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.quizNext {
+  display: block;
+  margin: 0 auto;
+  padding: 14px 40px;
+  border-radius: 4px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  background: var(--primary-50);
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--primary-60);
+  }
+
+  &:focus {
+    background-color: var(--primary-70);
+  }
+}
+
+.quizNext:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

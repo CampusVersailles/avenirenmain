@@ -38,7 +38,7 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link className={styles.linkButton} href='/test'>
+                <Link className={styles.linkButton} href='/quiz'>
                   Je passe le test
                 </Link>
               </li>
