@@ -1,4 +1,5 @@
 import Block from "@/components/Block/Block"
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs"
 import Metier from "@/components/Metier/Metier"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 import { Formation } from "@/strapi/formations"
@@ -14,9 +15,19 @@ const MetierPage = ({
   formations: Formation[]
 }) => {
   return (
-    <Block>
-      <Metier filiere={filiere} metier={metier} formations={formations} />
-    </Block>
+    <>
+      <Breadcrumbs
+        items={[
+          { label: "Accueil", href: "/" },
+          { label: "Filières", href: "/metiers" },
+          { label: filiere.nom, href: `/metiers/${filiere.documentId}` },
+          { label: metier.titre, href: `/metiers/${filiere.documentId}/${metier.documentId}` },
+        ]}
+      />
+      <Block>
+        <Metier filiere={filiere} metier={metier} formations={formations} />
+      </Block>
+    </>
   )
 }
 

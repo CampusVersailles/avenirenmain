@@ -1,6 +1,6 @@
 import { replaceNewlinesInBlocks } from "@/lib/text_utils"
 import styles from "./MetierDescription.module.css"
-import { Metier as MetierType } from "@/strapi/metier"
+import { Metier as MetierType } from "@/strapi/metiers"
 import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import MetierTrouverFormation from "./MetierTrouverFormation"
 import { FiliereAvecMetiers } from "@/strapi/filieres"

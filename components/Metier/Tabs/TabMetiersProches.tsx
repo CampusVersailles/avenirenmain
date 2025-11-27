@@ -1,6 +1,6 @@
 import JobIcon from "@/components/Icons/Job"
 import styles from "./TabMetiersProches.module.css"
-import { Metier as MetierType } from "@/strapi/metier"
+import { Metier as MetierType } from "@/strapi/metiers"
 
 export default function TabMetiersProches({ metier }: { metier: MetierType }) {
   const metiersDisponibles = metier.metiersProches.length > 0

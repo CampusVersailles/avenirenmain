@@ -1,6 +1,6 @@
 import styles from "./MetierBanner.module.css"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
-import { Metier as MetierType } from "@/strapi/metier"
+import { Metier as MetierType } from "@/strapi/metiers"
 import LikeIcon from "../Icons/Like"
 import ShareIcon from "../Icons/Share"
 import Link from "next/link"

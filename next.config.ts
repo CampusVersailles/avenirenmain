@@ -4,12 +4,14 @@ import helmet from "helmet"
 const csp: Record<string, string[]> = {
   ...helmet.contentSecurityPolicy.getDefaultDirectives(),
   "img-src": ["'self'", "https:", "data:"],
+  "media-src": ["'self'", "https:", "data:"],
   "script-src": ["'self'", "'unsafe-inline'"],
 }
 
 if (process.env.NODE_ENV === "development") {
   csp["script-src"].push("'unsafe-eval'")
   csp["img-src"].push("http:")
+  csp["media-src"].push("http:")
 }
 
 const securityHeaders = [

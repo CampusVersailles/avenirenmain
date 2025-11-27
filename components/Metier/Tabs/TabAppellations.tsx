@@ -1,5 +1,5 @@
 import styles from "./TabAppellations.module.css"
-import { Metier as MetierType } from "@/strapi/metier"
+import { Metier as MetierType } from "@/strapi/metiers"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 import Image from "next/image"
 
