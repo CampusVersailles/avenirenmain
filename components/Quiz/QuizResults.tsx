@@ -1,5 +1,5 @@
 "use client"
-import { getMetierByRomeCode, Metier, MetierStrapi } from "@/strapi/metier"
+import { getMetierByRomeCode, Metier } from "@/strapi/metier"
 import FiliereMetier from "../FiliereMetier/FiliereMetier"
 import { AnswersByQuestionId, FiliereCode, filieresQuestions, VerbeCode, verbesQuestions } from "./Questions"
 import styles from "./QuizResults.module.css"
@@ -63,7 +63,7 @@ const QuizResults = ({ answers }: { answers: AnswersByQuestionId }) => {
       setMetiersWithFilieres(metiersWithFilieres)
     }
     load()
-  }, [])
+  }, [result.metiers])
 
   return (
     <div className={styles.container}>
