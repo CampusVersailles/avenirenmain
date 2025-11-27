@@ -36,10 +36,10 @@ const Filter = ({ title, options, onFilterChange }: FilterProps) => {
 
   return (
     <div className={styles.filter}>
-      <h3 className={styles.title}>
+      <h2 className={styles.title}>
         <GridIcon />
         <span>{title}</span>
-      </h3>
+      </h2>
       <div className={styles.options}>
         <button
           className={classNames(styles.badge, {

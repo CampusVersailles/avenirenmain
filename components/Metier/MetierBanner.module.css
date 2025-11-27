@@ -21,7 +21,7 @@
 
 .badgeGhost {
   background-color: var(--primary-10);
-  color: var(--primary-50);
+  color: var(--primary-70);
   padding: 0.5rem 1rem;
   border-radius: 1rem;
 }
