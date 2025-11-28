@@ -1,6 +1,6 @@
 import styles from "./TabFormations.module.css"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
-import { Metier as MetierType } from "@/strapi/metier"
+import { Metier as MetierType } from "@/strapi/metiers"
 import { Formation as FormationType } from "@/strapi/formations"
 import Formation from "@/components/Formation/Formation"
 import Link from "next/link"
