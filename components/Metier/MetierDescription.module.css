@@ -38,3 +38,7 @@
     width: 100%;
   }
 }
+
+.highlight {
+  color: var(--primary-50);
+}

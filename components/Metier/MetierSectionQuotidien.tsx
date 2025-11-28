@@ -5,7 +5,9 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 export default function MetierQuotidien({ metier }: { metier: MetierType }) {
   return (
     <div className={styles.sectionBlock}>
-      <h2 className={styles.sectionTitle}>Ce que tu fais au quotidien</h2>
+      <h2 className={styles.sectionTitle}>
+        Ce que tu fais <span className={styles.highlight}>au quotidien</span>
+      </h2>
       <div className={styles.tilesContainer}>
         {metier.tachesQuotidiennes.map((tache) => (
           <div className={styles.tile} key={tache.titre}>
