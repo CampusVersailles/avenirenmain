@@ -44,6 +44,22 @@
   }
 }
 
+.alternateTile:nth-child(even) {
+  background: var(--primary-50);
+  color: white;
+  .tileTitle {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: white;
+  }
+}
+
+.alternateTile:nth-child(odd) {
+  border-color: var(--primary-50);
+  border-width: 1px;
+}
+
 .tileTitle {
   font-size: 1rem;
   font-weight: 600;
