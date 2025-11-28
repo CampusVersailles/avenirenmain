@@ -5,7 +5,9 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 export default function MetierPerspectives({ metier }: { metier: MetierType }) {
   return (
     <div className={styles.sectionBlock}>
-      <h2 className={styles.sectionTitle}>Pourquoi pas ce métier ?</h2>
+      <h2 className={styles.sectionTitle}>
+        Pourquoi pas <span className={styles.highlight}>ce métier</span> ?
+      </h2>
       <div className={styles.tilesContainer}>
         <div className={styles.tile} key='environnementTravail'>
           <h3 className={styles.tileTitle}>Environnement de travail</h3>
