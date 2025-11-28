@@ -20,6 +20,7 @@
 .quizOption {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1.25rem;
   padding: 1.25rem;
   border-radius: 1rem;
@@ -28,6 +29,12 @@
   cursor: pointer;
   text-align: left;
   font-size: 1rem;
+}
+
+.quizOptionContent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .quizOptionSelected {
@@ -81,4 +88,11 @@
 .quizNext:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.quizOptionKeyHint {
+  font-weight: 600;
+  color: var(--primary-50);
+  font-size: 1.2rem;
+  align-self: flex-end;
 }
