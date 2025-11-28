@@ -3,7 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs"
 import Metier from "@/components/Metier/Metier"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 import { Formation } from "@/strapi/formations"
-import { Metier as MetierType } from "@/strapi/metier"
+import { Metier as MetierType } from "@/strapi/metiers"
 
 const MetierPage = ({
   filiere,

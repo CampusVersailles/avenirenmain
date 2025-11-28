@@ -66,3 +66,13 @@ export const countMetiers = async () => {
 
   return response.data.meta.pagination.total
 }
+
+export const getMetierByRomeCode = async (romeCode: string) => {
+  const response = await axiosClient.get<{
+    data: MetierStrapi[]
+  }>(`metiers?filters[codeRomeMetier][code][$eq]=${romeCode}&populate=*`)
+  return {
+    ...response.data.data[0],
+    mediaPrincipal: `${process.env.STRAPI_URL}${response.data.data[0].mediaPrincipal.url}`,
+  }
+}

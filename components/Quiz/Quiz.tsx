@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react"
 import { allQuestions, AnswersByQuestionId } from "./Questions"
 import styles from "./Quiz.module.css"
 import QuizResults from "./QuizResults"
+import classNames from "classnames"
 
 export const Quiz = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -18,7 +19,9 @@ export const Quiz = () => {
   }, [])
 
   const handleNext = useCallback(() => {
-    if (!canGoNext) return
+    if (!canGoNext) {
+      return
+    }
 
     setCurrentIndex((prevIndex) => {
       if (prevIndex === allQuestions.length - 1) {
@@ -30,7 +33,9 @@ export const Quiz = () => {
   }, [canGoNext])
 
   useEffect(() => {
-    if (showResults) return
+    if (showResults) {
+      return
+    }
 
     const onKeyDown = (event: KeyboardEvent) => {
       const { key } = event
@@ -78,7 +83,7 @@ export const Quiz = () => {
               key={answer.id}
               id={optionId}
               type='button'
-              className={`${styles.quizOption} ${isSelected ? styles.quizOptionSelected : ""}`}
+              className={classNames(styles.quizOption, { [styles.quizOptionSelected]: isSelected })}
               onClick={() => handleSelect(currentQuestion.id, answer.id)}
               role='radio'
               aria-checked={isSelected}>

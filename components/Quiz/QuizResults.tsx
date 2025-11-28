@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react"
 import Link from "next/link"
-import { getMetierByRomeCode, Metier } from "@/strapi/metier"
+import { getMetierByRomeCode, Metier } from "@/strapi/metiers"
 import FiliereMetier from "../FiliereMetier/FiliereMetier"
 import { AnswersByQuestionId, FiliereCode, filieresQuestions, VerbeCode, verbesQuestions } from "./Questions"
 import styles from "./QuizResults.module.css"
