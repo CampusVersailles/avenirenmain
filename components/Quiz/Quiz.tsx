@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { allQuestions, AnswersByQuestionId } from "./Questions"
 import styles from "./Quiz.module.css"
 import QuizResults from "./QuizResults"
@@ -13,19 +13,21 @@ export const Quiz = () => {
   const selectedAnswerId = answers[currentQuestion?.id]
   const canGoNext = Boolean(selectedAnswerId)
 
-  const handleSelect = (questionId: string, answerId: string) => {
+  const handleSelect = useCallback((questionId: string, answerId: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: answerId }))
-  }
+  }, [])
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (!canGoNext) return
 
-    if (currentIndex === allQuestions.length - 1) {
-      setShowResults(true)
-    } else {
-      setCurrentIndex((i) => i + 1)
-    }
-  }
+    setCurrentIndex((prevIndex) => {
+      if (prevIndex === allQuestions.length - 1) {
+        setShowResults(true)
+        return prevIndex
+      }
+      return prevIndex + 1
+    })
+  }, [canGoNext])
 
   useEffect(() => {
     if (showResults) return

@@ -55,27 +55,18 @@ const QuizResults = ({ answers }: { answers: AnswersByQuestionId }) => {
   const [metiersWithFilieres, setMetiersWithFilieres] = useState<{ metier: Metier; filiere: FiliereAvecMetiers }[]>([])
 
   useEffect(() => {
-    if (!result) return
-
-    let cancelled = false
-
-    ;(async () => {
-      const data = await Promise.all(
+    async function load() {
+      if (!result) return
+      const metiersWithFilieres = await Promise.all(
         result.metiers.map(async (romeCode) => {
           const metier = await getMetierByRomeCode(romeCode)
           const filiere = await getFiliereById(metier.filieres[0].documentId)
           return { metier, filiere }
         }),
       )
-
-      if (!cancelled) {
-        setMetiersWithFilieres(data)
-      }
-    })()
-
-    return () => {
-      cancelled = true
+      setMetiersWithFilieres(metiersWithFilieres)
     }
+    load()
   }, [result])
 
   if (!result) {
