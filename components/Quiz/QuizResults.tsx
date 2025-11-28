@@ -1,69 +1,93 @@
 "use client"
+
+import { useEffect, useState, useMemo } from "react"
+import Link from "next/link"
 import { getMetierByRomeCode, Metier } from "@/strapi/metier"
 import FiliereMetier from "../FiliereMetier/FiliereMetier"
 import { AnswersByQuestionId, FiliereCode, filieresQuestions, VerbeCode, verbesQuestions } from "./Questions"
 import styles from "./QuizResults.module.css"
 import { quizResultsByCombination } from "./Results"
 import { FiliereAvecMetiers, getFiliereById } from "@/strapi/filieres"
-import { useEffect, useState } from "react"
-import Link from "next/link"
+
+function buildScores<Code extends string>(
+  questions: { id: string; answers: { id: string; code: Code }[] }[],
+  answers: AnswersByQuestionId,
+): Record<Code, number> {
+  return questions.reduce(
+    (acc, question) => {
+      const selectedId = answers[question.id]
+      if (!selectedId) return acc
+
+      const answer = question.answers.find((a) => a.id === selectedId)
+      if (!answer) return acc
+
+      acc[answer.code] = (acc[answer.code] || 0) + 1
+      return acc
+    },
+    {} as Record<Code, number>,
+  )
+}
+
+function getMaxKey<Code extends string>(scores: Record<Code, number>, fallback: Code): Code {
+  let maxKey = fallback
+  let maxValue = -1
+
+  for (const [key, value] of Object.entries(scores) as [Code, number][]) {
+    if (value > maxValue) {
+      maxValue = value
+      maxKey = key
+    }
+  }
+
+  return maxKey
+}
 
 const QuizResults = ({ answers }: { answers: AnswersByQuestionId }) => {
-  const filieresResults: Record<FiliereCode, number> = filieresQuestions.reduce(
-    (acc: Record<FiliereCode, number>, question) => {
-      const answer = question.answers.find((a) => a.id === answers[question.id])
-      if (!answer) return acc
-      acc[answer.code] = (acc[answer.code] || 0) + 1
-      return acc
-    },
-    {} as Record<FiliereCode, number>,
-  )
+  const filieresResults = useMemo(() => buildScores<FiliereCode>(filieresQuestions, answers), [answers])
 
-  const verbesResults: Record<VerbeCode, number> = verbesQuestions.reduce(
-    (acc: Record<VerbeCode, number>, question) => {
-      const answer = question.answers.find((a) => a.id === answers[question.id])
-      if (!answer) return acc
-      acc[answer.code] = (acc[answer.code] || 0) + 1
-      return acc
-    },
-    {} as Record<VerbeCode, number>,
-  )
+  const verbesResults = useMemo(() => buildScores<VerbeCode>(verbesQuestions, answers), [answers])
 
-  let maxVerbe: VerbeCode = "Organiser"
-  let maxVerbeValue = 0
-  for (const [key, value] of Object.entries(verbesResults)) {
-    if (value > maxVerbeValue) {
-      maxVerbeValue = value
-      maxVerbe = key as VerbeCode
-    }
-  }
+  const maxFiliere = getMaxKey<FiliereCode>(filieresResults, "ART")
+  const maxVerbe = getMaxKey<VerbeCode>(verbesResults, "Organiser")
 
-  let maxFiliere: FiliereCode = "ART"
-  let maxFiliereValue = 0
-  for (const [key, value] of Object.entries(filieresResults)) {
-    if (value > maxFiliereValue) {
-      maxFiliereValue = value
-      maxFiliere = key as FiliereCode
-    }
-  }
-
-  const result = quizResultsByCombination[maxFiliere][maxVerbe]
+  const result = quizResultsByCombination[maxFiliere]?.[maxVerbe]
 
   const [metiersWithFilieres, setMetiersWithFilieres] = useState<{ metier: Metier; filiere: FiliereAvecMetiers }[]>([])
 
   useEffect(() => {
-    async function load() {
-      const metiersWithFilieres = await Promise.all(
+    if (!result) return
+
+    let cancelled = false
+
+    ;(async () => {
+      const data = await Promise.all(
         result.metiers.map(async (romeCode) => {
           const metier = await getMetierByRomeCode(romeCode)
           const filiere = await getFiliereById(metier.filieres[0].documentId)
           return { metier, filiere }
         }),
       )
-      setMetiersWithFilieres(metiersWithFilieres)
+
+      if (!cancelled) {
+        setMetiersWithFilieres(data)
+      }
+    })()
+
+    return () => {
+      cancelled = true
     }
-    load()
-  }, [result.metiers])
+  }, [result])
+
+  if (!result) {
+    return (
+      <div className={styles.container}>
+        <h1 className={styles.title}>Oups 😅</h1>
+        <p className={styles.description}>
+          On n'a pas réussi à trouver un résultat pour cette combinaison de réponses.
+        </p>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.container}>
@@ -73,17 +97,18 @@ const QuizResults = ({ answers }: { answers: AnswersByQuestionId }) => {
       <p className={styles.metiersTitle}>As-tu pensé à regarder les métiers de...</p>
 
       <div className={styles.metiers}>
-        {metiersWithFilieres.map((mf) => (
-          <FiliereMetier key={mf.metier.documentId} metier={mf.metier} filiere={mf.filiere} />
+        {metiersWithFilieres.map(({ metier, filiere }) => (
+          <FiliereMetier key={metier.documentId} metier={metier} filiere={filiere} />
         ))}
       </div>
 
       <div className={styles.buttonContainer}>
-        <Link className={styles.button} href={`/metiers`}>
+        <Link className={styles.button} href='/metiers'>
           <p>Profites-en pour explorer aussi les autres métiers !</p>
         </Link>
       </div>
     </div>
   )
 }
+
 export default QuizResults
