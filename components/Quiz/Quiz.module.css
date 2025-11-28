@@ -67,10 +67,10 @@
 .quizNext {
   display: block;
   margin: 0 auto;
-  padding: 14px 40px;
-  border-radius: 4px;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
   border: none;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   background: var(--primary-50);
   color: white;
