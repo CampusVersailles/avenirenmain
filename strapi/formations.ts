@@ -29,9 +29,9 @@ export type FormationStrapi = {
   createdAt: string
   updatedAt: string
   publishedAt: string
-  filieres: { documentId: string; nom: string }[]
-  formationDuree: string | null
-  formationNiveaux: string[]
+  filieres: { icone: { url: string } }[]
+  formationDuree: { label: string }
+  formationNiveau: { label: string }
   adresse: {
     id: number
     adresseComplete: string
@@ -50,7 +50,7 @@ export type FormationStrapi = {
 
 const DEFAULT_RADIUS = 20
 
-export const getFormations = async (filter?: FilterType) => {
+export const getFormations = async (filter: FilterType, page: number) => {
   let filterQuery = ""
   if (filter) {
     if (filter.filiere) {
@@ -63,7 +63,7 @@ export const getFormations = async (filter?: FilterType) => {
       filterQuery += `&latitude=${filter.city.geometry.coordinates[1]}&longitude=${filter.city.geometry.coordinates[0]}&radius=${DEFAULT_RADIUS}`
     }
     if (filter.diplome) {
-      filterQuery += `&filters[formationNiveaux][documentId][$eq]=${filter.diplome}`
+      filterQuery += `&filters[formationNiveau][documentId][$eq]=${filter.diplome}`
     }
     if (filter.alternance) {
       filterQuery += `&filters[alternance][$eq]=${filter.alternance}`
@@ -75,9 +75,28 @@ export const getFormations = async (filter?: FilterType) => {
 
   const response = await axiosClient.get<{
     data: FormationStrapi[]
-  }>(`formations?populate=adresse${filterQuery}`)
+    meta: {
+      pagination: {
+        page: number
+        pageSize: number
+        pageCount: number
+        total: number
+      }
+    }
+  }>(
+    `formations?populate[adresse]=*&populate[formationNiveau][fields]=label&populate[formationDuree][fields]=label&populate[filieres][populate][icone][fields]=url&pagination[page]=${page}&pagination[pageSize]=10${filterQuery}`,
+  )
 
-  return response.data.data
+  return {
+    formations: response.data.data.map((formation) => ({
+      ...formation,
+      filieres: formation.filieres.map((filiere) => ({
+        ...filiere,
+        icone: filiere.icone?.url ? { url: `${process.env.STRAPI_URL}${filiere.icone.url}` } : undefined,
+      })),
+    })),
+    pagination: response.data.meta.pagination,
+  }
 }
 
 export const getFormationsByRomeCode = async ({
@@ -94,7 +113,7 @@ export const getFormationsByRomeCode = async ({
   return response.data.data
 }
 
-export type Formation = Awaited<ReturnType<typeof getFormations>>[number]
+export type Formation = Awaited<ReturnType<typeof getFormations>>["formations"][number]
 
 export const getFormationNiveaux = async () => {
   const response = await axiosClient.get<{

@@ -14,10 +14,15 @@ const Filter = ({
   filieres,
   niveaux,
   durees,
+  selectedFiliere,
+  selectedDiplome,
+  selectedAlternance,
+  selectedDuree,
   onFiliereChange,
   onDiplomeChange,
   onAlternanceChange,
   onDureeChange,
+  totalResults,
 }: {
   search: string
   onSearchChange: (search: string) => void
@@ -26,12 +31,21 @@ const Filter = ({
   filieres: Option[]
   niveaux: Option[]
   durees: Option[]
+  selectedFiliere: string
+  selectedDiplome: string
+  selectedAlternance: string
+  selectedDuree: string
   onFiliereChange: (filiere: string) => void
   onDiplomeChange: (diplome: string) => void
   onAlternanceChange: (alternance: string) => void
   onDureeChange: (duree: string) => void
+  totalResults: number
 }) => {
-  const [text, setText] = useState("")
+  const [text, setText] = useState(search)
+
+  useEffect(() => {
+    setText(search)
+  }, [search])
 
   useEffect(() => {
     const debounce = setTimeout(() => {
@@ -70,7 +84,11 @@ const Filter = ({
       <div className={styles.row}>
         <div className={styles.field}>
           <label htmlFor='filiere'>Filières</label>
-          <select id='filiere' onChange={(e) => onFiliereChange(e.target.value)} className={styles.select}>
+          <select
+            id='filiere'
+            value={selectedFiliere}
+            onChange={(e) => onFiliereChange(e.target.value)}
+            className={styles.select}>
             <option value=''>Toutes</option>
             {filieres.map((filiere) => (
               <option key={filiere.value} value={filiere.value}>
@@ -82,7 +100,11 @@ const Filter = ({
 
         <div className={styles.field}>
           <label htmlFor='diplome'>Diplôme</label>
-          <select id='diplome' onChange={(e) => onDiplomeChange(e.target.value)} className={styles.select}>
+          <select
+            id='diplome'
+            value={selectedDiplome}
+            onChange={(e) => onDiplomeChange(e.target.value)}
+            className={styles.select}>
             <option value=''>Tous</option>
             {niveaux.map((niveau) => (
               <option key={niveau.value} value={niveau.value}>
@@ -94,7 +116,11 @@ const Filter = ({
 
         <div className={styles.field}>
           <label htmlFor='alternance'>Alternance</label>
-          <select id='alternance' onChange={(e) => onAlternanceChange(e.target.value)} className={styles.select}>
+          <select
+            id='alternance'
+            value={selectedAlternance}
+            onChange={(e) => onAlternanceChange(e.target.value)}
+            className={styles.select}>
             <option value=''>Toutes</option>
             <option value='true'>Oui</option>
             <option value='false'>Non</option>
@@ -103,7 +129,11 @@ const Filter = ({
 
         <div className={styles.field}>
           <label htmlFor='duree'>Durée</label>
-          <select id='duree' onChange={(e) => onDureeChange(e.target.value)} className={styles.select}>
+          <select
+            id='duree'
+            value={selectedDuree}
+            onChange={(e) => onDureeChange(e.target.value)}
+            className={styles.select}>
             <option value=''>Toutes</option>
             {durees.map((duree) => (
               <option key={duree.value} value={duree.value}>
@@ -113,6 +143,11 @@ const Filter = ({
           </select>
         </div>
       </div>
+      {totalResults > 0 && (
+        <p className={styles.resultCount}>
+          {totalResults.toLocaleString()} résultat{totalResults > 1 ? "s" : ""} selon les critères
+        </p>
+      )}
     </div>
   )
 }

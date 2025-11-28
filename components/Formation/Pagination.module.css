@@ -1,0 +1,60 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.pageButton {
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--card-border-color);
+  background: white;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  font-weight: 400;
+
+  &:hover {
+    background: var(--card-hover-color);
+    border-color: var(--primary-30);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--primary-10);
+    color: white;
+
+    &:hover {
+      background-color: var(--primary-10);
+      color: white;
+    }
+  }
+
+  &.active {
+    cursor: default;
+    background: var(--primary-50);
+    color: white;
+    border-color: var(--primary-50);
+    font-weight: 500;
+
+    &:hover {
+      background: var(--primary-50);
+      border-color: var(--primary-50);
+    }
+  }
+}
+
+.pageInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  font-size: 0.875rem;
+  color: var(--text-color);
+}

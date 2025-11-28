@@ -1,61 +1,76 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import Formation from "./Formation"
-import { FilterType, getFormations, type Option, Formation as FormationType } from "@/strapi/formations"
+import { FilterType, type Option, Formation as FormationType } from "@/strapi/formations"
 import Filter from "./Filter/Filter"
+import Pagination from "./Pagination"
 import styles from "./Formations.module.css"
 import { CityResult } from "./Filter/CityAutocomplete"
 
-const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux: Option[]; durees: Option[] }) => {
-  const [filteredFormations, setFilteredFormations] = useState<FormationType[] | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [filters, setFilters] = useState<FilterType>({
-    search: "",
-    city: null,
-    filiere: "",
-    diplome: "",
-    alternance: "",
-    duree: "",
-  })
+const Formations = ({
+  filieres,
+  niveaux,
+  durees,
+  formations,
+  pagination,
+  filters,
+}: {
+  filieres: Option[]
+  niveaux: Option[]
+  durees: Option[]
+  formations: FormationType[]
+  pagination: { page: number; pageSize: number; pageCount: number; total: number }
+  filters: FilterType
+}) => {
+  const router = useRouter()
 
-  useEffect(() => {
-    getFormations()
-      .then((data) => {
-        setFilteredFormations(data)
-        setError(null)
-      })
-      .catch((err) => {
-        console.error("Failed to load formations on initial load:", err)
-        setError("Erreur lors du chargement initial des formations. Veuillez réessayer plus tard.")
-        setFilteredFormations(null)
-      })
-  }, [])
+  const updateURL = (newFilters: FilterType, page: number) => {
+    const params = new URLSearchParams()
 
-  const applyFilters = (newFilters: FilterType) => {
-    setFilteredFormations(null)
-    setError(null)
-    getFormations(newFilters)
-      .then((data) => {
-        setFilteredFormations(data)
-      })
-      .catch((err) => {
-        console.error("Failed to apply filters:", err)
-        setError("Erreur lors de l'application des filtres. Veuillez réessayer.")
-        setFilteredFormations(null)
-      })
+    if (newFilters.search) {
+      params.set("search", newFilters.search)
+    }
+    if (newFilters.filiere) {
+      params.set("filiere", newFilters.filiere)
+    }
+    if (newFilters.diplome) {
+      params.set("diplome", newFilters.diplome)
+    }
+    if (newFilters.alternance) {
+      params.set("alternance", newFilters.alternance)
+    }
+    if (newFilters.duree) {
+      params.set("duree", newFilters.duree)
+    }
+    if (newFilters.city) {
+      params.set("city", newFilters.city.properties.label)
+      params.set("lat", newFilters.city.geometry.coordinates[1].toString())
+      params.set("lon", newFilters.city.geometry.coordinates[0].toString())
+      if (newFilters.city.properties.name) {
+        params.set("name", newFilters.city.properties.name)
+      }
+      if (newFilters.city.properties.postcode) {
+        params.set("postcode", newFilters.city.properties.postcode)
+      }
+      if (newFilters.city.properties.citycode) {
+        params.set("citycode", newFilters.city.properties.citycode)
+      }
+    }
+    if (page > 1) {
+      params.set("page", page.toString())
+    }
+
+    const queryString = params.toString()
+    router.push(queryString ? `?${queryString}` : "/formations", { scroll: false })
   }
 
   const handleFilterChange = (key: keyof typeof filters, value: string) => {
-    const newFilters = { ...filters, [key]: value }
-    setFilters(newFilters)
-    applyFilters(newFilters)
+    updateURL({ ...filters, [key]: value }, 1)
   }
 
   const handleCityChange = (city: CityResult | null) => {
-    const newFilters = { ...filters, city }
-    setFilters(newFilters)
-    applyFilters(newFilters)
+    updateURL({ ...filters, city }, 1)
   }
 
   return (
@@ -68,20 +83,32 @@ const Formations = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
         filieres={filieres}
         niveaux={niveaux}
         durees={durees}
+        selectedFiliere={filters.filiere}
+        selectedDiplome={filters.diplome}
+        selectedAlternance={filters.alternance}
+        selectedDuree={filters.duree}
         onFiliereChange={(value) => handleFilterChange("filiere", value)}
         onDiplomeChange={(value) => handleFilterChange("diplome", value)}
         onAlternanceChange={(value) => handleFilterChange("alternance", value)}
         onDureeChange={(value) => handleFilterChange("duree", value)}
+        totalResults={pagination.total}
       />
+
       <div className={styles.formations}>
-        {error ? (
-          <p className={styles.error}>{error}</p>
-        ) : filteredFormations ? (
-          filteredFormations.map((formation) => <Formation formation={formation} key={formation.id} />)
+        {formations.length > 0 ? (
+          formations.map((formation) => <Formation formation={formation} key={formation.id} />)
         ) : (
-          <p>Chargement des formations en cours...</p>
+          <p>Aucune formation trouvée.</p>
         )}
       </div>
+
+      {formations.length > 0 && pagination.pageCount > 1 && (
+        <Pagination
+          currentPage={pagination.page}
+          totalPages={pagination.pageCount}
+          onPageChange={(page) => updateURL(filters, page)}
+        />
+      )}
     </>
   )
 }
