@@ -79,14 +79,22 @@ export const Quiz = () => {
           const optionId = `${currentQuestion.id}-option-${answer.id}`
 
           return (
-            <button
+            <label
               key={answer.id}
-              id={optionId}
-              type='button'
-              className={classNames(styles.quizOption, { [styles.quizOptionSelected]: isSelected })}
-              onClick={() => handleSelect(currentQuestion.id, answer.id)}
-              role='radio'
-              aria-checked={isSelected}>
+              htmlFor={optionId}
+              className={classNames(styles.quizOption, {
+                [styles.quizOptionSelected]: isSelected,
+              })}>
+              <input
+                id={optionId}
+                type='radio'
+                name={currentQuestion.id}
+                value={answer.id}
+                checked={isSelected}
+                onChange={() => handleSelect(currentQuestion.id, answer.id)}
+                className={styles.hiddenRadio}
+              />
+
               <div className={styles.quizOptionContent}>
                 <span className={styles.quizOptionCheckbox} aria-hidden='true'>
                   {isSelected && <span className={styles.quizOptionCheckboxInner} />}
@@ -94,8 +102,9 @@ export const Quiz = () => {
 
                 <p className={styles.quizOptionText}>{answer.text}</p>
               </div>
+
               <span className={styles.quizOptionKeyHint}>{index + 1}</span>
-            </button>
+            </label>
           )
         })}
       </div>
