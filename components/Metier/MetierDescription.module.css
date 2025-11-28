@@ -22,6 +22,8 @@
 
 .descriptionImage {
   width: calc((100% - 2rem) / 2);
+  min-height: 35rem;
+  height: auto;
   object-fit: cover;
   border-radius: 1rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);

@@ -44,7 +44,8 @@
   }
 }
 
-.alternateTile:nth-child(even) {
+.tile:nth-child(4n + 2),
+.tile:nth-child(4n + 3) {
   background: var(--primary-50);
   color: white;
   .tileTitle {
@@ -55,7 +56,8 @@
   }
 }
 
-.alternateTile:nth-child(odd) {
+.tile:nth-child(4n),
+.tile:nth-child(4n + 1) {
   border-color: var(--primary-50);
   border-width: 1px;
 }
