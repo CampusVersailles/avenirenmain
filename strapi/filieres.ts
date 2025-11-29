@@ -18,6 +18,18 @@ type FiliereStrapi = {
   }[]
 }
 
+export const getFilieresAndMetiersDocumentIdsOnly = async () => {
+  const response = await axiosClient.get<{
+    data: {
+      documentId: string
+      metiers: {
+        documentId: string
+      }[]
+    }[]
+  }>("filieres?fields[0]=documentId&populate[metiers][fields][0]=documentId")
+  return response.data.data
+}
+
 export const getFilieres = async () => {
   const response = await axiosClient.get<{
     data: Omit<FiliereStrapi, "metiers">[]

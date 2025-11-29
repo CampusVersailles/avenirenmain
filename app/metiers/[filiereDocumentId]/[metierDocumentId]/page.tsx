@@ -1,12 +1,11 @@
-import { getFiliereById, getFilieres } from "@/strapi/filieres"
+import { getFiliereById, getFilieresAndMetiersDocumentIdsOnly } from "@/strapi/filieres"
 import { getFormationsByRomeCode } from "@/strapi/formations"
 import { getMetier } from "@/strapi/metiers"
 import MetierPage from "@/views/MetierPage"
 import { notFound } from "next/navigation"
 
 export async function generateStaticParams() {
-  const filieres = await getFilieres()
-  const filieresWithMetiers = await Promise.all(filieres.map((filiere) => getFiliereById(filiere.documentId)))
+  const filieresWithMetiers = await getFilieresAndMetiersDocumentIdsOnly()
 
   const results = filieresWithMetiers.flatMap((filiere) =>
     filiere.metiers.map((metier) => ({
