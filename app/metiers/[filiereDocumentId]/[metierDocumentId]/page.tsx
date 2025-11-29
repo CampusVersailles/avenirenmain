@@ -2,8 +2,7 @@ import { getFiliereById, getFilieres } from "@/strapi/filieres"
 import { getFormationsByRomeCode } from "@/strapi/formations"
 import { getMetier } from "@/strapi/metiers"
 import MetierPage from "@/views/MetierPage"
-
-export const dynamicParams = false
+import { notFound } from "next/navigation"
 
 export async function generateStaticParams() {
   const filieres = await getFilieres()
@@ -25,7 +24,13 @@ export default async function FiliereMetiers({
   params: Promise<{ filiereDocumentId: string; metierDocumentId: string }>
 }) {
   const { filiereDocumentId, metierDocumentId } = await params
-  const [filiere, metier] = await Promise.all([getFiliereById(filiereDocumentId), getMetier(metierDocumentId)])
-  const formations = await getFormationsByRomeCode({ romeCode: metier.codeRomeMetier.code })
+  const [filiere, metier] = await Promise.all([
+    getFiliereById(filiereDocumentId).catch(() => null),
+    getMetier(metierDocumentId).catch(() => null),
+  ])
+  if (!filiere || !metier) {
+    notFound()
+  }
+  const formations = await getFormationsByRomeCode({ romeCode: metier.codeRomeMetier.code }).catch(() => [])
   return <MetierPage filiere={filiere} metier={metier} formations={formations} />
 }
