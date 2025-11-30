@@ -40,6 +40,7 @@ export type MetierStrapi = {
   }[]
   filieres: {
     documentId: string
+    nom: string
   }[]
 }
 

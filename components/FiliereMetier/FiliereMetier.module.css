@@ -1,13 +1,9 @@
 .tile {
   position: relative;
-  border-radius: 0.75rem;
   background-color: var(--card-color);
   display: flex;
   flex-direction: column;
   gap: 0rem;
-  width: calc((100% - 3rem) / 3);
-  aspect-ratio: 0.8;
-  overflow: hidden;
   text-decoration: none;
   box-shadow: 0 2px 10px rgba(237, 110, 76, 0.15);
   border: 2px solid var(--background-color);
@@ -16,7 +12,6 @@
 
   &:hover {
     background: var(--card-hover-color);
-    transform: translateY(-0.5rem);
     box-shadow: 0 10px 30px rgba(237, 110, 76, 0.15);
   }
 
@@ -56,6 +51,7 @@
 
 .image {
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }

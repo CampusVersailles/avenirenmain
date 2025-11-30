@@ -17,10 +17,12 @@ const Metier = ({
   filiere,
   metier,
   formations,
+  domainesPro,
 }: {
   filiere: FiliereAvecMetiers
   metier: MetierType
   formations: Formation[]
+  domainesPro: { code: string; description: string }[]
 }) => {
   const tabs: TabItem[] = [
     {
@@ -39,7 +41,7 @@ const Metier = ({
 
   return (
     <div className={styles.metier}>
-      <MetierBanner filiere={filiere} metier={metier} />
+      <MetierBanner metier={metier} domainesPro={domainesPro} />
       <MetierDescription filiere={filiere} metier={metier} />
       <MetierCentresInterets metier={metier} />
       <MetierQuotidien metier={metier} />

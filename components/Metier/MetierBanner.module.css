@@ -7,6 +7,7 @@
 
 .badgeContainer {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   font-weight: 400;
   font-size: 0.875rem;
@@ -28,6 +29,7 @@
 
 .titleAndActionsContainer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem;
 }

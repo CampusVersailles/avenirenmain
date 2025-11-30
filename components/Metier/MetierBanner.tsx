@@ -1,17 +1,26 @@
 import styles from "./MetierBanner.module.css"
-import { FiliereAvecMetiers } from "@/strapi/filieres"
 import { Metier as MetierType } from "@/strapi/metiers"
 import LikeIcon from "../Icons/Like"
 import ShareIcon from "../Icons/Share"
 import Link from "next/link"
 
-export default function MetierBanner({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: MetierType }) {
-  const domaine = filiere.domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))
+export default function MetierBanner({
+  metier,
+  domainesPro,
+}: {
+  metier: MetierType
+  domainesPro: { code: string; description: string }[]
+}) {
+  const domaine = domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))
 
   return (
     <div className={styles.banner}>
       <div className={styles.badgeContainer}>
-        <span className={styles.badge}>{filiere.nom}</span>
+        {metier.filieres.map((filiere) => (
+          <span key={filiere.documentId} className={styles.badge}>
+            {filiere.nom}
+          </span>
+        ))}
         {domaine && <span className={styles.badgeGhost}>{domaine.description}</span>}
       </div>
       <div className={styles.titleAndActionsContainer}>

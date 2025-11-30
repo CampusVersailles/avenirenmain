@@ -9,10 +9,12 @@ const MetierPage = ({
   filiere,
   metier,
   formations,
+  domainesPro,
 }: {
   filiere: FiliereAvecMetiers
   metier: MetierType
   formations: Formation[]
+  domainesPro: { code: string; description: string }[]
 }) => {
   return (
     <>
@@ -25,7 +27,7 @@ const MetierPage = ({
         ]}
       />
       <Block>
-        <Metier filiere={filiere} metier={metier} formations={formations} />
+        <Metier filiere={filiere} metier={metier} formations={formations} domainesPro={domainesPro} />
       </Block>
     </>
   )
