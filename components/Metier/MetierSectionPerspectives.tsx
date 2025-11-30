@@ -10,24 +10,32 @@ export default function MetierPerspectives({ metier }: { metier: MetierType }) {
       </h2>
       <div className={styles.tilesContainer}>
         <div className={styles.column}>
-          <div className={styles.tile} key='environnementTravail'>
-            <h3 className={styles.tileTitle}>Environnement de travail</h3>
-            <BlocksRenderer content={metier.pourquoi.environnementTravail} />
-          </div>
-          <div className={styles.tile} key='opportunites'>
-            <h3 className={styles.tileTitle}>Opportunités</h3>
-            <BlocksRenderer content={metier.pourquoi.opportunites} />
-          </div>
+          {metier.pourquoi.environnementTravail && (
+            <div className={styles.tile} key='environnementTravail'>
+              <h3 className={styles.tileTitle}>Environnement de travail</h3>
+              <BlocksRenderer content={metier.pourquoi.environnementTravail} />
+            </div>
+          )}
+          {metier.pourquoi.opportunites && (
+            <div className={styles.tile} key='opportunites'>
+              <h3 className={styles.tileTitle}>Opportunités</h3>
+              <BlocksRenderer content={metier.pourquoi.opportunites} />
+            </div>
+          )}
         </div>
         <div className={styles.columnBis}>
-          <div className={styles.tile} key='statuts'>
-            <h3 className={styles.tileTitle}>Statuts</h3>
-            <BlocksRenderer content={metier.pourquoi.statuts} />
-          </div>
-          <div className={styles.tile} key='notes'>
-            <h3 className={styles.tileTitle}>Bon à savoir</h3>
-            <BlocksRenderer content={metier.pourquoi.notes} />
-          </div>
+          {metier.pourquoi.statuts && (
+            <div className={styles.tile} key='statuts'>
+              <h3 className={styles.tileTitle}>Statuts</h3>
+              <BlocksRenderer content={metier.pourquoi.statuts} />
+            </div>
+          )}
+          {metier.pourquoi.notes && (
+            <div className={styles.tile} key='notes'>
+              <h3 className={styles.tileTitle}>Bon à savoir</h3>
+              <BlocksRenderer content={metier.pourquoi.notes} />
+            </div>
+          )}
         </div>
       </div>
     </div>

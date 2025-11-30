@@ -7,6 +7,7 @@ const csp: Record<string, string[]> = {
   "media-src": ["'self'", "https:", "data:"],
   "script-src": ["'self'", "'unsafe-inline'"],
   "connect-src": ["'self'", "https://api-adresse.data.gouv.fr"],
+  "frame-src": ["'self'", "https://www.youtube.com"],
 }
 
 if (process.env.NODE_ENV === "development") {
@@ -19,6 +20,10 @@ const securityHeaders = [
   {
     key: "X-Content-Type-Options",
     value: "nosniff",
+  },
+  {
+    key: "X-Frame-Options",
+    value: "SAMEORIGIN",
   },
   {
     key: "X-XSS-Protection",
