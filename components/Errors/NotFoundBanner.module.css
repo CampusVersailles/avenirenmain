@@ -1,0 +1,41 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+
+  @media screen and (max-width: 53rem) {
+    flex-direction: column;
+  }
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.verticalSeparator {
+  width: 2px;
+  height: 2.5rem;
+  background-color: var(--text-color);
+
+  @media screen and (max-width: 53rem) {
+    display: none;
+  }
+}
