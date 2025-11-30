@@ -20,13 +20,15 @@
   font-weight: 600;
 }
 
+.descriptionVideo {
+  min-height: 20rem;
+  width: auto;
+}
+
 .descriptionImage {
-  width: calc((100% - 2rem) / 2);
   min-height: 35rem;
-  height: auto;
   object-fit: cover;
-  border-radius: 1rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  width: calc((100% - 2rem) / 2);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -35,6 +37,13 @@
     transform: scale(1.02);
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
   }
+}
+
+.descriptionVideo,
+.descriptionImage {
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 
   @media screen and (max-width: 53rem) {
     width: 100%;

@@ -4,6 +4,7 @@
   gap: 1rem;
 }
 
+.linkTile,
 .tile {
   position: relative;
   display: flex;
@@ -30,6 +31,10 @@
   }
 }
 
+.linkTile {
+  border-color: var(--primary-20);
+}
+
 .iconContainer {
   display: flex;
   align-items: center;
@@ -50,4 +55,37 @@
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 1.2;
+}
+
+.unavailableContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+
+  @media screen and (max-width: 53rem) {
+    flex-direction: column;
+  }
+}
+
+.unavailableText {
+  color: var(--text-color);
+  max-width: calc((100% - 3rem) / 1.5);
+}
+
+.unavailableIcon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.unavailableVerticalSeparator {
+  width: 1px;
+  height: 2.5rem;
+  background-color: var(--text-color);
+
+  @media screen and (max-width: 53rem) {
+    display: none;
+  }
 }

@@ -2,18 +2,15 @@ import Block from "@/components/Block/Block"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs"
 import Metier from "@/components/Metier/Metier"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
-import { Formation } from "@/strapi/formations"
 import { Metier as MetierType } from "@/strapi/metiers"
 
 const MetierPage = ({
   filiere,
   metier,
-  formations,
   domainesPro,
 }: {
   filiere: FiliereAvecMetiers
   metier: MetierType
-  formations: Formation[]
   domainesPro: { code: string; description: string }[]
 }) => {
   return (
@@ -27,7 +24,7 @@ const MetierPage = ({
         ]}
       />
       <Block>
-        <Metier filiere={filiere} metier={metier} formations={formations} domainesPro={domainesPro} />
+        <Metier filiere={filiere} metier={metier} domainesPro={domainesPro} />
       </Block>
     </>
   )

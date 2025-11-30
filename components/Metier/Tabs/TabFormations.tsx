@@ -1,19 +1,11 @@
 import styles from "./TabFormations.module.css"
-import { FiliereAvecMetiers } from "@/strapi/filieres"
 import { Metier as MetierType } from "@/strapi/metiers"
-import { Formation as FormationType } from "@/strapi/formations"
+import { getFormationsByRomeCode } from "@/strapi/formations"
 import Formation from "@/components/Formation/Formation"
 import Link from "next/link"
 
-export default function TabFormations({
-  filiere,
-  metier,
-  formations,
-}: {
-  filiere: FiliereAvecMetiers
-  metier: MetierType
-  formations: FormationType[]
-}) {
+export default async function TabFormations({ metier }: { metier: MetierType }) {
+  const formations = await getFormationsByRomeCode({ romeCode: metier.codeRomeMetier.code })
   const hasFormations = formations.length > 0
   return (
     <div className={styles.container}>
