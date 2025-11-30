@@ -108,9 +108,17 @@ export const getFormationsByRomeCode = async ({
 }) => {
   const response = await axiosClient.get<{
     data: FormationStrapi[]
-  }>(`formations?populate=adresse&filters[romeCodeMetiers][code][$eq]=${romeCode}&pagination[pageSize]=${maxResults}`)
+  }>(
+    `formations?populate[adresse][fields]=*&populate[filieres][populate][icone][fields]=url&filters[romeCodeMetiers][code][$eq]=${romeCode}&pagination[pageSize]=${maxResults}`,
+  )
 
-  return response.data.data
+  return response.data.data.map((formation) => ({
+    ...formation,
+    filieres: formation.filieres.map((filiere) => ({
+      ...filiere,
+      icone: filiere.icone?.url ? { url: `${process.env.STRAPI_URL}${filiere.icone.url}` } : undefined,
+    })),
+  }))
 }
 
 export type Formation = Awaited<ReturnType<typeof getFormations>>["formations"][number]

@@ -6,8 +6,10 @@ import { type BlocksContent } from "@strapi/blocks-react-renderer"
 export type MetierStrapi = {
   id: number
   titre: string
+  appellation: boolean
   codeRomeMetier: { code: string }
-  mediaPrincipal: { url: string }
+  mediaPrincipal?: { url: string }
+  mediaSecondaire?: { url: string }
   description: BlocksContent
   documentId: string
   tachesQuotidiennes: {
@@ -19,15 +21,14 @@ export type MetierStrapi = {
     description: BlocksContent
   }[]
   pourquoi: {
-    environnementTravail: BlocksContent
-    notes: BlocksContent
-    opportunites: BlocksContent
-    statuts: BlocksContent
+    environnementTravail?: BlocksContent
+    notes?: BlocksContent
+    opportunites?: BlocksContent
+    statuts?: BlocksContent
   }
   appellations: {
     nom: string
-    metierDisponible: boolean
-    metier: {
+    metier?: {
       documentId: string
     }
   }[]
@@ -42,15 +43,24 @@ export type MetierStrapi = {
     documentId: string
     nom: string
   }[]
+  videoUrl?: string
 }
 
 export const getMetier = async (metierDocumentId: string) => {
   const response = await axiosClient.get<{
     data: MetierStrapi
-  }>(`metiers/${metierDocumentId}?populate=*`)
+  }>(
+    `metiers/${metierDocumentId}?populate[mediaPrincipal][fields]=url&populate[mediaSecondaire][fields]=url&populate[appellations][populate][metier][fields]=documentId&populate[codeRomeMetier][fields]=code&populate[filieres][fields]=documentId,nom&populate[centresInterets][fields]=titre,description&populate[tachesQuotidiennes][fields]=titre,description&populate[pourquoi][fields]=environnementTravail,notes,opportunites,statuts&populate[salaire][fields]=valeur_basse,valeur_haute&populate[metiersProches][fields]=nom`,
+  )
+
   return {
     ...response.data.data,
-    mediaPrincipal: `${process.env.STRAPI_URL}${response.data.data.mediaPrincipal.url}`,
+    mediaPrincipal: response.data.data.mediaPrincipal
+      ? { url: `${process.env.STRAPI_URL}${response.data.data.mediaPrincipal.url}` }
+      : undefined,
+    mediaSecondaire: response.data.data.mediaSecondaire
+      ? { url: `${process.env.STRAPI_URL}${response.data.data.mediaSecondaire.url}` }
+      : undefined,
   }
 }
 
@@ -63,7 +73,7 @@ export const countMetiers = async () => {
         total: number
       }
     }
-  }>("metiers?pagination[pageSize]=1")
+  }>("metiers?pagination[pageSize]=1&filters[appellation][$eq]=false")
 
   return response.data.meta.pagination.total
 }
@@ -72,8 +82,12 @@ export const getMetierByRomeCode = async (romeCode: string) => {
   const response = await axiosClient.get<{
     data: MetierStrapi[]
   }>(`metiers?filters[codeRomeMetier][code][$eq]=${romeCode}&populate=*`)
+
   return {
     ...response.data.data[0],
-    mediaPrincipal: `${process.env.STRAPI_URL}${response.data.data[0].mediaPrincipal.url}`,
+    mediaPrincipal: response.data.data[0].mediaPrincipal
+      ? { url: `${process.env.STRAPI_URL}${response.data.data[0].mediaPrincipal.url}` }
+      : undefined,
+    mediaSecondaire: undefined,
   }
 }

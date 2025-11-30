@@ -1,5 +1,4 @@
 import { getDomainesPro, getFiliereById, getFilieresAndMetiersDocumentIdsOnly } from "@/strapi/filieres"
-import { getFormationsByRomeCode } from "@/strapi/formations"
 import { getMetier } from "@/strapi/metiers"
 import MetierPage from "@/views/MetierPage"
 import { notFound } from "next/navigation"
@@ -33,6 +32,5 @@ export default async function FiliereMetiers({
     notFound()
   }
 
-  const formations = await getFormationsByRomeCode({ romeCode: metier.codeRomeMetier.code })
-  return <MetierPage filiere={filiere} metier={metier} formations={formations} domainesPro={domainesPro} />
+  return <MetierPage filiere={filiere} metier={metier} domainesPro={domainesPro} />
 }

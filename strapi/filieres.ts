@@ -50,12 +50,18 @@ export const getFiliereById = async (filiereDocumentId: string) => {
   }>(
     `filieres/${filiereDocumentId}?populate[icone][fields]=url&populate[metiers][populate]=mediaPrincipal&populate=domainesPro&populate[metiers][populate]=codeRomeMetier`,
   )
+
   return {
     ...response.data.data,
-    metiers: response.data.data.metiers.map((metier) => ({
-      ...metier,
-      mediaPrincipal: `${process.env.STRAPI_URL}${metier.mediaPrincipal.url}`,
-    })),
+    metiers: response.data.data.metiers
+      .filter((metier) => !metier.appellation)
+      .sort((a, b) => a.titre.localeCompare(b.titre))
+      .map((metier) => ({
+        ...metier,
+        mediaPrincipal: metier.mediaPrincipal
+          ? { url: `${process.env.STRAPI_URL}${metier.mediaPrincipal.url}` }
+          : undefined,
+      })),
     icone: `${process.env.STRAPI_URL}${response.data.data.icone.url}`,
   }
 }
