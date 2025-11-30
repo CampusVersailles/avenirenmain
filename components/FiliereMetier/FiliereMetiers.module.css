@@ -3,3 +3,20 @@
   flex-wrap: wrap;
   gap: 2rem 1rem;
 }
+
+.tile {
+  width: calc((100% - 3rem) / 3);
+  aspect-ratio: 0.8;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  color: var(--text-color);
+
+  &:hover {
+    transform: translateY(-0.5rem);
+  }
+}
+
+.hidden {
+  display: none !important;
+}

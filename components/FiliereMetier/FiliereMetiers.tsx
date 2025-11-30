@@ -1,12 +1,20 @@
 "use client"
+
 import styles from "./FiliereMetiers.module.css"
 import FiliereMetier from "./FiliereMetier"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 import Filter from "./Filter/Filter"
 import { useState } from "react"
 import FiliereBanner from "./FiliereBanner"
+import classNames from "classnames"
 
-const FiliereMetiers = ({ filiere }: { filiere: FiliereAvecMetiers }) => {
+const FiliereMetiers = ({
+  filiere,
+  domainesPro,
+}: {
+  filiere: FiliereAvecMetiers
+  domainesPro: { code: string; description: string }[]
+}) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
 
   return (
@@ -14,14 +22,22 @@ const FiliereMetiers = ({ filiere }: { filiere: FiliereAvecMetiers }) => {
       <FiliereBanner filiere={filiere} />
       <Filter title='Domaines Professionnels' options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
       <div className={styles.metiers}>
-        {(selectedFilters.length > 0
-          ? filiere.metiers.filter((metier) =>
-              selectedFilters.some((filter) => metier.codeRomeMetier.code.startsWith(filter)),
-            )
-          : filiere.metiers
-        ).map((metier) => (
-          <FiliereMetier metier={metier} filiere={filiere} key={metier.id} />
-        ))}
+        {filiere.metiers.map((metier) => {
+          const hidden =
+            selectedFilters.length > 0 &&
+            !selectedFilters.some((filter) => metier.codeRomeMetier.code.startsWith(filter))
+
+          return (
+            <div
+              key={metier.id}
+              className={classNames(styles.tile, {
+                [styles.hidden]: hidden,
+              })}
+              aria-hidden={hidden}>
+              <FiliereMetier metier={metier} filiere={filiere} domainesPro={domainesPro} />
+            </div>
+          )
+        })}
       </div>
     </div>
   )

@@ -61,3 +61,10 @@ export const getFiliereById = async (filiereDocumentId: string) => {
 }
 
 export type FiliereAvecMetiers = Awaited<ReturnType<typeof getFiliereById>>
+
+export const getDomainesPro = async () => {
+  const response = await axiosClient.get<{
+    data: FiliereStrapi[]
+  }>("filieres?populate=domainesPro")
+  return response.data.data.flatMap((filiere) => filiere.domainesPro)
+}

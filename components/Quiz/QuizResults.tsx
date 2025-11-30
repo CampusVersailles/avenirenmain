@@ -1,56 +1,24 @@
 "use client"
 
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { getMetierByRomeCode, Metier } from "@/strapi/metiers"
 import FiliereMetier from "../FiliereMetier/FiliereMetier"
-import { AnswersByQuestionId, FiliereCode, filieresQuestions, VerbeCode, verbesQuestions } from "./Questions"
+import { FiliereCode, VerbeCode } from "./Questions"
 import styles from "./QuizResults.module.css"
 import { quizResultsByCombination } from "./Results"
 import { FiliereAvecMetiers, getFiliereById } from "@/strapi/filieres"
 
-function buildScores<Code extends string>(
-  questions: { id: string; answers: { id: string; code: Code }[] }[],
-  answers: AnswersByQuestionId,
-): Record<Code, number> {
-  return questions.reduce(
-    (acc, question) => {
-      const selectedId = answers[question.id]
-      if (!selectedId) return acc
-
-      const answer = question.answers.find((a) => a.id === selectedId)
-      if (!answer) return acc
-
-      acc[answer.code] = (acc[answer.code] || 0) + 1
-      return acc
-    },
-    {} as Record<Code, number>,
-  )
-}
-
-function getMaxKey<Code extends string>(scores: Record<Code, number>, fallback: Code): Code {
-  let maxKey = fallback
-  let maxValue = -1
-
-  for (const [key, value] of Object.entries(scores) as [Code, number][]) {
-    if (value > maxValue) {
-      maxValue = value
-      maxKey = key
-    }
-  }
-
-  return maxKey
-}
-
-const QuizResults = ({ answers }: { answers: AnswersByQuestionId }) => {
-  const filieresResults = useMemo(() => buildScores<FiliereCode>(filieresQuestions, answers), [answers])
-
-  const verbesResults = useMemo(() => buildScores<VerbeCode>(verbesQuestions, answers), [answers])
-
-  const maxFiliere = getMaxKey<FiliereCode>(filieresResults, "ART")
-  const maxVerbe = getMaxKey<VerbeCode>(verbesResults, "Organiser")
-
-  const result = quizResultsByCombination[maxFiliere]?.[maxVerbe]
+const QuizResults = ({
+  filiere,
+  verbe,
+  domainesPro,
+}: {
+  filiere: FiliereCode
+  verbe: VerbeCode
+  domainesPro: { code: string; description: string }[]
+}) => {
+  const result = quizResultsByCombination[filiere]?.[verbe]
 
   const [metiersWithFilieres, setMetiersWithFilieres] = useState<{ metier: Metier; filiere: FiliereAvecMetiers }[]>([])
 
@@ -89,7 +57,7 @@ const QuizResults = ({ answers }: { answers: AnswersByQuestionId }) => {
 
       <div className={styles.metiers}>
         {metiersWithFilieres.map(({ metier, filiere }) => (
-          <FiliereMetier key={metier.documentId} metier={metier} filiere={filiere} />
+          <FiliereMetier key={metier.documentId} metier={metier} filiere={filiere} domainesPro={domainesPro} />
         ))}
       </div>
 

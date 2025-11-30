@@ -1,4 +1,4 @@
-import { getFiliereById, getFilieres } from "@/strapi/filieres"
+import { getDomainesPro, getFiliereById, getFilieres } from "@/strapi/filieres"
 import FiliereMetiersPage from "@/views/FiliereMetiersPage"
 import { notFound } from "next/navigation"
 
@@ -12,9 +12,10 @@ export async function generateStaticParams() {
 
 export default async function FiliereMetiers({ params }: { params: Promise<{ filiereDocumentId: string }> }) {
   const { filiereDocumentId } = await params
-  const filiere = await getFiliereById(filiereDocumentId).catch(() => null)
+  const [filiere, domainesPro] = await Promise.all([getFiliereById(filiereDocumentId), getDomainesPro()])
+
   if (!filiere) {
     notFound()
   }
-  return <FiliereMetiersPage filiere={filiere} />
+  return <FiliereMetiersPage filiere={filiere} domainesPro={domainesPro} />
 }

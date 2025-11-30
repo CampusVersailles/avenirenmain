@@ -3,7 +3,13 @@ import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs"
 import FiliereMetiers from "@/components/FiliereMetier/FiliereMetiers"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 
-const FiliereMetiersPage = ({ filiere }: { filiere: FiliereAvecMetiers }) => {
+const FiliereMetiersPage = ({
+  filiere,
+  domainesPro,
+}: {
+  filiere: FiliereAvecMetiers
+  domainesPro: { code: string; description: string }[]
+}) => {
   return (
     <>
       <Breadcrumbs
@@ -14,7 +20,7 @@ const FiliereMetiersPage = ({ filiere }: { filiere: FiliereAvecMetiers }) => {
         ]}
       />
       <Block>
-        <FiliereMetiers filiere={filiere} />
+        <FiliereMetiers filiere={filiere} domainesPro={domainesPro} />
       </Block>
     </>
   )

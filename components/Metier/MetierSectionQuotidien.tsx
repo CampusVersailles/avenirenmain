@@ -10,12 +10,26 @@ export default function MetierQuotidien({ metier }: { metier: MetierType }) {
         Ce que tu fais <span className={styles.highlight}>au quotidien</span>
       </h2>
       <div className={styles.tilesContainer}>
-        {metier.tachesQuotidiennes.map((tache) => (
-          <div className={classNames(styles.tile, styles.alternateTile)} key={tache.titre}>
-            <h3 className={styles.tileTitle}>{tache.titre}</h3>
-            <BlocksRenderer content={tache.description} />
-          </div>
-        ))}
+        <div className={styles.column}>
+          {metier.tachesQuotidiennes
+            .filter((_, index) => index % 2 === 0)
+            .map((tache) => (
+              <div className={classNames(styles.tile, styles.alternateTile)} key={tache.titre}>
+                <h3 className={styles.tileTitle}>{tache.titre}</h3>
+                <BlocksRenderer content={tache.description} />
+              </div>
+            ))}
+        </div>
+        <div className={styles.columnBis}>
+          {metier.tachesQuotidiennes
+            .filter((_, index) => index % 2 === 1)
+            .map((tache) => (
+              <div className={classNames(styles.tile, styles.alternateTile)} key={tache.titre}>
+                <h3 className={styles.tileTitle}>{tache.titre}</h3>
+                <BlocksRenderer content={tache.description} />
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   )

@@ -9,12 +9,26 @@ export default function MetierCentresInterets({ metier }: { metier: MetierType }
         Ce qu’il faut <span className={styles.highlight}>aimer</span>
       </h2>
       <div className={styles.tilesContainer}>
-        {metier.centresInterets.map((centreInteret) => (
-          <div className={styles.tile} key={centreInteret.titre}>
-            <h3 className={styles.tileTitle}>{centreInteret.titre}</h3>
-            <BlocksRenderer content={centreInteret.description} />
-          </div>
-        ))}
+        <div className={styles.column}>
+          {metier.centresInterets
+            .filter((_, index) => index % 2 === 0)
+            .map((centreInteret) => (
+              <div className={styles.tile} key={centreInteret.titre}>
+                <h3 className={styles.tileTitle}>{centreInteret.titre}</h3>
+                <BlocksRenderer content={centreInteret.description} />
+              </div>
+            ))}
+        </div>
+        <div className={styles.columnBis}>
+          {metier.centresInterets
+            .filter((_, index) => index % 2 === 1)
+            .map((centreInteret) => (
+              <div className={styles.tile} key={centreInteret.titre}>
+                <h3 className={styles.tileTitle}>{centreInteret.titre}</h3>
+                <BlocksRenderer content={centreInteret.description} />
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   )

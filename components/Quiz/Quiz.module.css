@@ -5,6 +5,7 @@
 }
 
 .quizTitle {
+  margin-top: 1rem;
   font-size: 1.4rem;
   color: var(--title-color);
   font-weight: 600;
@@ -22,13 +23,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.25rem;
-  padding: 1.25rem;
+  padding: 1.25rem 2rem 1.25rem 1.25rem;
   border-radius: 1rem;
   border: 2px solid var(--card-border-color);
   background: var(--card-color);
   cursor: pointer;
   text-align: left;
   font-size: 1rem;
+}
+
+.quizOption:has(.hiddenRadio:focus-visible) {
+  outline: 3px solid var(--primary-50);
+  outline-offset: 2px;
 }
 
 .quizOptionContent {
@@ -52,11 +58,9 @@
   justify-content: center;
 }
 
-.quizOptionCheckboxInner {
-  width: 0.8rem;
-  height: 0.8rem;
-  border-radius: 2px;
+.quizOptionCheckboxSelected {
   background: var(--primary-50);
+  border-color: var(--primary-50);
 }
 
 .quizOptionText {
@@ -94,13 +98,22 @@
   font-weight: 600;
   color: var(--primary-50);
   font-size: 1.2rem;
-  align-self: flex-end;
+  outline: 2px solid var(--primary-50);
+  outline-offset: 0.5rem;
+  border-radius: 0.125rem;
+
+  @media screen and (max-width: 29.875rem) {
+    display: none;
+  }
 }
 
 .hiddenRadio {
   position: absolute;
   opacity: 0;
-  pointer-events: none;
-  width: 0;
-  height: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
