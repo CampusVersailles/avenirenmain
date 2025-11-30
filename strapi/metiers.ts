@@ -3,6 +3,20 @@
 import axiosClient from "@/services/axios"
 import { type BlocksContent } from "@strapi/blocks-react-renderer"
 
+// Populate parameters for the getMetier query, extracted for better maintainability
+const METIER_POPULATE_PARAMS = [
+  "populate[mediaPrincipal][fields]=url",
+  "populate[mediaSecondaire][fields]=url",
+  "populate[appellations][populate][metier][fields]=documentId",
+  "populate[codeRomeMetier][fields]=code",
+  "populate[filieres][fields]=documentId,nom",
+  "populate[centresInterets][fields]=titre,description",
+  "populate[tachesQuotidiennes][fields]=titre,description",
+  "populate[pourquoi][fields]=environnementTravail,notes,opportunites,statuts",
+  "populate[salaire][fields]=valeur_basse,valeur_haute",
+  "populate[metiersProches][fields]=nom",
+].join("&")
+
 export type MetierStrapi = {
   id: number
   titre: string
@@ -49,9 +63,7 @@ export type MetierStrapi = {
 export const getMetier = async (metierDocumentId: string) => {
   const response = await axiosClient.get<{
     data: MetierStrapi
-  }>(
-    `metiers/${metierDocumentId}?populate[mediaPrincipal][fields]=url&populate[mediaSecondaire][fields]=url&populate[appellations][populate][metier][fields]=documentId&populate[codeRomeMetier][fields]=code&populate[filieres][fields]=documentId,nom&populate[centresInterets][fields]=titre,description&populate[tachesQuotidiennes][fields]=titre,description&populate[pourquoi][fields]=environnementTravail,notes,opportunites,statuts&populate[salaire][fields]=valeur_basse,valeur_haute&populate[metiersProches][fields]=nom`,
-  )
+  }>(`metiers/${metierDocumentId}?${METIER_POPULATE_PARAMS}`)
 
   return {
     ...response.data.data,
