@@ -7,6 +7,7 @@ import Filter from "./Filter/Filter"
 import Pagination from "./Pagination"
 import styles from "./Formations.module.css"
 import { CityResult } from "./Filter/CityAutocomplete"
+import { Metier } from "@/strapi/metiers"
 
 const Formations = ({
   filieres,
@@ -15,6 +16,7 @@ const Formations = ({
   formations,
   pagination,
   filters,
+  metier,
 }: {
   filieres: Option[]
   niveaux: Option[]
@@ -22,6 +24,7 @@ const Formations = ({
   formations: FormationType[]
   pagination: { page: number; pageSize: number; pageCount: number; total: number }
   filters: FilterType
+  metier: Metier | null
 }) => {
   const router = useRouter()
 
@@ -42,6 +45,9 @@ const Formations = ({
     }
     if (newFilters.duree) {
       params.set("duree", newFilters.duree)
+    }
+    if (newFilters.romeCode) {
+      params.set("romeCode", newFilters.romeCode)
     }
     if (newFilters.city) {
       params.set("city", newFilters.city.properties.label)
@@ -73,6 +79,10 @@ const Formations = ({
     updateURL({ ...filters, city }, 1)
   }
 
+  const handleRemoveMetier = () => {
+    updateURL({ ...filters, romeCode: "" }, 1)
+  }
+
   return (
     <>
       <Filter
@@ -92,6 +102,9 @@ const Formations = ({
         onAlternanceChange={(value) => handleFilterChange("alternance", value)}
         onDureeChange={(value) => handleFilterChange("duree", value)}
         totalResults={pagination.total}
+        selectedRomeCode={filters.romeCode}
+        metier={metier}
+        onRemoveMetier={handleRemoveMetier}
       />
 
       <div className={styles.formations}>

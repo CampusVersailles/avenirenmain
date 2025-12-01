@@ -3,10 +3,9 @@ import styles from "./MetierDescription.module.css"
 import { Metier as MetierType } from "@/strapi/metiers"
 import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import MetierTrouverFormation from "./MetierTrouverFormation"
-import { FiliereAvecMetiers } from "@/strapi/filieres"
 import Image from "next/image"
 
-export default function MetierDescription({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: MetierType }) {
+export default function MetierDescription({ metier }: { metier: MetierType }) {
   const getEmbedUrl = (url: string) => {
     // Convertir l'URL YouTube en URL embed
     const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/
@@ -24,7 +23,7 @@ export default function MetierDescription({ filiere, metier }: { filiere: Filier
           Le métier en <span className={styles.highlight}>un clin d'œil</span>
         </h2>
         <BlocksRenderer content={replaceNewlinesInBlocks(metier.description)} />
-        <MetierTrouverFormation filiere={filiere} metier={metier} />
+        <MetierTrouverFormation metier={metier} />
       </div>
       {metier.videoUrl ? (
         <iframe

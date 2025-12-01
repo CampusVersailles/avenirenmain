@@ -5,6 +5,9 @@ import styles from "./Filter.module.css"
 import SearchIcon from "@/components/Icons/SearchIcon"
 import CityAutocomplete, { CityResult } from "./CityAutocomplete"
 import { Option } from "@/strapi/formations"
+import { Metier } from "@/strapi/metiers"
+import JobIcon from "@/components/Icons/Job"
+import CloseIcon from "@/components/Icons/CloseIcon"
 
 const Filter = ({
   search,
@@ -18,11 +21,14 @@ const Filter = ({
   selectedDiplome,
   selectedAlternance,
   selectedDuree,
+  selectedRomeCode,
   onFiliereChange,
   onDiplomeChange,
   onAlternanceChange,
   onDureeChange,
   totalResults,
+  metier,
+  onRemoveMetier,
 }: {
   search: string
   onSearchChange: (search: string) => void
@@ -40,6 +46,9 @@ const Filter = ({
   onAlternanceChange: (alternance: string) => void
   onDureeChange: (duree: string) => void
   totalResults: number
+  selectedRomeCode: string
+  metier: Metier | null
+  onRemoveMetier: () => void
 }) => {
   const [text, setText] = useState(search)
 
@@ -63,6 +72,20 @@ const Filter = ({
 
   return (
     <div className={styles.filter}>
+      {selectedRomeCode && metier && (
+        <div className={styles.row}>
+          <div className={styles.searchField}>
+            <label htmlFor='romeCode'>Métier sélectionné</label>
+            <div className={styles.metierWrapper}>
+              <JobIcon />
+              <p className={styles.metierTitle}>{metier.titre}</p>
+              <button onClick={onRemoveMetier} className={styles.button}>
+                <CloseIcon className={styles.closeIcon} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className={styles.row}>
         <div className={styles.searchField}>
           <label htmlFor='search'>Recherche ta formation</label>

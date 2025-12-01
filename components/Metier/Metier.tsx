@@ -39,7 +39,7 @@ const Metier = ({
   return (
     <div className={styles.metier}>
       <MetierBanner metier={metier} domainesPro={domainesPro} />
-      <MetierDescription filiere={filiere} metier={metier} />
+      <MetierDescription metier={metier} />
       <MetierCentresInterets metier={metier} />
       <MetierQuotidien metier={metier} />
       <MetierPerspectives metier={metier} />

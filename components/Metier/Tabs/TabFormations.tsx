@@ -16,7 +16,9 @@ export default async function TabFormations({ metier }: { metier: MetierType }) 
               <Formation formation={formation} key={formation.documentId} />
             ))}
           </div>
-          <Link className={styles.button} href={`/formations`}>
+          <Link
+            className={styles.button}
+            href={`/formations?romeCode=${encodeURIComponent(metier.codeRomeMetier.code)}`}>
             <p>Voir toutes les formations pour ce métier</p>
           </Link>
         </>
