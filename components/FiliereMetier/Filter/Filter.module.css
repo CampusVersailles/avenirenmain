@@ -20,6 +20,7 @@
 
 .badge {
   display: flex;
+  max-width: 100%;
   align-items: center;
   gap: 0.5rem;
   padding: 0.2rem 0.7rem;
@@ -30,7 +31,6 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  white-space: nowrap;
 
   &:hover {
     background: var(--primary-10);
@@ -52,4 +52,10 @@
 
 .badge.active .icon {
   transform: rotate(45deg);
+}
+
+.text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

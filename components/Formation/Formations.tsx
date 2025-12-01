@@ -30,7 +30,7 @@ const Formations = ({
 
   const updateURL = (newFilters: FilterType, page: number) => {
     const params = new URLSearchParams()
-
+    let scroll = false
     if (newFilters.search) {
       params.set("search", newFilters.search)
     }
@@ -64,11 +64,12 @@ const Formations = ({
       }
     }
     if (page > 1) {
+      scroll = true
       params.set("page", page.toString())
     }
 
     const queryString = params.toString()
-    router.push(queryString ? `?${queryString}` : "/formations", { scroll: false })
+    router.push(queryString ? `?${queryString}` : "/formations", { scroll })
   }
 
   const handleFilterChange = (key: keyof typeof filters, value: string) => {

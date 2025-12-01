@@ -2,6 +2,11 @@ import { getFilieres } from "@/strapi/filieres"
 import { getFormationNiveaux, getFormationDurees, getFormations } from "@/strapi/formations"
 import { getMetierByRomeCode } from "@/strapi/metiers"
 import FormationsPage from "@/views/FormationsPage"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Formations | L’Avenir en Main",
+}
 
 const Formations = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) => {
   const params = await searchParams
@@ -33,7 +38,6 @@ const Formations = async ({ searchParams }: { searchParams: Promise<{ [key: stri
   const { formations, pagination } = await getFormations(filters, page)
 
   const metier = filters.romeCode ? await getMetierByRomeCode(filters.romeCode) : null
-
   return (
     <FormationsPage
       filieres={filieres

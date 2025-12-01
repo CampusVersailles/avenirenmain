@@ -1,22 +1,13 @@
 "use client"
-
 import { Filiere } from "@/strapi/filieres"
-import styles from "./Filieres.module.css"
-import Video from "../Video/Video"
+import styles from "./FiliereCard.module.css"
 import Link from "next/link"
-import { useRef } from "react"
 import Image from "next/image"
 
 const FiliereCard = ({ filiere }: { filiere: Filiere }) => {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
   return (
-    <Link
-      className={styles.filiere}
-      href={`/metiers/${filiere.documentId}`}
-      onMouseEnter={() => videoRef.current?.play()}
-      onMouseLeave={() => videoRef.current?.pause()}>
-      <Video ref={videoRef} src={filiere.video} onMouseEnter={() => {}} onMouseLeave={() => {}} />
+    <Link className={styles.filiere} href={`/metiers/${filiere.documentId}`}>
+      <Image src={filiere.photo} alt='' height={400} width={250} className={styles.image} />
       <div className={styles.content}>
         <p className={styles.badge}>
           <Image src={filiere.icone} alt='' width={24} height={24} />

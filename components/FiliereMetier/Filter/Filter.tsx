@@ -53,7 +53,7 @@ const Filter = ({ title, options, onFilterChange }: FilterProps) => {
             key={option.code}
             className={classNames(styles.badge, { [styles.active]: selectedFilters.includes(option.code) })}
             onClick={() => toggleFilter(option.code)}>
-            <span>{option.description}</span>
+            <span className={styles.text}>{option.description}</span>
             <span className={styles.icon}>+</span>
           </button>
         ))}
