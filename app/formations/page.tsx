@@ -1,5 +1,6 @@
 import { getFilieres } from "@/strapi/filieres"
 import { getFormationNiveaux, getFormationDurees, getFormations } from "@/strapi/formations"
+import { getMetierByRomeCode } from "@/strapi/metiers"
 import FormationsPage from "@/views/FormationsPage"
 
 const Formations = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) => {
@@ -12,6 +13,7 @@ const Formations = async ({ searchParams }: { searchParams: Promise<{ [key: stri
     diplome: params.diplome || "",
     alternance: params.alternance || "",
     duree: params.duree || "",
+    romeCode: params.romeCode || "",
     city:
       params.city && params.lat && params.lon
         ? {
@@ -29,6 +31,8 @@ const Formations = async ({ searchParams }: { searchParams: Promise<{ [key: stri
 
   const page = parseInt(params.page || "1")
   const { formations, pagination } = await getFormations(filters, page)
+
+  const metier = filters.romeCode ? await getMetierByRomeCode(filters.romeCode) : null
 
   return (
     <FormationsPage
@@ -49,6 +53,7 @@ const Formations = async ({ searchParams }: { searchParams: Promise<{ [key: stri
       formations={formations}
       pagination={pagination}
       filters={filters}
+      metier={metier}
     />
   )
 }

@@ -15,6 +15,7 @@ export type FilterType = {
   diplome: string
   alternance: string
   duree: string
+  romeCode: string
 }
 
 export type FormationStrapi = {
@@ -70,6 +71,9 @@ export const getFormations = async (filter: FilterType, page: number) => {
     }
     if (filter.duree) {
       filterQuery += `&filters[formationDuree][documentId][$eq]=${filter.duree}`
+    }
+    if (filter.romeCode) {
+      filterQuery += `&filters[romeCodeMetiers][code][$contains]=${filter.romeCode}`
     }
   }
 

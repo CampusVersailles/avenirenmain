@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react"
 import styles from "./CityAutocomplete.module.css"
 import filterStyles from "./Filter.module.css"
-import SearchIcon from "@/components/Icons/SearchIcon"
 import MapPinIcon from "@/components/Icons/MapPinIcon"
 
 export interface CityResult {

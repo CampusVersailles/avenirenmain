@@ -2,6 +2,7 @@ import Block from "@/components/Block/Block"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs"
 import Formations from "@/components/Formation/Formations"
 import { type Option, type Formation, type FilterType } from "@/strapi/formations"
+import { Metier } from "@/strapi/metiers"
 
 const FormationsPage = ({
   filieres,
@@ -10,6 +11,7 @@ const FormationsPage = ({
   formations,
   pagination,
   filters,
+  metier,
 }: {
   filieres: Option[]
   niveaux: Option[]
@@ -17,6 +19,7 @@ const FormationsPage = ({
   formations: Formation[]
   pagination: { page: number; pageSize: number; pageCount: number; total: number }
   filters: FilterType
+  metier: Metier | null
 }) => {
   return (
     <>
@@ -35,6 +38,7 @@ const FormationsPage = ({
           formations={formations}
           pagination={pagination}
           filters={filters}
+          metier={metier}
         />
       </Block>
     </>
