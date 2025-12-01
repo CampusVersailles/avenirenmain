@@ -54,7 +54,7 @@ const Menu = () => {
           </Link>
         </li>
         <li>
-          <Link className={headerStyles.link} href='/test'>
+          <Link className={headerStyles.link} href='/quiz'>
             Je passe le test
           </Link>
         </li>
