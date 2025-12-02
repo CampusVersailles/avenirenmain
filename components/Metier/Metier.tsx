@@ -50,7 +50,7 @@ const Metier = ({
     },
     { id: "salaire", label: "Salaire estimé", component: <TabSalaire metier={metier} /> },
   ]
-  console.log(metier.metiersProches)
+
   return (
     <div className={styles.metier}>
       <MetierBanner metier={metier} domainesPro={domainesPro} />
