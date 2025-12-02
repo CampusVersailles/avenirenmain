@@ -6,7 +6,7 @@ export default function MetierPerspectives({ metier }: { metier: MetierType }) {
   return (
     <div className={styles.sectionBlock}>
       <h2 className={styles.sectionTitle}>
-        Pourquoi pas <span className={styles.highlight}>ce métier</span> ?
+        Pourquoi <span className={styles.highlight}>ce métier</span> ?
       </h2>
       <div className={styles.tilesContainer}>
         <div className={styles.column}>

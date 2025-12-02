@@ -8,7 +8,7 @@ type FiliereStrapi = {
   documentId: string
   titre: string
   nom: string
-  video: { url: string }
+  photo: { url: string }
   icone: { url: string }
   description: string
   metiers: MetierStrapi[]
@@ -21,11 +21,11 @@ type FiliereStrapi = {
 export const getFilieres = async () => {
   const response = await axiosClient.get<{
     data: Omit<FiliereStrapi, "metiers">[]
-  }>("filieres?populate=video&populate=icone")
+  }>("filieres?populate=photo&populate=icone")
 
   return response.data.data.map((filiere) => ({
     ...filiere,
-    video: `${process.env.STRAPI_URL}${filiere.video.url}`,
+    photo: `${process.env.STRAPI_URL}${filiere.photo.url}`,
     icone: `${process.env.STRAPI_URL}${filiere.icone.url}`,
   }))
 }

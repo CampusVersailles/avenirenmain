@@ -6,7 +6,6 @@ import { FiliereAvecMetiers } from "@/strapi/filieres"
 import Filter from "./Filter/Filter"
 import { useState } from "react"
 import FiliereBanner from "./FiliereBanner"
-import classNames from "classnames"
 
 const FiliereMetiers = ({
   filiere,
@@ -28,14 +27,14 @@ const FiliereMetiers = ({
             !selectedFilters.some((filter) => metier.codeRomeMetier.code.startsWith(filter))
 
           return (
-            <div
+            <FiliereMetier
+              metier={metier}
+              filiere={filiere}
+              domainesPro={domainesPro}
+              className={hidden ? styles.hidden : undefined}
               key={metier.id}
-              className={classNames(styles.tile, {
-                [styles.hidden]: hidden,
-              })}
-              aria-hidden={hidden}>
-              <FiliereMetier metier={metier} filiere={filiere} domainesPro={domainesPro} />
-            </div>
+              ariaHidden={hidden}
+            />
           )
         })}
       </div>

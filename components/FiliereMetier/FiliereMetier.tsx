@@ -5,34 +5,41 @@ import Link from "next/link"
 import Image from "next/image"
 import { replaceNewlinesInBlocks } from "@/lib/text_utils"
 import { memo } from "react"
+import classNames from "classnames"
 
 const FiliereMetier = memo(
   ({
     metier,
     filiere,
     domainesPro,
+    className,
+    ariaHidden,
   }: {
     metier: FiliereAvecMetiers["metiers"][number]
     filiere: FiliereAvecMetiers
     domainesPro: { code: string; description: string }[]
+    className?: string
+    ariaHidden?: boolean
   }) => {
     return (
-      <Link href={`/metiers/${filiere.documentId}/${metier.documentId}`} className={styles.tile}>
-        {metier.mediaPrincipal && (
-          <>
-            <Image className={styles.image} src={metier.mediaPrincipal.url} alt='' width={250} height={145} />
-            <p className={styles.domaine}>
-              {domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))?.description}
-            </p>
-          </>
-        )}
-        <div className={styles.content}>
-          <p className={styles.title}>{metier.titre}</p>
-          <div className={styles.description}>
-            <BlocksRenderer content={replaceNewlinesInBlocks(metier.description)} />
+      <div className={classNames(styles.tile, className)} aria-hidden={ariaHidden}>
+        <Link href={`/metiers/${filiere.documentId}/${metier.documentId}`} className={styles.link}>
+          {metier.mediaPrincipal && (
+            <>
+              <Image className={styles.image} src={metier.mediaPrincipal.url} alt='' width={250} height={145} />
+              <p className={styles.domaine}>
+                {domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))?.description}
+              </p>
+            </>
+          )}
+          <div className={styles.content}>
+            <p className={styles.title}>{metier.titre}</p>
+            <div className={styles.description}>
+              <BlocksRenderer content={replaceNewlinesInBlocks(metier.description)} />
+            </div>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
     )
   },
 )

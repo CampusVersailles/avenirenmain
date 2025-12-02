@@ -59,11 +59,7 @@ const Filter = ({
   useEffect(() => {
     const debounce = setTimeout(() => {
       if (search !== text) {
-        if (text.length > 2) {
-          onSearchChange(text)
-        } else if (search !== "") {
-          onSearchChange("")
-        }
+        onSearchChange(text)
       }
     }, 300)
 

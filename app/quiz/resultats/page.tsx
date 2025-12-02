@@ -1,6 +1,11 @@
 import { FiliereCode, VerbeCode } from "@/components/Quiz/Questions"
 import { getDomainesPro } from "@/strapi/filieres"
 import QuizResultsPage from "@/views/QuizResultsPage"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Quiz | L’Avenir en Main",
+}
 
 const QuizResultats = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) => {
   const params = await searchParams
