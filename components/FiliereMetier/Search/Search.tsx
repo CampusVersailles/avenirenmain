@@ -10,22 +10,63 @@ import { FiliereAvecMetiers } from "@/strapi/filieres"
 
 const MAX_RESULTS = 8
 
+type SearchItem = {
+  type: "metier" | "appellation"
+  titre: string
+  documentIdMetier: string
+  documentIdAppellation?: string
+  titreAppellation?: string
+  titreMetier: string
+}
+
+function getSearchItemLink(filiere: FiliereAvecMetiers, item: SearchItem) {
+  if (item.type === "metier" || !item.documentIdAppellation) {
+    return `/metiers/${filiere.documentId}/${item.documentIdMetier}`
+  } else {
+    return `/metiers/${filiere.documentId}/${item.documentIdAppellation}`
+  }
+}
+
 export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
   const metiers = filiere.metiers
   const router = useRouter()
   const [query, setQuery] = useState("")
-  const [results, setResults] = useState<MetierStrapi[]>([])
+  const [results, setResults] = useState<SearchItem[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const wrapperRef = useRef<HTMLDivElement>(null)
 
+  console.log("metiers", metiers)
+
+  const searchItems = useMemo<SearchItem[]>(() => {
+    return metiers.flatMap((metier) => {
+      const metierItem: SearchItem = {
+        type: "metier",
+        titre: metier.titre,
+        documentIdMetier: metier.documentId,
+        titreMetier: metier.titre,
+      }
+
+      const appellationsItems: SearchItem[] = metier.appellations.map((appellation) => ({
+        type: "appellation",
+        titre: appellation.nom,
+        documentIdMetier: metier.documentId,
+        documentIdAppellation: appellation.metier?.documentId ?? undefined,
+        titreAppellation: appellation.nom,
+        titreMetier: metier.titre,
+      }))
+
+      return [metierItem, ...appellationsItems]
+    })
+  }, [metiers])
+
   const fuse = useMemo(() => {
-    return new Fuse(metiers, {
-      keys: ["titre", "description"],
+    return new Fuse(searchItems, {
+      keys: ["titre"],
       threshold: 0.3,
       ignoreLocation: true,
     })
-  }, [metiers])
+  }, [searchItems])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -46,7 +87,6 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
       setSelectedIndex(-1)
       return
     }
-    console.log("query", query)
 
     const searchResults = fuse.search(query).slice(0, MAX_RESULTS)
     setResults(searchResults.map((r) => r.item))
@@ -54,11 +94,12 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
     setIsOpen(true)
   }, [query, fuse])
 
-  const handleSelect = (metier: MetierStrapi) => {
+  const handleSelect = (item: SearchItem) => {
+    console.log("handleSelect", item)
     setIsOpen(false)
     setQuery("")
     setResults([])
-    router.push(`/metiers/${filiere.documentId}/${metier.documentId}`)
+    router.push(getSearchItemLink(filiere, item))
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -87,8 +128,8 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
 
   return (
     <div className={styles.row}>
-      <div className={styles.searchField}>
-        <div className={styles.inputWrapper} ref={wrapperRef}>
+      <div className={styles.searchField} ref={wrapperRef}>
+        <div className={styles.inputWrapper}>
           <SearchIcon />
           <input
             id='search'
@@ -117,7 +158,13 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
                 aria-selected={index === selectedIndex}
                 onClick={() => handleSelect(metier)}
                 className={styles.suggestion}>
-                <span className={styles.metier}>{metier.titre}</span>
+                {metier.type === "metier" ? (
+                  <span className={styles.metier}>{metier.titreMetier}</span>
+                ) : (
+                  <span className={styles.metier}>
+                    {metier.titreMetier} (ex: <span className={styles.appellation}>{metier.titreAppellation}</span>)
+                  </span>
+                )}
               </li>
             ))}
           </ul>
