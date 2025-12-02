@@ -38,6 +38,9 @@ export type MetierStrapi = {
   }
   metiersProches: {
     nom: string
+    metier?: {
+      documentId: string
+    }
   }[]
   filieres: {
     documentId: string
@@ -50,7 +53,7 @@ export const getMetier = async (metierDocumentId: string) => {
   const response = await axiosClient.get<{
     data: MetierStrapi
   }>(
-    `metiers/${metierDocumentId}?populate[mediaPrincipal][fields]=url&populate[mediaSecondaire][fields]=url&populate[appellations][populate][metier][fields]=documentId&populate[codeRomeMetier][fields]=code&populate[filieres][fields]=documentId,nom&populate[centresInterets][fields]=titre,description&populate[tachesQuotidiennes][fields]=titre,description&populate[pourquoi][fields]=environnementTravail,notes,opportunites,statuts&populate[salaire][fields]=valeur_basse,valeur_haute&populate[metiersProches][fields]=nom`,
+    `metiers/${metierDocumentId}?populate[mediaPrincipal][fields]=url&populate[mediaSecondaire][fields]=url&populate[appellations][populate][metier][fields]=documentId&populate[codeRomeMetier][fields]=code&populate[filieres][fields]=documentId,nom&populate[centresInterets][fields]=titre,description&populate[tachesQuotidiennes][fields]=titre,description&populate[pourquoi][fields]=environnementTravail,notes,opportunites,statuts&populate[salaire][fields]=valeur_basse,valeur_haute&populate[metiersProches][fields]=nom&populate[metiersProches][populate][metier][fields]=documentId`,
   )
 
   return {

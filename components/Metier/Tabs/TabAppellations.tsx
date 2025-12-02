@@ -1,15 +1,22 @@
 import styles from "./TabAppellations.module.css"
-import { Metier as MetierType } from "@/strapi/metiers"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 import Image from "next/image"
 import Link from "next/link"
 import JobIcon from "@/components/Icons/Job"
 
-export default function TabAppellations({ filiere, metier }: { filiere: FiliereAvecMetiers; metier: MetierType }) {
+export default function TabAppellations({
+  filiere,
+  appellations,
+  notFoundMessage,
+}: {
+  filiere: FiliereAvecMetiers
+  appellations: { nom: string; metier?: { documentId: string } }[]
+  notFoundMessage: string
+}) {
   return (
     <div className={styles.container}>
-      {metier.appellations.length > 0 ? (
-        metier.appellations
+      {appellations.length > 0 ? (
+        appellations
           .sort((a, b) => {
             if (a.metier && !b.metier) {
               return -1
@@ -43,7 +50,7 @@ export default function TabAppellations({ filiere, metier }: { filiere: FiliereA
         <div className={styles.unavailableContainer}>
           <JobIcon className={styles.unavailableIcon} />
           <div className={styles.unavailableVerticalSeparator} />
-          <p className={styles.unavailableText}>Aucune spécialisation disponible pour ce métier.</p>
+          <p className={styles.unavailableText}>{notFoundMessage}</p>
         </div>
       )}
     </div>
