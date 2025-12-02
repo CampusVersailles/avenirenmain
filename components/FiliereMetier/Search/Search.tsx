@@ -1,6 +1,5 @@
 "use client"
 
-import { MetierStrapi } from "@/strapi/metiers"
 import styles from "./Search.module.css"
 import SearchIcon from "@/components/Icons/SearchIcon"
 import { useMemo, useState, useEffect, useRef } from "react"
@@ -30,7 +29,6 @@ function getSearchItemLink(filiere: FiliereAvecMetiers, item: SearchItem) {
 export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
   const metiers = filiere.metiers
   const router = useRouter()
-  const [query, setQuery] = useState("")
   const [results, setResults] = useState<SearchItem[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(-1)
@@ -72,7 +70,6 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
     const handleClickOutside = (event: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
         setIsOpen(false)
-        setQuery("")
         setSelectedIndex(-1)
       }
     }
@@ -81,23 +78,26 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
-  useEffect(() => {
-    if (!query.trim()) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+
+    const trimmed = value.trim()
+    if (!trimmed) {
       setResults([])
       setSelectedIndex(-1)
+      setIsOpen(false)
       return
     }
 
-    const searchResults = fuse.search(query).slice(0, MAX_RESULTS)
+    const searchResults = fuse.search(trimmed).slice(0, MAX_RESULTS)
     setResults(searchResults.map((r) => r.item))
     setSelectedIndex(-1)
     setIsOpen(true)
-  }, [query, fuse])
+  }
 
   const handleSelect = (item: SearchItem) => {
     console.log("handleSelect", item)
     setIsOpen(false)
-    setQuery("")
     setResults([])
     router.push(getSearchItemLink(filiere, item))
   }
@@ -133,9 +133,10 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
           <SearchIcon />
           <input
             id='search'
+            aria-label='Recherche ton métier'
             type='text'
             placeholder='Recherche ton métier'
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={handleChange}
             onFocus={() => {
               if (results.length) setIsOpen(true)
             }}
@@ -144,7 +145,7 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
             role='combobox'
             aria-autocomplete='list'
             aria-expanded={isOpen}
-            aria-controls='city-listbox'
+            aria-controls='metier-listbox'
             aria-activedescendant={selectedIndex >= 0 ? `metier-option-${selectedIndex}` : undefined}
           />
         </div>
