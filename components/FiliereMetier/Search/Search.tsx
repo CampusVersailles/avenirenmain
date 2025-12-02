@@ -8,7 +8,7 @@ import Fuse from "fuse.js"
 import { useRouter } from "next/navigation"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 
-const MAX_RESULTS = 8
+const MAX_RESULTS = 10
 
 type SearchItem = {
   type: "metier" | "appellation"
@@ -158,13 +158,17 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
                 aria-selected={index === selectedIndex}
                 onClick={() => handleSelect(metier)}
                 className={styles.suggestion}>
-                {metier.type === "metier" ? (
-                  <span className={styles.metier}>{metier.titreMetier}</span>
-                ) : (
-                  <span className={styles.metier}>
-                    {metier.titreMetier} (ex: <span className={styles.appellation}>{metier.titreAppellation}</span>)
-                  </span>
-                )}
+                <span className={styles.metier}>
+                  {metier.type === "metier" ? (
+                    metier.titreMetier
+                  ) : metier.documentIdAppellation ? (
+                    metier.titreAppellation
+                  ) : (
+                    <>
+                      {metier.titreMetier} (ex: <span className={styles.appellation}>{metier.titreAppellation}</span>)
+                    </>
+                  )}
+                </span>
               </li>
             ))}
           </ul>
