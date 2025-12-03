@@ -96,7 +96,7 @@ export const getFormations = async (filter: FilterType, page: number) => {
       ...formation,
       filieres: formation.filieres.map((filiere) => ({
         ...filiere,
-        icone: filiere.icone?.url ? { url: `${process.env.STRAPI_URL}${filiere.icone.url}` } : undefined,
+        icone: filiere.icone?.url ? { url: `${filiere.icone.url}` } : undefined,
       })),
     })),
     pagination: response.data.meta.pagination,
@@ -120,7 +120,7 @@ export const getFormationsByRomeCode = async ({
     ...formation,
     filieres: formation.filieres.map((filiere) => ({
       ...filiere,
-      icone: filiere.icone?.url ? { url: `${process.env.STRAPI_URL}${filiere.icone.url}` } : undefined,
+      icone: filiere.icone?.url ? { url: `${filiere.icone.url}` } : undefined,
     })),
   }))
 }

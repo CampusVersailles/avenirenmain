@@ -25,8 +25,8 @@ export const getFilieres = async () => {
 
   return response.data.data.map((filiere) => ({
     ...filiere,
-    photo: `${process.env.STRAPI_URL}${filiere.photo.url}`,
-    icone: `${process.env.STRAPI_URL}${filiere.icone.url}`,
+    photo: `${filiere.photo.url}`,
+    icone: `${filiere.icone.url}`,
   }))
 }
 
@@ -47,10 +47,10 @@ export const getFiliereById = async (filiereDocumentId: string) => {
       .map((metier) => ({
         ...metier,
         mediaPrincipal: metier.mediaPrincipal
-          ? { url: `${process.env.STRAPI_URL}${metier.mediaPrincipal.url}` }
+          ? { url: `${metier.mediaPrincipal.url}` }
           : undefined,
       })),
-    icone: `${process.env.STRAPI_URL}${response.data.data.icone.url}`,
+    icone: `${response.data.data.icone.url}`,
   }
 }
 

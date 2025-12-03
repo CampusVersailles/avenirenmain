@@ -58,11 +58,9 @@ export const getMetier = async (metierDocumentId: string) => {
 
   return {
     ...response.data.data,
-    mediaPrincipal: response.data.data.mediaPrincipal
-      ? { url: `${process.env.STRAPI_URL}${response.data.data.mediaPrincipal.url}` }
-      : undefined,
+    mediaPrincipal: response.data.data.mediaPrincipal ? { url: `${response.data.data.mediaPrincipal.url}` } : undefined,
     mediaSecondaire: response.data.data.mediaSecondaire
-      ? { url: `${process.env.STRAPI_URL}${response.data.data.mediaSecondaire.url}` }
+      ? { url: `${response.data.data.mediaSecondaire.url}` }
       : undefined,
   }
 }
@@ -89,7 +87,7 @@ export const getMetierByRomeCode = async (romeCode: string) => {
   return {
     ...response.data.data[0],
     mediaPrincipal: response.data.data[0].mediaPrincipal
-      ? { url: `${process.env.STRAPI_URL}${response.data.data[0].mediaPrincipal.url}` }
+      ? { url: `${response.data.data[0].mediaPrincipal.url}` }
       : undefined,
     mediaSecondaire: undefined,
   }
