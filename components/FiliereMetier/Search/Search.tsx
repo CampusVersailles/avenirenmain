@@ -49,7 +49,7 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
         type: "appellation",
         titre: appellation.nom,
         documentIdMetier: metier.documentId,
-        documentIdAppellation: appellation.metier?.documentId ?? undefined,
+        documentIdAppellation: appellation.metier?.documentId,
         titreAppellation: appellation.nom,
         titreMetier: metier.titre,
       }))
@@ -63,6 +63,7 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
       keys: ["titre"],
       threshold: 0.3,
       ignoreLocation: true,
+      isCaseSensitive: false,
     })
   }, [searchItems])
 
