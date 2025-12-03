@@ -6,6 +6,7 @@ import { FiliereAvecMetiers } from "@/strapi/filieres"
 import Filter from "./Filter/Filter"
 import { useState } from "react"
 import FiliereBanner from "./FiliereBanner"
+import Search from "./Search/Search"
 
 const FiliereMetiers = ({
   filiere,
@@ -19,6 +20,7 @@ const FiliereMetiers = ({
   return (
     <div>
       <FiliereBanner filiere={filiere} />
+      <Search filiere={filiere} />
       <Filter title='Domaines Professionnels' options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
       <div className={styles.metiers}>
         {filiere.metiers.map((metier) => {
