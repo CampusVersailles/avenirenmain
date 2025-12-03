@@ -2,6 +2,7 @@
 
 import axiosClient from "@/services/axios"
 import { MetierStrapi } from "./metiers"
+import { getMediaUrl } from "@/lib/media_utils"
 
 type FiliereStrapi = {
   id: number
@@ -25,8 +26,8 @@ export const getFilieres = async () => {
 
   return response.data.data.map((filiere) => ({
     ...filiere,
-    photo: `${filiere.photo.url}`,
-    icone: `${filiere.icone.url}`,
+    photo: getMediaUrl(filiere.photo),
+    icone: getMediaUrl(filiere.icone),
   }))
 }
 
@@ -46,11 +47,9 @@ export const getFiliereById = async (filiereDocumentId: string) => {
       .sort((a, b) => a.titre.localeCompare(b.titre))
       .map((metier) => ({
         ...metier,
-        mediaPrincipal: metier.mediaPrincipal
-          ? { url: `${metier.mediaPrincipal.url}` }
-          : undefined,
+        mediaPrincipal: metier.mediaPrincipal ? { url: getMediaUrl(metier.mediaPrincipal) } : undefined,
       })),
-    icone: `${response.data.data.icone.url}`,
+    icone: getMediaUrl(response.data.data.icone),
   }
 }
 

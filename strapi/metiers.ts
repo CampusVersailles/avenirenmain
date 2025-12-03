@@ -1,5 +1,6 @@
 "use server"
 
+import { getMediaUrl } from "@/lib/media_utils"
 import axiosClient from "@/services/axios"
 import { type BlocksContent } from "@strapi/blocks-react-renderer"
 
@@ -58,9 +59,11 @@ export const getMetier = async (metierDocumentId: string) => {
 
   return {
     ...response.data.data,
-    mediaPrincipal: response.data.data.mediaPrincipal ? { url: `${response.data.data.mediaPrincipal.url}` } : undefined,
+    mediaPrincipal: response.data.data.mediaPrincipal
+      ? { url: getMediaUrl(response.data.data.mediaPrincipal) }
+      : undefined,
     mediaSecondaire: response.data.data.mediaSecondaire
-      ? { url: `${response.data.data.mediaSecondaire.url}` }
+      ? { url: getMediaUrl(response.data.data.mediaSecondaire) }
       : undefined,
   }
 }
@@ -87,7 +90,7 @@ export const getMetierByRomeCode = async (romeCode: string) => {
   return {
     ...response.data.data[0],
     mediaPrincipal: response.data.data[0].mediaPrincipal
-      ? { url: `${response.data.data[0].mediaPrincipal.url}` }
+      ? { url: getMediaUrl(response.data.data[0].mediaPrincipal) }
       : undefined,
     mediaSecondaire: undefined,
   }

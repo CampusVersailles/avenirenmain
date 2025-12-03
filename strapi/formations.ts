@@ -1,6 +1,7 @@
 "use server"
 
 import { CityResult } from "@/components/Formation/Filter/CityAutocomplete"
+import { getMediaUrl } from "@/lib/media_utils"
 import axiosClient from "@/services/axios"
 
 export type Option = {
@@ -96,7 +97,7 @@ export const getFormations = async (filter: FilterType, page: number) => {
       ...formation,
       filieres: formation.filieres.map((filiere) => ({
         ...filiere,
-        icone: filiere.icone?.url ? { url: `${filiere.icone.url}` } : undefined,
+        icone: filiere.icone?.url ? { url: getMediaUrl(filiere.icone) } : undefined,
       })),
     })),
     pagination: response.data.meta.pagination,
@@ -120,7 +121,7 @@ export const getFormationsByRomeCode = async ({
     ...formation,
     filieres: formation.filieres.map((filiere) => ({
       ...filiere,
-      icone: filiere.icone?.url ? { url: `${filiere.icone.url}` } : undefined,
+      icone: filiere.icone?.url ? { url: getMediaUrl(filiere.icone) } : undefined,
     })),
   }))
 }
