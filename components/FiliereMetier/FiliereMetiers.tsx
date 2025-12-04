@@ -23,22 +23,24 @@ const FiliereMetiers = ({
       <Search filiere={filiere} />
       <Filter title='Domaines Professionnels' options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
       <div className={styles.metiers}>
-        {filiere.metiers.map((metier) => {
-          const hidden =
-            selectedFilters.length > 0 &&
-            !selectedFilters.some((filter) => metier.codeRomeMetier.code.startsWith(filter))
+        {filiere.metiers
+          .filter((metier) => !metier.appellation)
+          .map((metier) => {
+            const hidden =
+              selectedFilters.length > 0 &&
+              !selectedFilters.some((filter) => metier.codeRomeMetier.code.startsWith(filter))
 
-          return (
-            <FiliereMetier
-              metier={metier}
-              filiere={filiere}
-              domainesPro={domainesPro}
-              className={hidden ? styles.hidden : undefined}
-              key={metier.id}
-              ariaHidden={hidden}
-            />
-          )
-        })}
+            return (
+              <FiliereMetier
+                metier={metier}
+                filiere={filiere}
+                domainesPro={domainesPro}
+                className={hidden ? styles.hidden : undefined}
+                key={metier.id}
+                ariaHidden={hidden}
+              />
+            )
+          })}
       </div>
     </div>
   )
