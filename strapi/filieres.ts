@@ -43,7 +43,6 @@ export const getFiliereById = async (filiereDocumentId: string) => {
   return {
     ...response.data.data,
     metiers: response.data.data.metiers
-      .filter((metier) => !metier.appellation)
       .sort((a, b) => a.titre.localeCompare(b.titre))
       .map((metier) => ({
         ...metier,

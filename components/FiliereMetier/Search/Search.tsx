@@ -35,25 +35,27 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
   const wrapperRef = useRef<HTMLDivElement>(null)
 
   const searchItems = useMemo<SearchItem[]>(() => {
-    return metiers.flatMap((metier) => {
-      const metierItem: SearchItem = {
-        type: "metier",
-        titre: metier.titre,
-        documentIdMetier: metier.documentId,
-        titreMetier: metier.titre,
-      }
+    return metiers
+      .flatMap((metier) => {
+        const metierItem: SearchItem = {
+          type: "metier",
+          titre: metier.titre,
+          documentIdMetier: metier.documentId,
+          titreMetier: metier.titre,
+        }
 
-      const appellationsItems: SearchItem[] = metier.appellations.map((appellation) => ({
-        type: "appellation",
-        titre: appellation.nom,
-        documentIdMetier: metier.documentId,
-        documentIdAppellation: appellation.metier?.documentId,
-        titreAppellation: appellation.nom,
-        titreMetier: metier.titre,
-      }))
+        const appellationsItems: SearchItem[] = metier.appellations.map((appellation) => ({
+          type: "appellation",
+          titre: appellation.nom,
+          documentIdMetier: metier.documentId,
+          documentIdAppellation: appellation.metier?.documentId,
+          titreAppellation: appellation.nom,
+          titreMetier: metier.titre,
+        }))
 
-      return [metierItem, ...appellationsItems]
-    })
+        return [metierItem, ...appellationsItems]
+      })
+      .filter((item, index, array) => array.findIndex((i) => i.titre === item.titre) === index)
   }, [metiers])
 
   const fuse = useMemo(() => {
