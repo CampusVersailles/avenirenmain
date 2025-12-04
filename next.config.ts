@@ -55,6 +55,12 @@ const nextConfig: NextConfig = {
               port: "",
               pathname: "/avenirenmain/**",
             },
+            {
+              protocol: "https",
+              hostname: "s3.fr-par.scw.cloud",
+              port: "",
+              pathname: "/avenirenmain/**",
+            },
           ],
         },
   async headers() {
