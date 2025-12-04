@@ -47,7 +47,16 @@ const nextConfig: NextConfig = {
           ],
           unoptimized: true,
         }
-      : undefined,
+      : {
+          remotePatterns: [
+            {
+              protocol: "https",
+              hostname: "avenirenmain.s3.fr-par.scw.cloud",
+              port: "",
+              pathname: "/avenirenmain/**",
+            },
+          ],
+        },
   async headers() {
     return [
       {
