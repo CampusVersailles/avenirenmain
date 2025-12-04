@@ -38,14 +38,14 @@ jobs:
         id: lighthouseCheck
         with:
           device: all
-          urls: "http://localhost:3000,http://localhost:3000/formations,http://localhost:3000/metiers,http://localhost:3000/metiers/zrgffe6ubnd4d1n5kgzhwa7d,http://localhost:3000/metiers/zrgffe6ubnd4d1n5kgzhwa7d/n70udljblm8u43cb84utxg2k,http://localhost:3000/quiz"
+          urls: "http://localhost:3000,http://localhost:3000/formations,http://localhost:3000/metiers,http://localhost:3000/metiers/cv4a83s0alfyflx7hz46fi8v,http://localhost:3000/metiers/cv4a83s0alfyflx7hz46fi8v/fxekq97pz1a6h2amxmrhwsrw,http://localhost:3000/quiz"
           outputDirectory: ${{ github.workspace }}/tmp/artifacts
       - name: Verify Lighthouse Check results
         uses: foo-software/lighthouse-check-status-action@master
         with:
           lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
           minAccessibilityScore: "100"
-          minBestPracticesScore: "96"
+          minBestPracticesScore: "100"
       - name: Upload Lighthouse artifacts
         uses: actions/upload-artifact@v4
         if: always()
