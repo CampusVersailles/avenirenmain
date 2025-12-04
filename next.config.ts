@@ -7,7 +7,7 @@ const csp: Record<string, string[]> = {
   "media-src": ["'self'", "https:", "data:"],
   "script-src": ["'self'", "'unsafe-inline'"],
   "connect-src": ["'self'", "https://api-adresse.data.gouv.fr"],
-  "frame-src": ["'self'", "https://www.youtube.com"],
+  "frame-src": ["'self'", "https://www.youtube.com", "https://www.dailymotion.com", "https://geo.dailymotion.com"],
 }
 
 if (process.env.NODE_ENV === "development") {

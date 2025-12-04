@@ -34,8 +34,6 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const wrapperRef = useRef<HTMLDivElement>(null)
 
-  console.log("metiers", metiers)
-
   const searchItems = useMemo<SearchItem[]>(() => {
     return metiers.flatMap((metier) => {
       const metierItem: SearchItem = {
@@ -97,7 +95,6 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
   }
 
   const handleSelect = (item: SearchItem) => {
-    console.log("handleSelect", item)
     setIsOpen(false)
     setResults([])
     router.push(getSearchItemLink(filiere, item))
