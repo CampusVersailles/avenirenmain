@@ -80,40 +80,14 @@ const Referencer = ({
     submitFormation(validated.data)
   }
 
+  const handleChange =
+    (key: keyof ReferencerForm, transform: (v: string) => any = (v) => v) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setFormData((prev) => ({ ...prev, [key]: transform(e.target.value) }))
+    }
+
   const OnRomeCodeMetierChange = (newCodes: string[]) => {
     setFormData((prev) => ({ ...prev, romeCodeMetiers: newCodes }))
-  }
-
-  const OnNomFormationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, titre: e.target.value }))
-  }
-
-  const OnDiplomeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFormData((prev) => ({ ...prev, formationNiveau: e.target.value }))
-  }
-
-  const OnDureeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFormData((prev) => ({ ...prev, formationDuree: e.target.value }))
-  }
-
-  const OnAlternanceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFormData((prev) => ({ ...prev, alternance: e.target.value === "true" }))
-  }
-
-  const OnCertificatChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, certificat: e.target.value }))
-  }
-
-  const OnSiteWebChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, siteWeb: e.target.value }))
-  }
-
-  const OnContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, contact: e.target.value }))
-  }
-
-  const OnNomEtablissementChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, nomEtablissement: e.target.value }))
   }
 
   const OnFiliereChange = (newValues: string[]) => {
@@ -142,16 +116,16 @@ const Referencer = ({
       {/* Nom de la formation */}
       <div className={styles.row}>
         <div className={styles.inputField}>
-          <label htmlFor='search'>
+          <label htmlFor='titre'>
             Nom de la formation <span className={styles.required}>*</span>
           </label>
           <div className={classNames(styles.inputWrapper, { [styles.error]: errors.titre })}>
             <input
-              id='search'
+              id='titre'
               type='text'
               placeholder='Exemple: Formation de musicien intervenant'
               value={formData.titre}
-              onChange={OnNomFormationChange}
+              onChange={handleChange("titre")}
             />
           </div>
         </div>
@@ -169,7 +143,7 @@ const Referencer = ({
               type='text'
               placeholder='Exemple: Diplôme universitaire de musicien intervenant'
               value={formData.certificat}
-              onChange={OnCertificatChange}
+              onChange={handleChange("certificat")}
             />
           </div>
         </div>
@@ -178,11 +152,11 @@ const Referencer = ({
       <div className={styles.row}>
         {/* Filière */}
         <div className={classNames(styles.inputField, { [styles.error]: errors.filieres })}>
-          <label htmlFor='filiere'>
+          <label htmlFor='filieres'>
             Filières <span className={styles.required}>*</span>
           </label>
           <MultiSelect
-            id='filiere'
+            id='filieres'
             options={filieres}
             value={formData.filieres}
             onChange={OnFiliereChange}
@@ -217,7 +191,11 @@ const Referencer = ({
           <label htmlFor='diplome'>
             Diplôme <span className={styles.required}>*</span>
           </label>
-          <select id='diplome' value={formData.formationNiveau} onChange={OnDiplomeChange} className={styles.select}>
+          <select
+            id='diplome'
+            value={formData.formationNiveau}
+            onChange={handleChange("formationNiveau")}
+            className={styles.select}>
             <option value='' hidden></option>
             {niveaux.map((niveau) => (
               <option key={niveau.value} value={niveau.value}>
@@ -232,7 +210,11 @@ const Referencer = ({
           <label htmlFor='duree'>
             Durée <span className={styles.required}>*</span>
           </label>
-          <select id='duree' value={formData.formationDuree} onChange={OnDureeChange} className={styles.select}>
+          <select
+            id='duree'
+            value={formData.formationDuree}
+            onChange={handleChange("formationDuree")}
+            className={styles.select}>
             <option value='' hidden></option>
             {durees.map((duree) => (
               <option key={duree.value} value={duree.value}>
@@ -250,7 +232,7 @@ const Referencer = ({
           <select
             id='alternance'
             value={formData.alternance ? "true" : "false"}
-            onChange={OnAlternanceChange}
+            onChange={handleChange("alternance", (v) => v === "true")}
             className={styles.select}>
             <option value='true'>Oui</option>
             <option value='false'>Non</option>
@@ -270,7 +252,7 @@ const Referencer = ({
               type='text'
               placeholder='Exemple: Ecole supérieure de musique de Paris'
               value={formData.nomEtablissement}
-              onChange={OnNomEtablissementChange}
+              onChange={handleChange("nomEtablissement")}
             />
           </div>
         </div>
@@ -296,7 +278,7 @@ const Referencer = ({
               type='text'
               placeholder='Exemple: https://www.mon-etablissement.fr/ma-formation/'
               value={formData.siteWeb}
-              onChange={OnSiteWebChange}
+              onChange={handleChange("siteWeb")}
             />
           </div>
         </div>
@@ -312,7 +294,7 @@ const Referencer = ({
               type='text'
               placeholder='Email ou numéro de téléphone'
               value={formData.contact}
-              onChange={OnContactChange}
+              onChange={handleChange("contact")}
             />
           </div>
         </div>
