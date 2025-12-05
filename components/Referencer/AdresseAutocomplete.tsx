@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import styles from "./AdresseAutocomplete.module.css"
 import MapPinIcon from "@/components/Icons/MapPinIcon"
+import classNames from "classnames"
 
 export interface AddressResult {
   properties: {
@@ -18,9 +19,11 @@ export interface AddressResult {
 }
 
 const AdresseAutocomplete = ({
+  error,
   value,
   onChange,
 }: {
+  error?: string
   value: AddressResult | null
   onChange: (value: AddressResult | null) => void
 }) => {
@@ -123,7 +126,7 @@ const AdresseAutocomplete = ({
 
   return (
     <div className={styles.wrapper} ref={wrapperRef}>
-      <div className={styles.inputWrapper}>
+      <div className={classNames(styles.inputWrapper, { [styles.error]: error })}>
         <MapPinIcon />
         <input
           ref={inputRef}

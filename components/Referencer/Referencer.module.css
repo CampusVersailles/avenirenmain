@@ -78,6 +78,18 @@
   }
 }
 
+.error input,
+.error button,
+.error select {
+  border-color: var(--primary-50);
+}
+
+.errors {
+  color: var(--primary-50);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
 .submitRow {
   display: flex;
   align-items: center;

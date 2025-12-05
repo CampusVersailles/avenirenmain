@@ -15,13 +15,14 @@ export const referencerFormSchema = z.object({
   // Infos nécessaires
   titre: z.string().min(1, "Le titre est obligatoire"),
   nomEtablissement: z.string().min(1, "Le nom de l'établissement est obligatoire"),
-  adresse: adresseSchema,
-  filieres: z.array(z.string()).min(1),
-  romeCodeMetiers: z.array(z.string()).min(1),
-  formationDuree: z.string().min(1),
-  formationNiveau: z.string().min(1),
-  alternance: z.boolean().default(false),
-  certificat: z.string().trim(),
+  // Adresse obligatoire
+  adresse: adresseSchema.refine((data) => data.adresseComplete !== "", { message: "L'adresse est obligatoire" }),
+  filieres: z.array(z.string()).min(1, "Au moins une filière est obligatoire"),
+  romeCodeMetiers: z.array(z.string()).min(1, "Au moins un métier est obligatoire"),
+  formationDuree: z.string().min(1, "La durée de la formation est obligatoire"),
+  formationNiveau: z.string().min(1, "Le niveau de la formation est obligatoire"),
+  alternance: z.boolean(),
+  certificat: z.string().trim().min(1, "Le certificat est obligatoire"),
 
   // Infos facultatives
   siteWeb: z.string().trim().optional(),

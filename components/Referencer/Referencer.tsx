@@ -8,6 +8,7 @@ import { MultiSelect } from "./MultiSelect"
 import { FilieresAvecMetiersRomeCodes } from "@/strapi/filieres"
 import AdresseAutocomplete, { AddressResult } from "./AdresseAutocomplete"
 import SendIcon from "../Icons/SendIcon"
+import classNames from "classnames"
 
 const Referencer = ({
   filieresAvecMetiersRomeCodes,
@@ -21,6 +22,7 @@ const Referencer = ({
   durees: Option[]
 }) => {
   const [adresseValue, setAdresseValue] = useState<AddressResult | null>(null)
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const [formData, setFormData] = useState<ReferencerForm>({
     titre: "",
     nomEtablissement: "",
@@ -58,13 +60,24 @@ const Referencer = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setErrors({})
+
     // Validate the zod schema
     const validated = referencerFormSchema.safeParse(formData)
     if (!validated.success) {
+      // Parse validation errors and store them
+      const validationErrors: Record<string, string> = {}
+      validated.error.issues.forEach((error) => {
+        const path = error.path.join(".")
+        validationErrors[path] = error.message
+      })
+      console.log(validated.error.issues)
+      console.log(validationErrors)
+      setErrors(validationErrors)
       return
     }
     // Submit the form to the API
-    const response = await submitFormation(validated.data)
+    submitFormation(validated.data)
   }
 
   const OnRomeCodeMetierChange = (newCodes: string[]) => {
@@ -132,7 +145,7 @@ const Referencer = ({
           <label htmlFor='search'>
             Nom de la formation <span className={styles.required}>*</span>
           </label>
-          <div className={styles.inputWrapper}>
+          <div className={classNames(styles.inputWrapper, { [styles.error]: errors.titre })}>
             <input
               id='search'
               type='text'
@@ -150,7 +163,7 @@ const Referencer = ({
           <label htmlFor='certificat'>
             Certificat <span className={styles.required}>*</span>
           </label>
-          <div className={styles.inputWrapper}>
+          <div className={classNames(styles.inputWrapper, { [styles.error]: errors.certificat })}>
             <input
               id='certificat'
               type='text'
@@ -164,7 +177,7 @@ const Referencer = ({
 
       <div className={styles.row}>
         {/* Filière */}
-        <div className={styles.inputField}>
+        <div className={classNames(styles.inputField, { [styles.error]: errors.filieres })}>
           <label htmlFor='filiere'>
             Filières <span className={styles.required}>*</span>
           </label>
@@ -182,7 +195,7 @@ const Referencer = ({
 
       <div className={styles.row}>
         {/* Metiers */}
-        <div className={styles.inputField}>
+        <div className={classNames(styles.inputField, { [styles.error]: errors.romeCodeMetiers })}>
           <label htmlFor='romeCodesMetiers'>
             Métiers <span className={styles.required}>*</span>
           </label>
@@ -200,11 +213,12 @@ const Referencer = ({
 
       <div className={styles.row}>
         {/* Niveau */}
-        <div className={styles.field}>
+        <div className={classNames(styles.field, { [styles.error]: errors.formationNiveau })}>
           <label htmlFor='diplome'>
             Diplôme <span className={styles.required}>*</span>
           </label>
           <select id='diplome' value={formData.formationNiveau} onChange={OnDiplomeChange} className={styles.select}>
+            <option value='' hidden></option>
             {niveaux.map((niveau) => (
               <option key={niveau.value} value={niveau.value}>
                 {niveau.label}
@@ -214,11 +228,12 @@ const Referencer = ({
         </div>
 
         {/* Durée */}
-        <div className={styles.field}>
+        <div className={classNames(styles.field, { [styles.error]: errors.formationDuree })}>
           <label htmlFor='duree'>
             Durée <span className={styles.required}>*</span>
           </label>
           <select id='duree' value={formData.formationDuree} onChange={OnDureeChange} className={styles.select}>
+            <option value='' hidden></option>
             {durees.map((duree) => (
               <option key={duree.value} value={duree.value}>
                 {duree.label}
@@ -228,7 +243,7 @@ const Referencer = ({
         </div>
 
         {/* Alternance */}
-        <div className={styles.field}>
+        <div className={classNames(styles.field, { [styles.error]: errors.alternance })}>
           <label htmlFor='alternance'>
             Alternance <span className={styles.required}>*</span>
           </label>
@@ -245,7 +260,7 @@ const Referencer = ({
 
       <div className={styles.row}>
         {/* Etablissement */}
-        <div className={styles.inputField}>
+        <div className={classNames(styles.inputField, { [styles.error]: errors.nomEtablissement })}>
           <label htmlFor='etablissement'>
             Etablissement <span className={styles.required}>*</span>
           </label>
@@ -263,11 +278,11 @@ const Referencer = ({
 
       <div className={styles.row}>
         {/* Adresse */}
-        <div className={styles.inputField}>
+        <div className={classNames(styles.inputField, { [styles.error]: errors.adresse })}>
           <label htmlFor='adresse'>
             Adresse <span className={styles.required}>*</span>
           </label>
-          <AdresseAutocomplete value={adresseValue} onChange={OnAdresseChange} />
+          <AdresseAutocomplete error={errors.adresse} value={adresseValue} onChange={OnAdresseChange} />
         </div>
       </div>
 
@@ -302,6 +317,12 @@ const Referencer = ({
           </div>
         </div>
       </div>
+
+      {Object.keys(errors).length > 0 && (
+        <div className={styles.errors}>
+          * Veuillez remplir tous les champs obligatoires avant de soumettre la formation.
+        </div>
+      )}
 
       <div className={styles.submitRow}>
         <button className={styles.button} type='submit'>
