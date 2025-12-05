@@ -7,6 +7,8 @@ export const adresseSchema = z.object({
   codePostal: z.string().trim(),
   ville: z.string().trim(),
   pays: z.string().trim(),
+  longitude: z.number().optional(),
+  latitude: z.number().optional(),
 })
 
 export const referencerFormSchema = z.object({

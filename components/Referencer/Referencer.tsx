@@ -6,6 +6,9 @@ import { type ReferencerForm } from "@/types/formation"
 import styles from "./Referencer.module.css"
 import { MultiSelect } from "./MultiSelect"
 import { FilieresAvecMetiersRomeCodes } from "@/strapi/filieres"
+import AdresseAutocomplete, { AddressResult } from "./AdresseAutocomplete"
+import Link from "next/link"
+import SendIcon from "../Icons/SendIcon"
 
 const Referencer = ({
   filieresAvecMetiersRomeCodes,
@@ -96,6 +99,35 @@ const Referencer = ({
   const OnFiliereChange = (newValues: string[]) => {
     setFormData((prev) => ({ ...prev, filiereIds: newValues, romeCodesMetiers: [] }))
   }
+
+  const OnAdresseChange = (newAddress: AddressResult | null) => {
+    setFormData((prev) => ({
+      ...prev,
+      adresse: {
+        numeroRue: newAddress?.properties.label ?? "",
+        rue: newAddress?.properties.name ?? "",
+        complement: "",
+        codePostal: newAddress?.properties.postcode ?? "",
+        ville: newAddress?.properties.city ?? "",
+        pays: "France",
+        longitude: newAddress?.geometry.coordinates[0] ?? 0,
+        latitude: newAddress?.geometry.coordinates[1] ?? 0,
+      },
+    }))
+  }
+
+  const adresseValue = useMemo(() => {
+    return {
+      properties: {
+        label: formData.adresse.numeroRue,
+        name: formData.adresse.rue,
+        postcode: formData.adresse.codePostal,
+        city: formData.adresse.ville,
+        citycode: "",
+      },
+      geometry: { coordinates: [formData.adresse.longitude ?? 0, formData.adresse.latitude ?? 0] as [number, number] },
+    }
+  }, [formData.adresse])
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
@@ -219,6 +251,13 @@ const Referencer = ({
       </div>
 
       <div className={styles.row}>
+        {/* Adresse */}
+        <div className={styles.inputField}>
+          <AdresseAutocomplete value={adresseValue} onChange={OnAdresseChange} />
+        </div>
+      </div>
+
+      <div className={styles.row}>
         {/* Site web */}
         <div className={styles.inputField}>
           <label htmlFor='siteWeb'>Site web</label>
@@ -248,6 +287,13 @@ const Referencer = ({
             />
           </div>
         </div>
+      </div>
+
+      <div className={styles.submitRow}>
+        <Link href='/formations/referencer' className={styles.button}>
+          Soumettre ma formation
+          <SendIcon className={styles.icon} />
+        </Link>
       </div>
     </form>
   )
