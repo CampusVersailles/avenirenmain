@@ -33,17 +33,14 @@ export const getFilieres = async () => {
 
 export type Filiere = Awaited<ReturnType<typeof getFilieres>>[number]
 
-export const getFilieresWithMetiers = async () => {
-  const response = await axiosClient.get<{
-    data: Omit<FiliereStrapi, "metiers">[]
-  }>("filieres?populate[metiers][populate]=codeRomeMetier")
+export const getFilieresAvecMetiersRomeCodes = async () => {
+  const response = await axiosClient.get<{ data: FiliereStrapi[] }>(
+    "filieres?populate[metiers][fields][0]=id&populate[metiers][fields][1]=titre&populate[metiers][populate][codeRomeMetier][fields][0]=*",
+  )
 
-  return response.data.data.map((filiere) => ({
-    ...filiere,
-    photo: getMediaUrl(filiere.photo),
-    icone: getMediaUrl(filiere.icone),
-  }))
+  return response.data.data
 }
+export type FilieresAvecMetiersRomeCodes = Awaited<ReturnType<typeof getFilieresAvecMetiersRomeCodes>>[number]
 
 export const getFiliereById = async (filiereDocumentId: string) => {
   const response = await axiosClient.get<{

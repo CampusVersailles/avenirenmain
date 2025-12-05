@@ -1,12 +1,23 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { type Option } from "@/strapi/formations"
 import { type ReferencerForm } from "@/types/formation"
 import styles from "./Referencer.module.css"
 import { MultiSelect } from "./MultiSelect"
+import { FilieresAvecMetiersRomeCodes } from "@/strapi/filieres"
 
-const Referencer = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux: Option[]; durees: Option[] }) => {
+const Referencer = ({
+  filieresAvecMetiersRomeCodes,
+  filieres,
+  niveaux,
+  durees,
+}: {
+  filieresAvecMetiersRomeCodes: FilieresAvecMetiersRomeCodes[]
+  filieres: Option[]
+  niveaux: Option[]
+  durees: Option[]
+}) => {
   const [formData, setFormData] = useState<ReferencerForm>({
     titre: "",
     nomEtablissement: "",
@@ -27,6 +38,20 @@ const Referencer = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
     siteWeb: "",
     contact: "",
   })
+
+  const romeCodesOptions = useMemo(() => {
+    return filieresAvecMetiersRomeCodes
+      .filter((filiere) => formData.filiereIds.includes(filiere.documentId))
+      .flatMap((filiere) =>
+        filiere.metiers.map((metier) => {
+          return {
+            value: metier.codeRomeMetier.code,
+            label: metier.titre,
+          }
+        }),
+      )
+      .filter((romeCode, index, self) => self.findIndex((t) => t.value === romeCode.value) === index)
+  }, [formData.filiereIds, filieresAvecMetiersRomeCodes])
 
   const handleSubmit = (e: React.FormEvent) => {
     console.log("Submit form")
@@ -69,7 +94,7 @@ const Referencer = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
   }
 
   const OnFiliereChange = (newValues: string[]) => {
-    setFormData((prev) => ({ ...prev, filiereIds: newValues }))
+    setFormData((prev) => ({ ...prev, filiereIds: newValues, romeCodesMetiers: [] }))
   }
 
   return (
@@ -126,10 +151,10 @@ const Referencer = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
           <label htmlFor='romeCodesMetiers'>ROME Codes</label>
           <MultiSelect
             id='romeCodesMetiers'
-            options={filieres}
-            value={formData.filiereIds}
-            onChange={OnFiliereChange}
-            placeholder='Sélectionnez les filières'
+            options={romeCodesOptions}
+            value={formData.romeCodesMetiers}
+            onChange={OnRomeCodeMetierChange}
+            placeholder='Sélectionnez les métiers'
           />
         </div>
       </div>

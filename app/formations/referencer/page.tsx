@@ -1,4 +1,4 @@
-import { getFilieres } from "@/strapi/filieres"
+import { getFilieresAvecMetiersRomeCodes } from "@/strapi/filieres"
 import { getFormationDurees, getFormationNiveaux } from "@/strapi/formations"
 import ReferencerPage from "@/views/ReferencerPage"
 import { Metadata } from "next"
@@ -8,11 +8,15 @@ export const metadata: Metadata = {
 }
 
 export default async function Referencer() {
-  const [filieres, niveaux, durees] = await Promise.all([getFilieres(), getFormationNiveaux(), getFormationDurees()])
+  const [filieres, niveaux, durees] = await Promise.all([
+    getFilieresAvecMetiersRomeCodes(),
+    getFormationNiveaux(),
+    getFormationDurees(),
+  ])
 
-  // const romeCodesMetiers = filieres.map((filiere) => filiere.metiers.map((metier) => metier.codeRomeMetier.code))
   return (
     <ReferencerPage
+      filieresAvecMetiersRomeCodes={filieres}
       filieres={filieres
         .sort((a, b) => a.nom.localeCompare(b.nom))
         .map((filiere) => ({

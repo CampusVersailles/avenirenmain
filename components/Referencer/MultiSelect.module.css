@@ -11,7 +11,7 @@
   border: 1px solid #ddd;
   background: white;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   cursor: pointer;
   flex: 1;
@@ -46,6 +46,8 @@
 .multiSelectIcon {
   width: 1.325rem;
   height: 1.325rem;
+  min-width: 1.325rem;
+  min-height: 1.325rem;
   color: #999;
   margin-left: 2rem;
 }
@@ -117,6 +119,6 @@
 
 .multiSelectNoResults {
   padding: 0.25rem 0.5rem;
-  color: #9ca3af;
+  color: #999;
   font-size: 0.875rem;
 }

@@ -1,9 +1,20 @@
 import Block from "@/components/Block/Block"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs"
 import Referencer from "@/components/Referencer/Referencer"
+import { FilieresAvecMetiersRomeCodes } from "@/strapi/filieres"
 import { type Option } from "@/strapi/formations"
 
-const ReferencerPage = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux: Option[]; durees: Option[] }) => {
+const ReferencerPage = ({
+  filieresAvecMetiersRomeCodes,
+  filieres,
+  niveaux,
+  durees,
+}: {
+  filieresAvecMetiersRomeCodes: FilieresAvecMetiersRomeCodes[]
+  filieres: Option[]
+  niveaux: Option[]
+  durees: Option[]
+}) => {
   return (
     <>
       <Breadcrumbs
@@ -15,7 +26,12 @@ const ReferencerPage = ({ filieres, niveaux, durees }: { filieres: Option[]; niv
       />
       <Block>
         <h1>Référencer ma formation</h1>
-        <Referencer filieres={filieres} niveaux={niveaux} durees={durees} />
+        <Referencer
+          filieresAvecMetiersRomeCodes={filieresAvecMetiersRomeCodes}
+          filieres={filieres}
+          niveaux={niveaux}
+          durees={durees}
+        />
       </Block>
     </>
   )
