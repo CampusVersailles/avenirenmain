@@ -21,6 +21,7 @@ const Referencer = ({
   niveaux: Option[]
   durees: Option[]
 }) => {
+  const [adresseValue, setAdresseValue] = useState<AddressResult | null>(null)
   const [formData, setFormData] = useState<ReferencerForm>({
     titre: "",
     nomEtablissement: "",
@@ -101,6 +102,7 @@ const Referencer = ({
   }
 
   const OnAdresseChange = (newAddress: AddressResult | null) => {
+    setAdresseValue(newAddress)
     setFormData((prev) => ({
       ...prev,
       adresse: {
@@ -115,21 +117,6 @@ const Referencer = ({
       },
     }))
   }
-
-  const adresseValue = useMemo(() => {
-    return {
-      properties: {
-        label: formData.adresse.adresseComplete,
-        housenumber: formData.adresse.numeroRue,
-        street: formData.adresse.rue,
-        postcode: formData.adresse.codePostal,
-        city: formData.adresse.ville,
-      },
-      geometry: {
-        coordinates: [formData.adresse.longitude ?? 0, formData.adresse.latitude ?? 0] as [number, number],
-      },
-    }
-  }, [formData.adresse])
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
