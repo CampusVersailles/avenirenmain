@@ -14,6 +14,7 @@ const ReferencerPage = ({ filieres, niveaux, durees }: { filieres: Option[]; niv
         ]}
       />
       <Block>
+        <h1>Référencer ma formation</h1>
         <Referencer filieres={filieres} niveaux={niveaux} durees={durees} />
       </Block>
     </>

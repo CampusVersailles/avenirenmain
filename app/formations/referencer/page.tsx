@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 
 export default async function Referencer() {
   const [filieres, niveaux, durees] = await Promise.all([getFilieres(), getFormationNiveaux(), getFormationDurees()])
+
+  // const romeCodesMetiers = filieres.map((filiere) => filiere.metiers.map((metier) => metier.codeRomeMetier.code))
   return (
     <ReferencerPage
       filieres={filieres
