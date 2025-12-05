@@ -122,61 +122,58 @@ const AdresseAutocomplete = ({
   }
 
   return (
-    <>
-      <label htmlFor='adresse'>Adresse</label>
-      <div className={styles.wrapper} ref={wrapperRef}>
-        <div className={styles.inputWrapper}>
-          <MapPinIcon />
-          <input
-            ref={inputRef}
-            id='adresse'
-            type='text'
-            placeholder='Saisir une adresse'
-            value={value ? value.properties.label : text}
-            onChange={(e) => {
-              if (value) {
-                onChange(null)
-              }
-              setText(e.target.value)
-            }}
-            onFocus={() => text.length >= 2 && suggestions.length > 0 && setIsOpen(true)}
-            onKeyDown={handleKeyDown}
-            autoComplete='off'
-            role='combobox'
-            aria-autocomplete='list'
-            aria-expanded={isOpen}
-            aria-controls='adresse-listbox'
-            aria-activedescendant={activeIndex >= 0 ? `adresse-option-${activeIndex}` : undefined}
-          />
-        </div>
-
-        {isLoading ? (
-          <div className={styles.loading}>
-            <p className={styles.suggestion}>Chargement...</p>
-          </div>
-        ) : (
-          isOpen &&
-          suggestions.length > 0 && (
-            <ul id='adresse-listbox' className={styles.dropdown} role='listbox'>
-              {suggestions.map((suggestion, index) => (
-                <li
-                  key={index}
-                  id={`adresse-option-${index}`}
-                  role='option'
-                  aria-selected={index === activeIndex}
-                  onClick={() => handleSelect(suggestion)}
-                  className={styles.suggestion}>
-                  <span className={styles.adresse}>{suggestion.properties.label}</span>
-                  {suggestion.properties.postcode && (
-                    <span className={styles.zipcode}>{suggestion.properties.postcode}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          )
-        )}
+    <div className={styles.wrapper} ref={wrapperRef}>
+      <div className={styles.inputWrapper}>
+        <MapPinIcon />
+        <input
+          ref={inputRef}
+          id='adresse'
+          type='text'
+          placeholder='Saisir une adresse'
+          value={value ? value.properties.label : text}
+          onChange={(e) => {
+            if (value) {
+              onChange(null)
+            }
+            setText(e.target.value)
+          }}
+          onFocus={() => text.length >= 2 && suggestions.length > 0 && setIsOpen(true)}
+          onKeyDown={handleKeyDown}
+          autoComplete='off'
+          role='combobox'
+          aria-autocomplete='list'
+          aria-expanded={isOpen}
+          aria-controls='adresse-listbox'
+          aria-activedescendant={activeIndex >= 0 ? `adresse-option-${activeIndex}` : undefined}
+        />
       </div>
-    </>
+
+      {isLoading ? (
+        <div className={styles.loading}>
+          <p className={styles.suggestion}>Chargement...</p>
+        </div>
+      ) : (
+        isOpen &&
+        suggestions.length > 0 && (
+          <ul id='adresse-listbox' className={styles.dropdown} role='listbox'>
+            {suggestions.map((suggestion, index) => (
+              <li
+                key={index}
+                id={`adresse-option-${index}`}
+                role='option'
+                aria-selected={index === activeIndex}
+                onClick={() => handleSelect(suggestion)}
+                className={styles.suggestion}>
+                <span className={styles.adresse}>{suggestion.properties.label}</span>
+                {suggestion.properties.postcode && (
+                  <span className={styles.zipcode}>{suggestion.properties.postcode}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        )
+      )}
+    </div>
   )
 }
 

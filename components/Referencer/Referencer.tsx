@@ -129,7 +129,9 @@ const Referencer = ({
       {/* Nom de la formation */}
       <div className={styles.row}>
         <div className={styles.inputField}>
-          <label htmlFor='search'>Nom de la formation</label>
+          <label htmlFor='search'>
+            Nom de la formation <span className={styles.required}>*</span>
+          </label>
           <div className={styles.inputWrapper}>
             <input
               id='search'
@@ -145,7 +147,9 @@ const Referencer = ({
       <div className={styles.row}>
         {/* Certificat */}
         <div className={styles.inputField}>
-          <label htmlFor='certificat'>Certificat</label>
+          <label htmlFor='certificat'>
+            Certificat <span className={styles.required}>*</span>
+          </label>
           <div className={styles.inputWrapper}>
             <input
               id='certificat'
@@ -161,7 +165,9 @@ const Referencer = ({
       <div className={styles.row}>
         {/* Filière */}
         <div className={styles.inputField}>
-          <label htmlFor='filiere'>Filières</label>
+          <label htmlFor='filiere'>
+            Filières <span className={styles.required}>*</span>
+          </label>
           <MultiSelect
             id='filiere'
             options={filieres}
@@ -177,7 +183,9 @@ const Referencer = ({
       <div className={styles.row}>
         {/* Metiers */}
         <div className={styles.inputField}>
-          <label htmlFor='romeCodesMetiers'>Métiers</label>
+          <label htmlFor='romeCodesMetiers'>
+            Métiers <span className={styles.required}>*</span>
+          </label>
           <MultiSelect
             id='romeCodesMetiers'
             options={romeCodesOptions}
@@ -193,7 +201,9 @@ const Referencer = ({
       <div className={styles.row}>
         {/* Niveau */}
         <div className={styles.field}>
-          <label htmlFor='diplome'>Diplôme</label>
+          <label htmlFor='diplome'>
+            Diplôme <span className={styles.required}>*</span>
+          </label>
           <select id='diplome' value={formData.formationNiveau} onChange={OnDiplomeChange} className={styles.select}>
             {niveaux.map((niveau) => (
               <option key={niveau.value} value={niveau.value}>
@@ -205,7 +215,9 @@ const Referencer = ({
 
         {/* Durée */}
         <div className={styles.field}>
-          <label htmlFor='duree'>Durée</label>
+          <label htmlFor='duree'>
+            Durée <span className={styles.required}>*</span>
+          </label>
           <select id='duree' value={formData.formationDuree} onChange={OnDureeChange} className={styles.select}>
             {durees.map((duree) => (
               <option key={duree.value} value={duree.value}>
@@ -217,7 +229,9 @@ const Referencer = ({
 
         {/* Alternance */}
         <div className={styles.field}>
-          <label htmlFor='alternance'>Alternance</label>
+          <label htmlFor='alternance'>
+            Alternance <span className={styles.required}>*</span>
+          </label>
           <select
             id='alternance'
             value={formData.alternance ? "true" : "false"}
@@ -232,7 +246,9 @@ const Referencer = ({
       <div className={styles.row}>
         {/* Etablissement */}
         <div className={styles.inputField}>
-          <label htmlFor='etablissement'>Etablissement</label>
+          <label htmlFor='etablissement'>
+            Etablissement <span className={styles.required}>*</span>
+          </label>
           <div className={styles.inputWrapper}>
             <input
               id='etablissement'
@@ -248,6 +264,9 @@ const Referencer = ({
       <div className={styles.row}>
         {/* Adresse */}
         <div className={styles.inputField}>
+          <label htmlFor='adresse'>
+            Adresse <span className={styles.required}>*</span>
+          </label>
           <AdresseAutocomplete value={adresseValue} onChange={OnAdresseChange} />
         </div>
       </div>
