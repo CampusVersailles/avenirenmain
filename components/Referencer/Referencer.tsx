@@ -80,11 +80,13 @@ const Referencer = ({
     submitFormation(validated.data)
   }
 
-  const handleChange =
-    (key: keyof ReferencerForm, transform: (v: string) => any = (v) => v) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      setFormData((prev) => ({ ...prev, [key]: transform(e.target.value) }))
-    }
+  const handleChange = (key: keyof ReferencerForm) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData((prev) => ({ ...prev, [key]: e.target.value }))
+  }
+
+  const OnAlternanceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFormData((prev) => ({ ...prev, alternance: e.target.value === "true" }))
+  }
 
   const OnRomeCodeMetierChange = (newCodes: string[]) => {
     setFormData((prev) => ({ ...prev, romeCodeMetiers: newCodes }))
@@ -232,7 +234,7 @@ const Referencer = ({
           <select
             id='alternance'
             value={formData.alternance ? "true" : "false"}
-            onChange={handleChange("alternance", (v) => v === "true")}
+            onChange={OnAlternanceChange}
             className={styles.select}>
             <option value='true'>Oui</option>
             <option value='false'>Non</option>
