@@ -108,7 +108,7 @@ const Referencer = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
 
       <div className={styles.row}>
         {/* Filière */}
-        <div className={styles.field}>
+        <div className={styles.inputField}>
           <label htmlFor='filiere'>Filières</label>
           <MultiSelect
             id='filiere'
@@ -122,7 +122,7 @@ const Referencer = ({ filieres, niveaux, durees }: { filieres: Option[]; niveaux
 
       <div className={styles.row}>
         {/* ROME Codes */}
-        <div className={styles.field}>
+        <div className={styles.inputField}>
           <label htmlFor='romeCodesMetiers'>ROME Codes</label>
           <MultiSelect
             id='romeCodesMetiers'
