@@ -9,3 +9,11 @@ const axiosClient = axios.create({
 })
 
 export default axiosClient
+
+export const axiosWriteClient = axios.create({
+  baseURL: `${process.env.STRAPI_URL}/api/`,
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${process.env.STRAPI_RW_TOKEN}`,
+  },
+})

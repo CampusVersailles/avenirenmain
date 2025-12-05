@@ -1,13 +1,12 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { type Option } from "@/strapi/formations"
-import { type ReferencerForm } from "@/types/formation"
+import { submitFormation, type Option } from "@/strapi/formations"
+import { referencerFormSchema, type ReferencerForm } from "@/types/formation"
 import styles from "./Referencer.module.css"
 import { MultiSelect } from "./MultiSelect"
 import { FilieresAvecMetiersRomeCodes } from "@/strapi/filieres"
 import AdresseAutocomplete, { AddressResult } from "./AdresseAutocomplete"
-import Link from "next/link"
 import SendIcon from "../Icons/SendIcon"
 
 const Referencer = ({
@@ -33,10 +32,10 @@ const Referencer = ({
       ville: "",
       pays: "",
     },
-    filiereIds: [],
-    romeCodesMetiers: [],
-    formationDureeId: "",
-    formationNiveauId: "",
+    filieres: [],
+    romeCodeMetiers: [],
+    formationDuree: "",
+    formationNiveau: "",
     alternance: false,
     certificat: "",
     siteWeb: "",
@@ -45,7 +44,7 @@ const Referencer = ({
 
   const romeCodesOptions = useMemo(() => {
     return filieresAvecMetiersRomeCodes
-      .filter((filiere) => formData.filiereIds.includes(filiere.documentId))
+      .filter((filiere) => formData.filieres.includes(filiere.documentId))
       .flatMap((filiere) =>
         filiere.metiers.map((metier) => {
           return {
@@ -55,14 +54,21 @@ const Referencer = ({
         }),
       )
       .filter((romeCode, index, self) => self.findIndex((t) => t.value === romeCode.value) === index)
-  }, [formData.filiereIds, filieresAvecMetiersRomeCodes])
+  }, [formData.filieres, filieresAvecMetiersRomeCodes])
 
-  const handleSubmit = (e: React.FormEvent) => {
-    console.log("Submit form")
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    // Validate the zod schema
+    const validated = referencerFormSchema.safeParse(formData)
+    if (!validated.success) {
+      return
+    }
+    // Submit the form to the API
+    const response = await submitFormation(validated.data)
   }
 
   const OnRomeCodeMetierChange = (newCodes: string[]) => {
-    setFormData((prev) => ({ ...prev, romeCodesMetiers: newCodes }))
+    setFormData((prev) => ({ ...prev, romeCodeMetiers: newCodes }))
   }
 
   const OnNomFormationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,11 +76,11 @@ const Referencer = ({
   }
 
   const OnDiplomeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFormData((prev) => ({ ...prev, formationNiveauId: e.target.value }))
+    setFormData((prev) => ({ ...prev, formationNiveau: e.target.value }))
   }
 
   const OnDureeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFormData((prev) => ({ ...prev, formationDureeId: e.target.value }))
+    setFormData((prev) => ({ ...prev, formationDuree: e.target.value }))
   }
 
   const OnAlternanceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -98,7 +104,7 @@ const Referencer = ({
   }
 
   const OnFiliereChange = (newValues: string[]) => {
-    setFormData((prev) => ({ ...prev, filiereIds: newValues, romeCodesMetiers: [] }))
+    setFormData((prev) => ({ ...prev, filieres: newValues, romeCodeMetiers: [] }))
   }
 
   const OnAdresseChange = (newAddress: AddressResult | null) => {
@@ -159,7 +165,7 @@ const Referencer = ({
           <MultiSelect
             id='filiere'
             options={filieres}
-            value={formData.filiereIds}
+            value={formData.filieres}
             onChange={OnFiliereChange}
             placeholder='Sélectionnez les filières'
             noResultsText='Aucune filière trouvée'
@@ -175,7 +181,7 @@ const Referencer = ({
           <MultiSelect
             id='romeCodesMetiers'
             options={romeCodesOptions}
-            value={formData.romeCodesMetiers}
+            value={formData.romeCodeMetiers}
             onChange={OnRomeCodeMetierChange}
             placeholder='Sélectionnez les métiers'
             noResultsText={romeCodesOptions.length === 0 ? "Veuillez sélectionner une filière." : "Aucun métier trouvé"}
@@ -188,7 +194,7 @@ const Referencer = ({
         {/* Niveau */}
         <div className={styles.field}>
           <label htmlFor='diplome'>Diplôme</label>
-          <select id='diplome' value={formData.formationNiveauId} onChange={OnDiplomeChange} className={styles.select}>
+          <select id='diplome' value={formData.formationNiveau} onChange={OnDiplomeChange} className={styles.select}>
             {niveaux.map((niveau) => (
               <option key={niveau.value} value={niveau.value}>
                 {niveau.label}
@@ -200,7 +206,7 @@ const Referencer = ({
         {/* Durée */}
         <div className={styles.field}>
           <label htmlFor='duree'>Durée</label>
-          <select id='duree' value={formData.formationDureeId} onChange={OnDureeChange} className={styles.select}>
+          <select id='duree' value={formData.formationDuree} onChange={OnDureeChange} className={styles.select}>
             {durees.map((duree) => (
               <option key={duree.value} value={duree.value}>
                 {duree.label}
@@ -279,10 +285,10 @@ const Referencer = ({
       </div>
 
       <div className={styles.submitRow}>
-        <Link href='/formations/referencer' className={styles.button}>
+        <button className={styles.button} type='submit'>
           Soumettre ma formation
           <SendIcon className={styles.icon} />
-        </Link>
+        </button>
       </div>
     </form>
   )

@@ -2,7 +2,8 @@
 
 import { CityResult } from "@/components/Formation/Filter/CityAutocomplete"
 import { getMediaUrl } from "@/lib/media_utils"
-import axiosClient from "@/services/axios"
+import axiosClient, { axiosWriteClient } from "@/services/axios"
+import { ReferencerForm } from "@/types/formation"
 
 export type Option = {
   value: string
@@ -166,4 +167,15 @@ export const countFormations = async () => {
   }>("formations?pagination[pageSize]=1")
 
   return response.data.meta.pagination.total
+}
+
+export const submitFormation = async (formationForm: ReferencerForm) => {
+  const response = await axiosWriteClient.post("/formations?status=draft", {
+    data: {
+      ...formationForm,
+      romeCodeMetiers: formationForm.romeCodeMetiers.map((romeCode) => ({ code: romeCode })),
+      origine: "Site",
+    },
+  })
+  return response.data
 }
