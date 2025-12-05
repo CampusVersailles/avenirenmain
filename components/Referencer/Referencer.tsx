@@ -9,6 +9,7 @@ import { FilieresAvecMetiersRomeCodes } from "@/strapi/filieres"
 import AdresseAutocomplete, { AddressResult } from "./AdresseAutocomplete"
 import SendIcon from "../Icons/SendIcon"
 import classNames from "classnames"
+import { useRouter } from "next/navigation"
 
 const Referencer = ({
   filieresAvecMetiersRomeCodes,
@@ -21,6 +22,7 @@ const Referencer = ({
   niveaux: Option[]
   durees: Option[]
 }) => {
+  const router = useRouter()
   const [adresseValue, setAdresseValue] = useState<AddressResult | null>(null)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [formData, setFormData] = useState<ReferencerForm>({
@@ -76,8 +78,17 @@ const Referencer = ({
       setErrors(validationErrors)
       return
     }
-    // Submit the form to the API
-    submitFormation(validated.data)
+
+    // Submit the form to the API and redirect to the confirmation page if successful
+    try {
+      await submitFormation(validated.data)
+      router.push("/formations/referencer/confirmation")
+    } catch (error) {
+      console.error(error)
+      setErrors({
+        general: "Une erreur est survenue lors de l'envoi de votre demande. Veuillez réessayer plus tard.",
+      })
+    }
   }
 
   const handleChange = (key: keyof ReferencerForm) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -302,11 +313,13 @@ const Referencer = ({
         </div>
       </div>
 
-      {Object.keys(errors).length > 0 && (
+      {Object.keys(errors).length > 0 && !errors.general && (
         <div className={styles.errors}>
           * Veuillez remplir tous les champs obligatoires avant de soumettre la formation.
         </div>
       )}
+
+      {errors.general && <div className={styles.errors}>* {errors.general}</div>}
 
       <div className={styles.submitRow}>
         <button className={styles.button} type='submit'>

@@ -1,0 +1,59 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.description {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--title-color);
+  line-height: 1.4;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.button {
+  background-color: var(--primary-50);
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-decoration: none;
+  width: fit-content;
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    box-shadow: 0 10px 30px rgba(237, 110, 76, 0.15);
+
+    background-color: var(--primary-60);
+    color: white;
+
+    svg {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.secondary {
+  background-color: var(--primary-10);
+  color: var(--primary-50);
+  border: var(--border);
+  border-color: var(--primary-50);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
