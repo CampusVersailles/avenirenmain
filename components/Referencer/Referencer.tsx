@@ -141,20 +141,24 @@ const Referencer = ({
             value={formData.filiereIds}
             onChange={OnFiliereChange}
             placeholder='Sélectionnez les filières'
+            noResultsText='Aucune filière trouvée'
+            enableSearch={false}
           />
         </div>
       </div>
 
       <div className={styles.row}>
-        {/* ROME Codes */}
+        {/* Metiers */}
         <div className={styles.inputField}>
-          <label htmlFor='romeCodesMetiers'>ROME Codes</label>
+          <label htmlFor='romeCodesMetiers'>Métiers</label>
           <MultiSelect
             id='romeCodesMetiers'
             options={romeCodesOptions}
             value={formData.romeCodesMetiers}
             onChange={OnRomeCodeMetierChange}
             placeholder='Sélectionnez les métiers'
+            noResultsText={romeCodesOptions.length === 0 ? "Veuillez sélectionner une filière." : "Aucun métier trouvé"}
+            enableSearch={true}
           />
         </div>
       </div>

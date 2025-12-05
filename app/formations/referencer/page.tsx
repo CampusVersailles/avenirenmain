@@ -23,14 +23,18 @@ export default async function Referencer() {
           value: filiere.documentId,
           label: filiere.nom,
         }))}
-      niveaux={niveaux.map((niveau) => ({
-        value: niveau.documentId,
-        label: niveau.label,
-      }))}
-      durees={durees.map((duree) => ({
-        value: duree.documentId,
-        label: duree.label,
-      }))}
+      niveaux={niveaux
+        .sort((a, b) => a.id - b.id)
+        .map((niveau) => ({
+          value: niveau.documentId,
+          label: niveau.label,
+        }))}
+      durees={durees
+        .sort((a, b) => a.id - b.id)
+        .map((duree) => ({
+          value: duree.documentId,
+          label: duree.label,
+        }))}
     />
   )
 }

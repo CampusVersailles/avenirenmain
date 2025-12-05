@@ -6,15 +6,23 @@ import DownChevronIcon from "../Icons/DownChevron"
 
 type Option = { value: string; label: string }
 
-type MultiSelectProps = {
+export function MultiSelect({
+  id,
+  options,
+  value,
+  onChange,
+  placeholder,
+  noResultsText,
+  enableSearch,
+}: {
   id: string
   options: Option[]
   value: string[]
   onChange: (newValues: string[]) => void
   placeholder: string
-}
-
-export function MultiSelect({ id, options, value, onChange, placeholder }: MultiSelectProps) {
+  noResultsText: string
+  enableSearch: boolean
+}) {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState("")
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -72,15 +80,16 @@ export function MultiSelect({ id, options, value, onChange, placeholder }: Multi
       {/* Dropdown */}
       {open && (
         <div className={styles.multiSelectMenu}>
-          <input
-            type='text'
-            className={styles.multiSelectSearch}
-            placeholder='Recherche...'
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onClick={(e) => e.stopPropagation()}
-          />
-
+          {enableSearch && (
+            <input
+              type='text'
+              className={styles.multiSelectSearch}
+              placeholder='Recherche...'
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onClick={(e) => e.stopPropagation()}
+            />
+          )}
           <ul className={styles.multiSelectList} role='listbox' aria-multiselectable='true'>
             {filteredOptions.map((opt) => {
               const isSelected = value.includes(opt.value)
@@ -99,7 +108,7 @@ export function MultiSelect({ id, options, value, onChange, placeholder }: Multi
               )
             })}
 
-            {filteredOptions.length === 0 && <li className={styles.multiSelectNoResults}>No results</li>}
+            {filteredOptions.length === 0 && <li className={styles.multiSelectNoResults}>{noResultsText}</li>}
           </ul>
         </div>
       )}
