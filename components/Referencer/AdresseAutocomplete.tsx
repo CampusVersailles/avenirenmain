@@ -7,10 +7,10 @@ import MapPinIcon from "@/components/Icons/MapPinIcon"
 export interface AddressResult {
   properties: {
     label: string
-    name: string
+    housenumber: string
+    street: string
     postcode: string
     city: string
-    citycode: string
   }
   geometry: {
     coordinates: [number, number]
@@ -60,9 +60,7 @@ const AdresseAutocomplete = ({
 
       setIsLoading(true)
       try {
-        const response = await fetch(
-          `https://api-adresse.data.gouv.fr/search/?limit=10&q=${encodeURIComponent(text)}&type=municipality`,
-        )
+        const response = await fetch(`https://api-adresse.data.gouv.fr/search/?limit=10&q=${encodeURIComponent(text)}`)
         const data = await response.json()
 
         if (data.features) {
@@ -133,7 +131,7 @@ const AdresseAutocomplete = ({
             ref={inputRef}
             id='adresse'
             type='text'
-            placeholder='Saisir une ville'
+            placeholder='Saisir une adresse'
             value={value ? value.properties.label : text}
             onChange={(e) => {
               if (value) {
@@ -168,7 +166,7 @@ const AdresseAutocomplete = ({
                   aria-selected={index === activeIndex}
                   onClick={() => handleSelect(suggestion)}
                   className={styles.suggestion}>
-                  <span className={styles.adresse}>{suggestion.properties.city}</span>
+                  <span className={styles.adresse}>{suggestion.properties.label}</span>
                   {suggestion.properties.postcode && (
                     <span className={styles.zipcode}>{suggestion.properties.postcode}</span>
                   )}

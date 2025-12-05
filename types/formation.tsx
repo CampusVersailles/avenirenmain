@@ -1,9 +1,9 @@
 import { z } from "zod"
 
 export const adresseSchema = z.object({
+  adresseComplete: z.string().trim(),
   numeroRue: z.string().trim(),
   rue: z.string().trim(),
-  complement: z.string().trim().optional(),
   codePostal: z.string().trim(),
   ville: z.string().trim(),
   pays: z.string().trim(),

@@ -25,9 +25,9 @@ const Referencer = ({
     titre: "",
     nomEtablissement: "",
     adresse: {
+      adresseComplete: "",
       numeroRue: "",
       rue: "",
-      complement: "",
       codePostal: "",
       ville: "",
       pays: "",
@@ -104,9 +104,9 @@ const Referencer = ({
     setFormData((prev) => ({
       ...prev,
       adresse: {
-        numeroRue: newAddress?.properties.label ?? "",
-        rue: newAddress?.properties.name ?? "",
-        complement: "",
+        adresseComplete: newAddress?.properties.label ?? "",
+        numeroRue: newAddress?.properties.housenumber ?? "",
+        rue: newAddress?.properties.street ?? "",
         codePostal: newAddress?.properties.postcode ?? "",
         ville: newAddress?.properties.city ?? "",
         pays: "France",
@@ -119,13 +119,15 @@ const Referencer = ({
   const adresseValue = useMemo(() => {
     return {
       properties: {
-        label: formData.adresse.numeroRue,
-        name: formData.adresse.rue,
+        label: formData.adresse.adresseComplete,
+        housenumber: formData.adresse.numeroRue,
+        street: formData.adresse.rue,
         postcode: formData.adresse.codePostal,
         city: formData.adresse.ville,
-        citycode: "",
       },
-      geometry: { coordinates: [formData.adresse.longitude ?? 0, formData.adresse.latitude ?? 0] as [number, number] },
+      geometry: {
+        coordinates: [formData.adresse.longitude ?? 0, formData.adresse.latitude ?? 0] as [number, number],
+      },
     }
   }, [formData.adresse])
 
