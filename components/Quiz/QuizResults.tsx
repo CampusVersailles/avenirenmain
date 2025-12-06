@@ -8,6 +8,7 @@ import { FiliereCode, VerbeCode } from "./Questions"
 import styles from "./QuizResults.module.css"
 import { quizResultsByCombination } from "./Results"
 import { FiliereAvecMetiers, getFiliereById } from "@/strapi/filieres"
+import ShareButton from "../Metier/ShareButton"
 
 const QuizResults = ({
   filiere,
@@ -50,7 +51,10 @@ const QuizResults = ({
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>🎉 Voici les résultats de ton quiz !</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>🎉 Voici les résultats de ton quiz !</h1>
+        <ShareButton ariaLabel='Partager les résultats du quiz' />
+      </div>
       <p className={styles.description}>{result.description}</p>
 
       <p className={styles.metiersTitle}>As-tu pensé à regarder les métiers de...</p>

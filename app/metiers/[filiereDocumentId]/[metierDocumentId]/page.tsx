@@ -12,8 +12,19 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
   const { metierDocumentId } = await props.params
   const metier = await getMetier(metierDocumentId).catch(() => null)
   if (metier) {
+    const description = metier.description
+      .map((block) => block.children.map((child) => ("text" in child && child.text) || "").join(""))
+      .join("\n")
+
+    const image = metier.mediaPrincipal?.url
     return {
       title: `${metier.titre} | L’Avenir en Main`,
+      description: description || undefined,
+      openGraph: {
+        title: `${metier.titre} | L’Avenir en Main`,
+        description: description || undefined,
+        images: image ? [{ url: image }] : undefined,
+      },
     }
   }
   return parent as Metadata
@@ -22,8 +33,8 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
 export default async function FiliereMetiers({ params }: Props) {
   const { filiereDocumentId, metierDocumentId } = await params
   const [filiere, metier, domainesPro] = await Promise.all([
-    getFiliereById(filiereDocumentId).catch(() => null),
-    getMetier(metierDocumentId).catch(() => null),
+    getFiliereById(filiereDocumentId),
+    getMetier(metierDocumentId),
     getDomainesPro(),
   ])
 
