@@ -55,9 +55,10 @@ export function MultiSelect({
   const filteredOptions = options.filter((opt) => opt.label.toLowerCase().includes(search.toLowerCase()))
 
   return (
-    <div id={id} className={styles.multiSelect} ref={containerRef}>
+    <div className={styles.multiSelect} ref={containerRef}>
       {/* Control */}
       <button
+        id={id}
         type='button'
         className={styles.multiSelectControl}
         onClick={() => setOpen((o) => !o)}
