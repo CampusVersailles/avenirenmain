@@ -4,78 +4,63 @@ import { useState, useEffect } from "react"
 import styles from "./Filter.module.css"
 import SearchIcon from "@/components/Icons/SearchIcon"
 import CityAutocomplete, { CityResult } from "./CityAutocomplete"
-import { Option } from "@/strapi/formations"
+import { FilterType, Option } from "@/strapi/formations"
 import { Metier } from "@/strapi/metiers"
 import JobIcon from "@/components/Icons/Job"
 import CloseIcon from "@/components/Icons/CloseIcon"
+import formationsStyles from "../Formations.module.css"
 
 const Filter = ({
-  search,
-  onSearchChange,
-  city,
-  onCityChange,
+  filters,
+  updateURL,
   filieres,
   niveaux,
   durees,
-  selectedFiliere,
-  selectedDiplome,
-  selectedAlternance,
-  selectedDuree,
-  selectedRomeCode,
-  onFiliereChange,
-  onDiplomeChange,
-  onAlternanceChange,
-  onDureeChange,
   totalResults,
   metier,
-  onRemoveMetier,
+  mapMode,
+  page,
 }: {
-  search: string
-  onSearchChange: (search: string) => void
-  city: CityResult | null
-  onCityChange: (city: CityResult | null) => void
+  filters: {
+    search: string
+    city: CityResult | null
+    filiere: string
+    diplome: string
+    alternance: string
+    duree: string
+    romeCode: string
+  }
+  updateURL: (newFilters: FilterType, page: number, map: boolean | undefined) => void
   filieres: Option[]
   niveaux: Option[]
   durees: Option[]
-  selectedFiliere: string
-  selectedDiplome: string
-  selectedAlternance: string
-  selectedDuree: string
-  onFiliereChange: (filiere: string) => void
-  onDiplomeChange: (diplome: string) => void
-  onAlternanceChange: (alternance: string) => void
-  onDureeChange: (duree: string) => void
   totalResults: number
-  selectedRomeCode: string
   metier: Metier | null
-  onRemoveMetier: () => void
+  mapMode?: boolean
+  page: number
 }) => {
-  const [text, setText] = useState(search)
-
-  useEffect(() => {
-    setText(search)
-  }, [search])
+  const [text, setText] = useState(filters.search)
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      if (search !== text) {
-        onSearchChange(text)
+      if (filters.search !== text) {
+        updateURL({ ...filters, search: text }, 1, mapMode)
       }
     }, 300)
 
     return () => clearTimeout(debounce)
-  }, [search, text, onSearchChange])
+  }, [text])
 
   return (
-    <div className={styles.filter}>
-      {selectedRomeCode && metier && (
+    <div className={mapMode ? styles.filterMap : styles.filter}>
+      {filters.romeCode && metier && (
         <div className={styles.row}>
           <div className={styles.searchField}>
             <label htmlFor='romeCode'>Métier sélectionné</label>
             <div className={styles.metierWrapper}>
               <JobIcon />
               <p className={styles.metierTitle}>{metier.titre}</p>
-              <button onClick={onRemoveMetier} className={styles.button}>
+              <button onClick={() => updateURL({ ...filters, romeCode: "" }, 1, mapMode)} className={styles.button}>
                 <CloseIcon className={styles.closeIcon} />
               </button>
             </div>
@@ -97,7 +82,7 @@ const Filter = ({
           </div>
         </div>
         <div className={styles.searchField}>
-          <CityAutocomplete value={city} onChange={onCityChange} />
+          <CityAutocomplete value={filters.city} onChange={(city) => updateURL({ ...filters, city }, 1, mapMode)} />
         </div>
       </div>
       <div className={styles.row}>
@@ -105,8 +90,8 @@ const Filter = ({
           <label htmlFor='filiere'>Filières</label>
           <select
             id='filiere'
-            value={selectedFiliere}
-            onChange={(e) => onFiliereChange(e.target.value)}
+            value={filters.filiere}
+            onChange={(e) => updateURL({ ...filters, filiere: e.target.value }, 1, mapMode)}
             className={styles.select}>
             <option value=''>Toutes</option>
             {filieres.map((filiere) => (
@@ -121,8 +106,8 @@ const Filter = ({
           <label htmlFor='diplome'>Diplôme</label>
           <select
             id='diplome'
-            value={selectedDiplome}
-            onChange={(e) => onDiplomeChange(e.target.value)}
+            value={filters.diplome}
+            onChange={(e) => updateURL({ ...filters, diplome: e.target.value }, 1, mapMode)}
             className={styles.select}>
             <option value=''>Tous</option>
             {niveaux.map((niveau) => (
@@ -137,8 +122,8 @@ const Filter = ({
           <label htmlFor='alternance'>Alternance</label>
           <select
             id='alternance'
-            value={selectedAlternance}
-            onChange={(e) => onAlternanceChange(e.target.value)}
+            value={filters.alternance}
+            onChange={(e) => updateURL({ ...filters, alternance: e.target.value }, 1, mapMode)}
             className={styles.select}>
             <option value=''>Toutes</option>
             <option value='true'>Oui</option>
@@ -150,8 +135,8 @@ const Filter = ({
           <label htmlFor='duree'>Durée</label>
           <select
             id='duree'
-            value={selectedDuree}
-            onChange={(e) => onDureeChange(e.target.value)}
+            value={filters.duree}
+            onChange={(e) => updateURL({ ...filters, duree: e.target.value }, 1, mapMode)}
             className={styles.select}>
             <option value=''>Toutes</option>
             {durees.map((duree) => (
@@ -162,11 +147,22 @@ const Filter = ({
           </select>
         </div>
       </div>
-      {totalResults > 0 && (
-        <p className={styles.resultCount}>
-          {totalResults.toLocaleString()} résultat{totalResults > 1 ? "s" : ""} selon les critères
-        </p>
-      )}
+      <div className={styles.resultCount}>
+        <div className={styles.count}>
+          {totalResults > 0 ? (
+            <p>
+              {totalResults.toLocaleString()} résultat{totalResults > 1 ? "s" : ""} selon les critères
+            </p>
+          ) : (
+            <p>Aucune formation trouvée.</p>
+          )}
+        </div>
+        {!mapMode && (
+          <button className={formationsStyles.button} onClick={() => updateURL(filters, page, true)}>
+            Afficher la carte
+          </button>
+        )}
+      </div>
     </div>
   )
 }
