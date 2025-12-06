@@ -6,7 +6,7 @@ import { referencerFormSchema, type ReferencerForm } from "@/types/formation"
 import styles from "./Referencer.module.css"
 import { MultiSelect } from "./MultiSelect"
 import { FilieresAvecMetiersRomeCodes } from "@/strapi/filieres"
-import AdresseAutocomplete, { AddressResult } from "./AdresseAutocomplete"
+import AdresseAutocomplete, { AddressResult } from "@/components/AdresseAutocomplete/AdresseAutocomplete"
 import SendIcon from "../Icons/SendIcon"
 import classNames from "classnames"
 import { useRouter } from "next/navigation"
@@ -277,7 +277,12 @@ const Referencer = ({
           <label htmlFor='adresse'>
             Adresse <span className={styles.required}>*</span>
           </label>
-          <AdresseAutocomplete error={errors.adresse} value={adresseValue} onChange={OnAdresseChange} />
+          <AdresseAutocomplete
+            error={errors.adresse}
+            value={adresseValue}
+            onChange={OnAdresseChange}
+            searchType='address'
+          />
         </div>
       </div>
 

@@ -28,6 +28,8 @@ const Formations = async ({ searchParams }: { searchParams: Promise<{ [key: stri
               postcode: params.postcode || "",
               city: params.name || params.city,
               citycode: params.citycode || "",
+              housenumber: "",
+              street: "",
             },
             geometry: { coordinates: [parseFloat(params.lon), parseFloat(params.lat)] as [number, number] },
           }

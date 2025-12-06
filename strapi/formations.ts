@@ -1,6 +1,6 @@
 "use server"
 
-import { CityResult } from "@/components/Formation/Filter/CityAutocomplete"
+import { AddressResult } from "@/components/AdresseAutocomplete/AdresseAutocomplete"
 import { getMediaUrl } from "@/lib/media_utils"
 import axiosClient, { axiosWriteClient } from "@/services/axios"
 import { ReferencerForm } from "@/types/formation"
@@ -12,7 +12,7 @@ export type Option = {
 
 export type FilterType = {
   search: string
-  city: CityResult | null
+  city: AddressResult | null
   filiere: string
   diplome: string
   alternance: string
