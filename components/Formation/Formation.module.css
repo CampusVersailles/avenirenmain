@@ -1,4 +1,5 @@
 .formation {
+  position: relative;
   padding: 1.5rem;
   border-radius: 0.5rem;
   border: 1px solid #e5e5e5;
@@ -8,10 +9,18 @@
   gap: 1rem;
 }
 
+.selected {
+  border-color: var(--primary-50);
+}
+
 .header {
   display: flex;
   gap: 1rem;
   align-items: center;
+}
+
+.small {
+  padding-right: 1.5rem;
 }
 
 .iconWrapper {
@@ -112,4 +121,21 @@
 .link {
   font-size: 0.875rem;
   word-break: break-all;
+}
+
+.viewOnMapButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  color: var(--primary-50);
+  border: 2px solid var(--primary-50);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0.25rem;
+
+  &:hover {
+    background-color: var(--primary-10);
+  }
 }
