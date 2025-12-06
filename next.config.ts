@@ -6,8 +6,14 @@ const csp: Record<string, string[]> = {
   "img-src": ["'self'", "https:", "data:"],
   "media-src": ["'self'", "https:", "data:"],
   "script-src": ["'self'", "'unsafe-inline'"],
-  "connect-src": ["'self'", "https://api-adresse.data.gouv.fr"],
+  "connect-src": [
+    "'self'",
+    "https://api-adresse.data.gouv.fr",
+    "https://openmaptiles.data.gouv.fr",
+    "https://openmaptiles.geo.data.gouv.fr",
+  ],
   "frame-src": ["'self'", "https://www.youtube.com", "https://www.dailymotion.com", "https://geo.dailymotion.com"],
+  "worker-src": ["'self'", "blob:"],
 }
 
 if (process.env.NODE_ENV === "development") {
