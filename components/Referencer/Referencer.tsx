@@ -73,8 +73,6 @@ const Referencer = ({
         const path = error.path.join(".")
         validationErrors[path] = error.message
       })
-      console.log(validated.error.issues)
-      console.log(validationErrors)
       setErrors(validationErrors)
       return
     }
@@ -84,7 +82,6 @@ const Referencer = ({
       await submitFormation(validated.data)
       router.push("/formations/referencer/confirmation")
     } catch (error) {
-      console.error(error)
       setErrors({
         general: "Une erreur est survenue lors de l'envoi de votre demande. Veuillez réessayer plus tard.",
       })
