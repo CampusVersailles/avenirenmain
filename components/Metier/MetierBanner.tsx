@@ -1,7 +1,9 @@
 import styles from "./MetierBanner.module.css"
+import actionStyles from "./ActionButton.module.css"
 import { Metier as MetierType } from "@/strapi/metiers"
 import LikeIcon from "../Icons/Like"
-import ShareIcon from "../Icons/Share"
+import ShareButton from "./ShareButton"
+
 import Link from "next/link"
 
 export default function MetierBanner({
@@ -26,12 +28,11 @@ export default function MetierBanner({
       <div className={styles.titleAndActionsContainer}>
         <h1 className={styles.title}>{metier.titre}</h1>
         <div className={styles.actionsContainer}>
-          <Link href='#' className={styles.actionButton} aria-label='Liker le métier'>
+          <Link href='#' className={actionStyles.actionButton} aria-label='Liker le métier'>
+            <p>Liker</p>
             <LikeIcon className={styles.icon} />
           </Link>
-          <Link href='#' className={styles.actionButton} aria-label='Partager le métier'>
-            <ShareIcon className={styles.icon} />
-          </Link>
+          <ShareButton ariaLabel='Partager le métier' />
         </div>
       </div>
     </div>
