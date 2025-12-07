@@ -2,7 +2,7 @@
 
 import { AddressResult } from "@/components/AdresseAutocomplete/AdresseAutocomplete"
 import { getMediaUrl } from "@/lib/media_utils"
-import axiosClient, { axiosWriteClient } from "@/services/axios"
+import axiosClient from "@/services/axios"
 import { ReferencerForm } from "@/types/formation"
 
 export type Option = {
@@ -170,7 +170,7 @@ export const countFormations = async () => {
 }
 
 export const submitFormation = async (formationForm: ReferencerForm) => {
-  const response = await axiosWriteClient.post("/formations?status=draft", {
+  const response = await axiosClient.post("/formations?status=draft", {
     data: {
       ...formationForm,
       romeCodeMetiers: formationForm.romeCodeMetiers.map((romeCode) => ({ code: romeCode })),
