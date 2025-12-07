@@ -81,7 +81,7 @@ const Referencer = ({
     try {
       await submitFormation(validated.data)
       router.push("/formations/referencer/confirmation")
-    } catch (error) {
+    } catch {
       setErrors({
         general: "Une erreur est survenue lors de l'envoi de votre demande. Veuillez réessayer plus tard.",
       })
@@ -287,7 +287,7 @@ const Referencer = ({
         {/* Site web */}
         <div className={styles.inputField}>
           <label htmlFor='siteWeb'>Site web</label>
-          <div className={styles.inputWrapper}>
+          <div className={classNames(styles.inputWrapper, { [styles.error]: errors.siteWeb })}>
             <input
               id='siteWeb'
               type='text'

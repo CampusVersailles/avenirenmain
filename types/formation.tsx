@@ -25,7 +25,7 @@ export const referencerFormSchema = z.object({
   certificat: z.string().trim().min(1, "Le certificat est obligatoire"),
 
   // Infos facultatives
-  siteWeb: z.string().trim().optional(),
+  siteWeb: z.url("L'URL du site web est invalide").trim().optional(),
   contact: z.string().trim().optional(),
 })
 
