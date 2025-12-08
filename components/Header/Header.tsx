@@ -2,7 +2,6 @@
 
 import SkipLinks from "./SkipLinks"
 import styles from "./Header.module.css"
-import Image from "next/image"
 import Link from "next/link"
 import Menu from "./Menu"
 import { usePathname } from "next/navigation"
@@ -17,7 +16,7 @@ const Header = () => {
       <div className='main-container'>
         <div className={styles.container}>
           <Link href='/' title="Accueil de l'avenir en main">
-            <Image src='/images/logo.svg' alt='' width={70} height={70} />
+            <img src='/images/logo.svg' alt='' width={70} height={70} />
           </Link>
           <nav role='navigation' tabIndex={-1} aria-label='Menu principal'>
             <ul className={styles.links}>

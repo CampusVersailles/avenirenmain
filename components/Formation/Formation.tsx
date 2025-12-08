@@ -7,7 +7,6 @@ import AwardIcon from "@/components/Icons/AwardIcon"
 import MapPinIcon from "@/components/Icons/MapPinIcon"
 import GlobeIcon from "@/components/Icons/GlobeIcon"
 import MailIcon from "@/components/Icons/MailIcon"
-import Image from "next/image"
 import PhoneIcon from "@/components/Icons/PhoneIcon"
 
 const Formation = ({ formation }: { formation: FormationType }) => {
@@ -16,13 +15,7 @@ const Formation = ({ formation }: { formation: FormationType }) => {
       <div className={styles.header}>
         {formation.filieres[0]?.icone && (
           <div className={styles.iconWrapper}>
-            <Image
-              src={formation.filieres[0]?.icone.url}
-              alt=''
-              width={48}
-              height={48}
-              className={styles.filiereIcon}
-            />
+            <img src={formation.filieres[0]?.icone.url} alt='' width={48} height={48} className={styles.filiereIcon} />
           </div>
         )}
         <div className={styles.headerContent}>
