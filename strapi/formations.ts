@@ -80,7 +80,7 @@ export const getFormations = async (filter: FilterType, page: number) => {
   }
 
   const response = await axiosClient.get<{
-    data: FormationStrapi[]
+    data: { formations: FormationStrapi[] }
     meta: {
       pagination: {
         page: number
@@ -94,7 +94,7 @@ export const getFormations = async (filter: FilterType, page: number) => {
   )
 
   return {
-    formations: response.data.data.map((formation) => ({
+    formations: response.data.data.formations.map((formation) => ({
       ...formation,
       filieres: formation.filieres.map((filiere) => ({
         ...filiere,
@@ -113,12 +113,12 @@ export const getFormationsByRomeCode = async ({
   maxResults?: number
 }) => {
   const response = await axiosClient.get<{
-    data: FormationStrapi[]
+    data: { formations: FormationStrapi[] }
   }>(
     `formations?populate[adresse][fields]=*&populate[filieres][populate][icone][fields]=url&filters[romeCodeMetiers][code][$eq]=${romeCode}&pagination[pageSize]=${maxResults}`,
   )
 
-  return response.data.data.map((formation) => ({
+  return response.data.data.formations.map((formation) => ({
     ...formation,
     filieres: formation.filieres.map((filiere) => ({
       ...filiere,
