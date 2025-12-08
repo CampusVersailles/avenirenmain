@@ -1,6 +1,7 @@
 import Block from "@/components/Block/Block"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs"
 import Formations from "@/components/Formation/Formations"
+import FormationsHeader from "@/components/Formation/Header/FormationsHeader"
 import { type Option, type Formation, type FilterType } from "@/strapi/formations"
 import { Metier } from "@/strapi/metiers"
 
@@ -30,7 +31,7 @@ const FormationsPage = ({
         ]}
       />
       <Block>
-        <h1>Les formations</h1>
+        <FormationsHeader />
         <Formations
           filieres={filieres}
           niveaux={niveaux}

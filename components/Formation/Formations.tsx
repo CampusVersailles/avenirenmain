@@ -6,7 +6,7 @@ import { FilterType, type Option, Formation as FormationType } from "@/strapi/fo
 import Filter from "./Filter/Filter"
 import Pagination from "./Pagination"
 import styles from "./Formations.module.css"
-import { CityResult } from "./Filter/CityAutocomplete"
+import { AddressResult } from "@/components/AdresseAutocomplete/AdresseAutocomplete"
 import { Metier } from "@/strapi/metiers"
 
 const Formations = ({
@@ -76,7 +76,7 @@ const Formations = ({
     updateURL({ ...filters, [key]: value }, 1)
   }
 
-  const handleCityChange = (city: CityResult | null) => {
+  const handleCityChange = (city: AddressResult | null) => {
     updateURL({ ...filters, city }, 1)
   }
 

@@ -33,6 +33,15 @@ export const getFilieres = async () => {
 
 export type Filiere = Awaited<ReturnType<typeof getFilieres>>[number]
 
+export const getFilieresAvecMetiersRomeCodes = async () => {
+  const response = await axiosClient.get<{ data: FiliereStrapi[] }>(
+    "filieres?populate[metiers][fields][0]=id&populate[metiers][fields][1]=titre&populate[metiers][populate][codeRomeMetier][fields][0]=*",
+  )
+
+  return response.data.data
+}
+export type FilieresAvecMetiersRomeCodes = Awaited<ReturnType<typeof getFilieresAvecMetiersRomeCodes>>[number]
+
 export const getFiliereById = async (filiereDocumentId: string) => {
   const response = await axiosClient.get<{
     data: FiliereStrapi

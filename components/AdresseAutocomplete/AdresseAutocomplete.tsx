@@ -1,14 +1,16 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import styles from "./CityAutocomplete.module.css"
-import filterStyles from "./Filter.module.css"
+import styles from "./AdresseAutocomplete.module.css"
 import MapPinIcon from "@/components/Icons/MapPinIcon"
+import classNames from "classnames"
 
-export interface CityResult {
+export interface AddressResult {
   properties: {
     label: string
     name: string
+    housenumber: string
+    street: string
     postcode: string
     city: string
     citycode: string
@@ -18,20 +20,26 @@ export interface CityResult {
   }
 }
 
-const CityAutocomplete = ({
+const AdresseAutocomplete = ({
+  error,
+  searchType,
   value,
   onChange,
 }: {
-  value: CityResult | null
-  onChange: (value: CityResult | null) => void
+  error?: string
+  searchType: "address" | "city"
+  value: AddressResult | null
+  onChange: (value: AddressResult | null) => void
 }) => {
   const [text, setText] = useState("")
-  const [suggestions, setSuggestions] = useState<CityResult[]>([])
+  const [suggestions, setSuggestions] = useState<AddressResult[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const searchFilter = searchType === "city" ? "&type=municipality" : ""
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -62,7 +70,7 @@ const CityAutocomplete = ({
       setIsLoading(true)
       try {
         const response = await fetch(
-          `https://api-adresse.data.gouv.fr/search/?limit=10&q=${encodeURIComponent(text)}&type=municipality`,
+          `https://api-adresse.data.gouv.fr/search/?limit=10&q=${encodeURIComponent(text)}${searchFilter}`,
         )
         const data = await response.json()
 
@@ -72,7 +80,7 @@ const CityAutocomplete = ({
           setActiveIndex(-1)
         }
       } catch (error) {
-        console.error("Error fetching city suggestions for:", text, error)
+        console.error("Error fetching address suggestions for:", text, error)
         setSuggestions([])
       } finally {
         setIsLoading(false)
@@ -84,9 +92,9 @@ const CityAutocomplete = ({
     }, 300)
 
     return () => clearTimeout(debounce)
-  }, [text, value])
+  }, [text, value, searchFilter])
 
-  const handleSelect = (suggestion: CityResult) => {
+  const handleSelect = (suggestion: AddressResult) => {
     onChange(suggestion)
     setIsOpen(false)
     setActiveIndex(-1)
@@ -125,62 +133,59 @@ const CityAutocomplete = ({
   }
 
   return (
-    <>
-      <label htmlFor='city'>Ville</label>
-      <div className={styles.wrapper} ref={wrapperRef}>
-        <div className={filterStyles.inputWrapper}>
-          <MapPinIcon />
-          <input
-            ref={inputRef}
-            id='city'
-            type='text'
-            placeholder='Saisir une ville'
-            value={value ? value.properties.label : text}
-            onChange={(e) => {
-              if (value) {
-                onChange(null)
-              }
-              setText(e.target.value)
-            }}
-            onFocus={() => text.length >= 2 && suggestions.length > 0 && setIsOpen(true)}
-            onKeyDown={handleKeyDown}
-            autoComplete='off'
-            role='combobox'
-            aria-autocomplete='list'
-            aria-expanded={isOpen}
-            aria-controls='city-listbox'
-            aria-activedescendant={activeIndex >= 0 ? `city-option-${activeIndex}` : undefined}
-          />
-        </div>
-
-        {isLoading ? (
-          <div className={styles.loading}>
-            <p className={styles.suggestion}>Chargement...</p>
-          </div>
-        ) : (
-          isOpen &&
-          suggestions.length > 0 && (
-            <ul id='city-listbox' className={styles.dropdown} role='listbox'>
-              {suggestions.map((suggestion, index) => (
-                <li
-                  key={index}
-                  id={`city-option-${index}`}
-                  role='option'
-                  aria-selected={index === activeIndex}
-                  onClick={() => handleSelect(suggestion)}
-                  className={styles.suggestion}>
-                  <span className={styles.city}>{suggestion.properties.city}</span>
-                  {suggestion.properties.postcode && (
-                    <span className={styles.zipcode}>{suggestion.properties.postcode}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          )
-        )}
+    <div className={styles.wrapper} ref={wrapperRef}>
+      <div className={classNames(styles.inputWrapper, { [styles.error]: error })}>
+        <MapPinIcon />
+        <input
+          ref={inputRef}
+          id='adresse'
+          type='text'
+          placeholder='Saisir une adresse'
+          value={value ? value.properties.label : text}
+          onChange={(e) => {
+            if (value) {
+              onChange(null)
+            }
+            setText(e.target.value)
+          }}
+          onFocus={() => text.length >= 2 && suggestions.length > 0 && setIsOpen(true)}
+          onKeyDown={handleKeyDown}
+          autoComplete='off'
+          role='combobox'
+          aria-autocomplete='list'
+          aria-expanded={isOpen}
+          aria-controls='adresse-listbox'
+          aria-activedescendant={activeIndex >= 0 ? `adresse-option-${activeIndex}` : undefined}
+        />
       </div>
-    </>
+
+      {isLoading ? (
+        <div className={styles.loading}>
+          <p className={styles.suggestion}>Chargement...</p>
+        </div>
+      ) : (
+        isOpen &&
+        suggestions.length > 0 && (
+          <ul id='adresse-listbox' className={styles.dropdown} role='listbox'>
+            {suggestions.map((suggestion, index) => (
+              <li
+                key={index}
+                id={`adresse-option-${index}`}
+                role='option'
+                aria-selected={index === activeIndex}
+                onClick={() => handleSelect(suggestion)}
+                className={styles.suggestion}>
+                <span className={styles.adresse}>{suggestion.properties.label}</span>
+                {suggestion.properties.postcode && (
+                  <span className={styles.zipcode}>{suggestion.properties.postcode}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        )
+      )}
+    </div>
   )
 }
 
-export default CityAutocomplete
+export default AdresseAutocomplete

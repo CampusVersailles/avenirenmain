@@ -28,6 +28,8 @@ const Formations = async ({ searchParams }: { searchParams: Promise<{ [key: stri
               postcode: params.postcode || "",
               city: params.name || params.city,
               citycode: params.citycode || "",
+              housenumber: "",
+              street: "",
             },
             geometry: { coordinates: [parseFloat(params.lon), parseFloat(params.lat)] as [number, number] },
           }
@@ -46,14 +48,18 @@ const Formations = async ({ searchParams }: { searchParams: Promise<{ [key: stri
           value: filiere.documentId,
           label: filiere.nom,
         }))}
-      niveaux={niveaux.map((niveau) => ({
-        value: niveau.documentId,
-        label: niveau.label,
-      }))}
-      durees={durees.map((duree) => ({
-        value: duree.documentId,
-        label: duree.label,
-      }))}
+      niveaux={niveaux
+        .sort((a, b) => a.id - b.id)
+        .map((niveau) => ({
+          value: niveau.documentId,
+          label: niveau.label,
+        }))}
+      durees={durees
+        .sort((a, b) => a.id - b.id)
+        .map((duree) => ({
+          value: duree.documentId,
+          label: duree.label,
+        }))}
       formations={formations}
       pagination={pagination}
       filters={filters}
