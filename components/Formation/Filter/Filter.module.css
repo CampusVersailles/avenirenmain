@@ -1,3 +1,4 @@
+.filterMap,
 .filter {
   margin-top: 2rem;
   display: flex;
@@ -7,6 +8,30 @@
   background: white;
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filterMap {
+  margin-top: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.filterMap .row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filterMap .searchField,
+.filterMap .field {
+  min-width: auto;
+}
+
+.filterMap .resultCount {
+  white-space: nowrap;
 }
 
 .row {
@@ -82,11 +107,6 @@
   background-position: right 0.75rem center;
 }
 
-.resultCount {
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
 .metierWrapper {
   display: flex;
   align-items: center;
@@ -105,4 +125,17 @@
   height: 1.25rem;
   stroke-width: 3;
   color: var(--primary-50);
+}
+
+.resultCount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.count {
+  font-size: 0.875rem;
+  font-weight: 500;
 }

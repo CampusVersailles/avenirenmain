@@ -1,13 +1,18 @@
 "use client"
-
 import { useRouter } from "next/navigation"
 import Formation from "./Formation"
-import { FilterType, type Option, Formation as FormationType } from "@/strapi/formations"
+import { FilterType, type Option, Formation as FormationType, Coordinates } from "@/strapi/formations"
 import Filter from "./Filter/Filter"
 import Pagination from "./Pagination"
 import styles from "./Formations.module.css"
-import { AddressResult } from "@/components/AdresseAutocomplete/AdresseAutocomplete"
 import { Metier } from "@/strapi/metiers"
+import dynamic from "next/dynamic"
+import { useEffect, useState } from "react"
+
+const FormationsMap = dynamic(() => import("@/components/Formation/Map/FormationsMap"), {
+  ssr: false,
+  loading: () => <div>Chargement de la carte...</div>,
+})
 
 const Formations = ({
   filieres,
@@ -17,6 +22,8 @@ const Formations = ({
   pagination,
   filters,
   metier,
+  coordinates,
+  showMap,
 }: {
   filieres: Option[]
   niveaux: Option[]
@@ -25,12 +32,28 @@ const Formations = ({
   pagination: { page: number; pageSize: number; pageCount: number; total: number }
   filters: FilterType
   metier: Metier | null
+  coordinates: Coordinates[]
+  showMap: boolean
 }) => {
   const router = useRouter()
+  const [selectedFormation, setSelectedFormation] = useState<FormationType | null>(null)
+  const [extraFormation, setExtraFormation] = useState<FormationType | null>(null)
 
-  const updateURL = (newFilters: FilterType, page: number) => {
+  useEffect(() => {
+    if (selectedFormation && showMap) {
+      const element = document.getElementById(`formation-${selectedFormation.id}`)
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "nearest" })
+      }
+    }
+  }, [selectedFormation, showMap])
+
+  const updateURL = (newFilters: FilterType, page: number, map: boolean | undefined) => {
     const params = new URLSearchParams()
     let scroll = false
+    if (map) {
+      params.set("map", "1")
+    }
     if (newFilters.search) {
       params.set("search", newFilters.search)
     }
@@ -72,55 +95,100 @@ const Formations = ({
     router.push(queryString ? `?${queryString}` : "/formations", { scroll })
   }
 
-  const handleFilterChange = (key: keyof typeof filters, value: string) => {
-    updateURL({ ...filters, [key]: value }, 1)
-  }
-
-  const handleCityChange = (city: AddressResult | null) => {
-    updateURL({ ...filters, city }, 1)
-  }
-
-  const handleRemoveMetier = () => {
-    updateURL({ ...filters, romeCode: "" }, 1)
+  if (showMap) {
+    return (
+      <>
+        <div className={styles.mapView}>
+          <Filter
+            filters={filters}
+            updateURL={updateURL}
+            filieres={filieres}
+            niveaux={niveaux}
+            durees={durees}
+            page={pagination.page}
+            totalResults={pagination.total}
+            metier={metier}
+            mapMode
+          />
+          <div className={styles.tooSmall}>
+            <p>Votre écran est trop petit pour afficher la carte</p>
+            <button className={styles.button} onClick={() => updateURL(filters, pagination.page, false)}>
+              Revenir aux résultats
+            </button>
+          </div>
+          <div className={styles.mapContent}>
+            <div className={styles.mapSidebar}>
+              <button className={styles.button} onClick={() => updateURL(filters, pagination.page, false)}>
+                Masquer la carte
+              </button>
+              <div className={styles.formations}>
+                {extraFormation && (
+                  <div key={extraFormation.id} id={`formation-${extraFormation.id}`}>
+                    <Formation
+                      formation={extraFormation}
+                      selected={selectedFormation?.id === extraFormation.id}
+                      onClick={() => setSelectedFormation(extraFormation)}
+                    />
+                  </div>
+                )}
+                {formations.length > 0 &&
+                  formations.map((formation) => (
+                    <div key={formation.id} id={`formation-${formation.id}`}>
+                      <Formation
+                        formation={formation}
+                        selected={selectedFormation?.id === formation.id}
+                        onClick={() => setSelectedFormation(formation)}
+                      />
+                    </div>
+                  ))}
+              </div>
+              {formations.length > 0 && pagination.pageCount > 1 && (
+                <Pagination
+                  currentPage={pagination.page}
+                  totalPages={pagination.pageCount}
+                  onPageChange={(page) => updateURL(filters, page, showMap)}
+                  mapMode
+                />
+              )}
+            </div>
+            <div className={styles.mapContainer}>
+              <FormationsMap
+                formations={formations}
+                coordinates={coordinates}
+                selectedFormation={selectedFormation}
+                onSelectFormation={setSelectedFormation}
+                city={filters.city}
+                onAddFormation={setExtraFormation}
+              />
+            </div>
+          </div>
+        </div>
+      </>
+    )
   }
 
   return (
     <>
       <Filter
-        search={filters.search}
-        onSearchChange={(value) => handleFilterChange("search", value)}
-        city={filters.city}
-        onCityChange={(value) => handleCityChange(value)}
+        filters={filters}
+        updateURL={updateURL}
         filieres={filieres}
         niveaux={niveaux}
         durees={durees}
-        selectedFiliere={filters.filiere}
-        selectedDiplome={filters.diplome}
-        selectedAlternance={filters.alternance}
-        selectedDuree={filters.duree}
-        onFiliereChange={(value) => handleFilterChange("filiere", value)}
-        onDiplomeChange={(value) => handleFilterChange("diplome", value)}
-        onAlternanceChange={(value) => handleFilterChange("alternance", value)}
-        onDureeChange={(value) => handleFilterChange("duree", value)}
+        page={pagination.page}
         totalResults={pagination.total}
-        selectedRomeCode={filters.romeCode}
         metier={metier}
-        onRemoveMetier={handleRemoveMetier}
       />
 
       <div className={styles.formations}>
-        {formations.length > 0 ? (
-          formations.map((formation) => <Formation formation={formation} key={formation.id} />)
-        ) : (
-          <p>Aucune formation trouvée.</p>
-        )}
+        {formations.length > 0 && formations.map((formation) => <Formation formation={formation} key={formation.id} />)}
       </div>
 
       {formations.length > 0 && pagination.pageCount > 1 && (
         <Pagination
           currentPage={pagination.page}
           totalPages={pagination.pageCount}
-          onPageChange={(page) => updateURL(filters, page)}
+          onPageChange={(page) => updateURL(filters, page, showMap)}
         />
       )}
     </>

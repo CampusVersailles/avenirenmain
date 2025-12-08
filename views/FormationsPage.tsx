@@ -2,7 +2,7 @@ import Block from "@/components/Block/Block"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs"
 import Formations from "@/components/Formation/Formations"
 import FormationsHeader from "@/components/Formation/Header/FormationsHeader"
-import { type Option, type Formation, type FilterType } from "@/strapi/formations"
+import { type Option, type Formation, type FilterType, Coordinates } from "@/strapi/formations"
 import { Metier } from "@/strapi/metiers"
 
 const FormationsPage = ({
@@ -13,6 +13,8 @@ const FormationsPage = ({
   pagination,
   filters,
   metier,
+  coordinates,
+  showMap,
 }: {
   filieres: Option[]
   niveaux: Option[]
@@ -21,8 +23,22 @@ const FormationsPage = ({
   pagination: { page: number; pageSize: number; pageCount: number; total: number }
   filters: FilterType
   metier: Metier | null
+  coordinates: Coordinates[]
+  showMap: boolean
 }) => {
-  return (
+  return showMap ? (
+    <Formations
+      coordinates={coordinates}
+      filieres={filieres}
+      niveaux={niveaux}
+      durees={durees}
+      formations={formations}
+      pagination={pagination}
+      filters={filters}
+      metier={metier}
+      showMap={showMap}
+    />
+  ) : (
     <>
       <Breadcrumbs
         items={[
@@ -33,6 +49,7 @@ const FormationsPage = ({
       <Block>
         <FormationsHeader />
         <Formations
+          coordinates={coordinates}
           filieres={filieres}
           niveaux={niveaux}
           durees={durees}
@@ -40,6 +57,7 @@ const FormationsPage = ({
           pagination={pagination}
           filters={filters}
           metier={metier}
+          showMap={showMap}
         />
       </Block>
     </>

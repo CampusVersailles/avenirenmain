@@ -8,11 +8,28 @@ import MapPinIcon from "@/components/Icons/MapPinIcon"
 import GlobeIcon from "@/components/Icons/GlobeIcon"
 import MailIcon from "@/components/Icons/MailIcon"
 import PhoneIcon from "@/components/Icons/PhoneIcon"
+import classNames from "classnames"
 
-const Formation = ({ formation }: { formation: FormationType }) => {
+const Formation = ({
+  formation,
+  onClick,
+  selected,
+}: {
+  formation: FormationType
+  onClick?: () => void
+  selected?: boolean
+}) => {
   return (
-    <div className={styles.formation}>
-      <div className={styles.header}>
+    <div className={classNames(styles.formation, { [styles.selected]: selected })}>
+      {onClick && (
+        <button
+          onClick={onClick}
+          className={styles.viewOnMapButton}
+          aria-label={`Voir la formation ${formation.titre} sur la carte`}>
+          <MapPinIcon />
+        </button>
+      )}
+      <div className={classNames(styles.header, { [styles.small]: onClick })}>
         {formation.filieres[0]?.icone && (
           <div className={styles.iconWrapper}>
             <img src={formation.filieres[0]?.icone.url} alt='' width={48} height={48} className={styles.filiereIcon} />

@@ -36,8 +36,10 @@ const Formations = async ({ searchParams }: { searchParams: Promise<{ [key: stri
         : null,
   }
 
+  const showMap = params.map === "1"
+
   const page = parseInt(params.page || "1")
-  const { formations, pagination } = await getFormations(filters, page)
+  const { formations, pagination, coordinates } = await getFormations(filters, page, showMap)
 
   const metier = filters.romeCode ? await getMetierByRomeCode(filters.romeCode) : null
   return (
@@ -61,9 +63,11 @@ const Formations = async ({ searchParams }: { searchParams: Promise<{ [key: stri
           label: duree.label,
         }))}
       formations={formations}
+      coordinates={coordinates}
       pagination={pagination}
       filters={filters}
       metier={metier}
+      showMap={showMap}
     />
   )
 }

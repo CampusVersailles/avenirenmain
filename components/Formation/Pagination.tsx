@@ -2,12 +2,13 @@ interface PaginationProps {
   currentPage: number
   totalPages: number
   onPageChange: (page: number) => void
+  mapMode?: boolean
 }
 
 import classNames from "classnames"
 import styles from "./Pagination.module.css"
 
-const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
+const Pagination = ({ currentPage, totalPages, onPageChange, mapMode }: PaginationProps) => {
   const getPageNumbers = () => {
     const pages: (number | string)[] = []
     const maxVisible = 5
@@ -46,21 +47,23 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
         Précédent
       </button>
 
-      {getPageNumbers().map((page, index) =>
-        typeof page === "number" ? (
-          <button
-            key={page}
-            className={classNames(styles.pageButton, { [styles.active]: currentPage === page })}
-            disabled={currentPage === page}
-            onClick={() => onPageChange(page)}>
-            {page}
-          </button>
-        ) : (
-          <span key={`ellipsis-${index}`} className={styles.pageInfo}>
-            {page}
-          </span>
-        ),
-      )}
+      {getPageNumbers()
+        .filter((page) => !mapMode || page === currentPage)
+        .map((page, index) =>
+          typeof page === "number" ? (
+            <button
+              key={page}
+              className={classNames(styles.pageButton, { [styles.active]: currentPage === page })}
+              disabled={currentPage === page}
+              onClick={() => onPageChange(page)}>
+              {page}
+            </button>
+          ) : (
+            <span key={`ellipsis-${index}`} className={styles.pageInfo}>
+              {page}
+            </span>
+          ),
+        )}
 
       <button
         className={styles.pageButton}

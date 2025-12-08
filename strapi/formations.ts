@@ -52,8 +52,9 @@ export type FormationStrapi = {
 }
 
 const DEFAULT_RADIUS = 20
-
-export const getFormations = async (filter: FilterType, page: number) => {
+const formationPopulateParams =
+  "populate[adresse]=*&populate[formationNiveau][fields]=label&populate[formationDuree][fields]=label&populate[filieres][populate][icone][fields]=url"
+export const getFormations = async (filter: FilterType, page: number, withCoordinates: boolean) => {
   let filterQuery = ""
   if (filter) {
     if (filter.filiere) {
@@ -78,9 +79,12 @@ export const getFormations = async (filter: FilterType, page: number) => {
       filterQuery += `&filters[romeCodeMetiers][code][$contains]=${filter.romeCode}`
     }
   }
+  if (withCoordinates) {
+    filterQuery += "&withCoordinates=true"
+  }
 
   const response = await axiosClient.get<{
-    data: { formations: FormationStrapi[] }
+    data: { formations: FormationStrapi[]; coordinates: Coordinates[] }
     meta: {
       pagination: {
         page: number
@@ -89,9 +93,7 @@ export const getFormations = async (filter: FilterType, page: number) => {
         total: number
       }
     }
-  }>(
-    `formations?populate[adresse]=*&populate[formationNiveau][fields]=label&populate[formationDuree][fields]=label&populate[filieres][populate][icone][fields]=url&pagination[page]=${page}&pagination[pageSize]=10${filterQuery}`,
-  )
+  }>(`formations?${formationPopulateParams}&pagination[page]=${page}&pagination[pageSize]=10${filterQuery}`)
 
   return {
     formations: response.data.data.formations.map((formation) => ({
@@ -101,6 +103,7 @@ export const getFormations = async (filter: FilterType, page: number) => {
         icone: filiere.icone?.url ? { url: getMediaUrl(filiere.icone) } : undefined,
       })),
     })),
+    coordinates: response.data.data.coordinates,
     pagination: response.data.meta.pagination,
   }
 }
@@ -115,7 +118,7 @@ export const getFormationsByRomeCode = async ({
   const response = await axiosClient.get<{
     data: { formations: FormationStrapi[] }
   }>(
-    `formations?populate[adresse][fields]=*&populate[filieres][populate][icone][fields]=url&filters[romeCodeMetiers][code][$eq]=${romeCode}&pagination[pageSize]=${maxResults}`,
+    `formations?${formationPopulateParams}&filters[romeCodeMetiers][code][$eq]=${romeCode}&pagination[pageSize]=${maxResults}`,
   )
 
   return response.data.data.formations.map((formation) => ({
@@ -167,6 +170,27 @@ export const countFormations = async () => {
   }>("formations?pagination[pageSize]=1")
 
   return response.data.meta.pagination.total
+}
+
+export const getFormationsCoordinates = async () => {
+  const response =
+    await axiosClient.get<{ longitude: number; latitude: number; documentId: string }[]>("formations/coordinates")
+
+  return response.data
+}
+export type Coordinates = Awaited<ReturnType<typeof getFormationsCoordinates>>[number]
+
+export const getFormationByDocumentId = async (documentId: string): Promise<Formation | null> => {
+  const response = await axiosClient.get<{ data: FormationStrapi }>(
+    `formations/${documentId}?${formationPopulateParams}`,
+  )
+  return {
+    ...response.data.data,
+    filieres: response.data.data.filieres.map((filiere) => ({
+      ...filiere,
+      icone: filiere.icone?.url ? { url: getMediaUrl(filiere.icone) } : undefined,
+    })),
+  }
 }
 
 export const submitFormation = async (formationForm: ReferencerForm) => {
