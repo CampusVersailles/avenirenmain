@@ -2,7 +2,6 @@ import styles from "./FiliereMetier.module.css"
 import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 import Link from "next/link"
-import Image from "next/image"
 import { replaceNewlinesInBlocks } from "@/lib/text_utils"
 import { memo } from "react"
 import classNames from "classnames"
@@ -26,7 +25,7 @@ const FiliereMetier = memo(
         <Link href={`/metiers/${filiere.documentId}/${metier.documentId}`} className={styles.link}>
           {metier.mediaPrincipal && (
             <>
-              <Image className={styles.image} src={metier.mediaPrincipal.url} alt='' width={250} height={145} />
+              <img className={styles.image} src={metier.mediaPrincipal.url} alt='' width={250} height={145} />
               <p className={styles.domaine}>
                 {domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))?.description}
               </p>
