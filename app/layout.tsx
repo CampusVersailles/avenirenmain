@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Explore les métiers de l’artisanat et trouve ta formation | L’Avenir en Main",
     creators: "L’Avenir en Main",
-    images: `${process.env.NEXT_PUBLIC_URL}/meta/main.png`,
+    images: `${process.env.NEXT_PUBLIC_URL}/meta/og.png`,
   },
 }
 

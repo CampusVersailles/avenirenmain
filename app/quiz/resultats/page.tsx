@@ -20,7 +20,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     openGraph: {
       title: "🎉 Voici les résultats de ton quiz !",
       description: result.description,
-      images: [{ url: `${process.env.NEXT_PUBLIC_URL}/meta/main.png` }],
+      images: [{ url: `${process.env.NEXT_PUBLIC_URL}/meta/og.png` }],
     },
   }
 }
