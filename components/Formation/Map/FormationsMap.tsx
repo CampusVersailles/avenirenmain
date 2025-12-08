@@ -5,7 +5,7 @@ import "maplibre-gl/dist/maplibre-gl.css"
 import mapLib, { MapLayerMouseEvent } from "maplibre-gl"
 import styles from "./FormationsMap.module.css"
 import { Coordinates, Formation, getFormationByDocumentId } from "@/strapi/formations"
-import { CityResult } from "../Filter/CityAutocomplete"
+import { AddressResult } from "@/components/AdresseAutocomplete/AdresseAutocomplete"
 
 const FormationsMap = ({
   formations,
@@ -20,7 +20,7 @@ const FormationsMap = ({
   selectedFormation: Formation | null
   onSelectFormation: (formation: Formation) => void
   onAddFormation: (formation: Formation) => void
-  city: CityResult | null
+  city: AddressResult | null
 }) => {
   const mapRef = useRef<MapRef>(null)
 

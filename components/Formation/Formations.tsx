@@ -98,7 +98,6 @@ const Formations = ({
   if (showMap) {
     return (
       <>
-        <h1 className={styles.hidden}>Les formations</h1>
         <div className={styles.mapView}>
           <Filter
             filters={filters}
@@ -170,7 +169,6 @@ const Formations = ({
 
   return (
     <>
-      <h1>Les formations</h1>
       <Filter
         filters={filters}
         updateURL={updateURL}

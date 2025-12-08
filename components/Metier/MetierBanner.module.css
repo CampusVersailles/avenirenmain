@@ -43,27 +43,35 @@
 .actionsContainer {
   display: flex;
   gap: 1rem;
-}
-
-.actionButton {
-  background-color: var(--primary-50);
-  color: white;
-  border-radius: 1rem;
-  width: 3rem;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: var(--primary-60);
-    color: white;
-    transform: translateY(-0.2rem);
-  }
+  position: relative;
+  flex-wrap: wrap;
 }
 
 .icon {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+.copiedFeedback {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0) scale(1);
+  background: var(--primary-50);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 1;
+  transition:
+    opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.copiedFeedback[aria-hidden="true"] {
+  opacity: 0;
+  transform: translate(-50%, 10px) scale(0.95);
 }

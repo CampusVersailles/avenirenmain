@@ -86,7 +86,11 @@ button {
 }
 
 button,
-a {
+a,
+input,
+textarea,
+select {
+  font-family: inherit;
   &:focus {
     outline-offset: 2px;
     outline: 3px solid var(--primary-50);

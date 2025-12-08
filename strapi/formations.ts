@@ -1,8 +1,9 @@
 "use server"
 
-import { CityResult } from "@/components/Formation/Filter/CityAutocomplete"
+import { AddressResult } from "@/components/AdresseAutocomplete/AdresseAutocomplete"
 import { getMediaUrl } from "@/lib/media_utils"
 import axiosClient from "@/services/axios"
+import { ReferencerForm } from "@/types/formation"
 
 export type Option = {
   value: string
@@ -11,7 +12,7 @@ export type Option = {
 
 export type FilterType = {
   search: string
-  city: CityResult | null
+  city: AddressResult | null
   filiere: string
   diplome: string
   alternance: string
@@ -190,4 +191,15 @@ export const getFormationByDocumentId = async (documentId: string): Promise<Form
       icone: filiere.icone?.url ? { url: getMediaUrl(filiere.icone) } : undefined,
     })),
   }
+}
+
+export const submitFormation = async (formationForm: ReferencerForm) => {
+  const response = await axiosClient.post("/formations?status=draft", {
+    data: {
+      ...formationForm,
+      romeCodeMetiers: formationForm.romeCodeMetiers.map((romeCode) => ({ code: romeCode })),
+      origine: "Site",
+    },
+  })
+  return response.data
 }

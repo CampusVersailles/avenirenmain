@@ -4,57 +4,30 @@
   gap: 2rem;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.title {
-  font-size: 1.4rem;
-  color: var(--title-color);
-  font-weight: 600;
-  line-height: 1.4;
-}
-
 .description {
   font-size: 1.2rem;
-  color: var(--text-color);
-  line-height: 1.4;
-}
-
-.metiersTitle {
-  font-size: 1.2rem;
+  font-weight: 400;
   color: var(--title-color);
-  font-weight: 600;
   line-height: 1.4;
 }
 
-.metiers {
+.buttons {
   display: flex;
+  gap: 1rem;
   flex-wrap: wrap;
-  gap: 2rem 1rem;
-}
-
-.buttonContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 2rem;
 }
 
 .button {
   background-color: var(--primary-50);
   color: white;
-  border-radius: 1rem;
-  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
   text-decoration: none;
-  font-weight: 600;
   width: fit-content;
 
   svg {
@@ -68,7 +41,19 @@
     color: white;
 
     svg {
-      transform: translateX(0.5rem);
+      transform: scale(1.1);
     }
   }
+}
+
+.secondary {
+  background-color: var(--primary-10);
+  color: var(--primary-50);
+  border: var(--border);
+  border-color: var(--primary-50);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }

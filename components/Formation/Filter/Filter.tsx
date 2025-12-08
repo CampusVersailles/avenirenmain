@@ -3,12 +3,12 @@
 import { useState, useEffect } from "react"
 import styles from "./Filter.module.css"
 import SearchIcon from "@/components/Icons/SearchIcon"
-import CityAutocomplete, { CityResult } from "./CityAutocomplete"
 import { FilterType, Option } from "@/strapi/formations"
 import { Metier } from "@/strapi/metiers"
 import JobIcon from "@/components/Icons/Job"
 import CloseIcon from "@/components/Icons/CloseIcon"
 import formationsStyles from "../Formations.module.css"
+import AdresseAutocomplete, { AddressResult } from "@/components/AdresseAutocomplete/AdresseAutocomplete"
 
 const Filter = ({
   filters,
@@ -23,7 +23,7 @@ const Filter = ({
 }: {
   filters: {
     search: string
-    city: CityResult | null
+    city: AddressResult | null
     filiere: string
     diplome: string
     alternance: string
@@ -82,7 +82,12 @@ const Filter = ({
           </div>
         </div>
         <div className={styles.searchField}>
-          <CityAutocomplete value={filters.city} onChange={(city) => updateURL({ ...filters, city }, 1, mapMode)} />
+          <label htmlFor='adresse'>Ville</label>
+          <AdresseAutocomplete
+            value={filters.city}
+            onChange={(city) => updateURL({ ...filters, city }, 1, mapMode)}
+            searchType='city'
+          />
         </div>
       </div>
       <div className={styles.row}>
