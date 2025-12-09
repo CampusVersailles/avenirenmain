@@ -22,7 +22,7 @@ const FiliereMetiers = ({
     <div>
       <FiliereBanner filiere={filiere} />
       <Search filiere={filiere} />
-      <Accordion title='Filtrer par domaines professionnels' defaultOpen={true}>
+      <Accordion title='Filtrer par domaines professionnels' defaultOpen={false}>
         <Filter options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
       </Accordion>
       <div className={styles.metiers}>
