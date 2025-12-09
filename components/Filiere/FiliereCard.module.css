@@ -23,6 +23,7 @@
     width: calc(100% - 2rem);
   }
 }
+
 .image {
   position: absolute;
   top: 0;
@@ -52,10 +53,11 @@
   justify-content: center;
   margin-bottom: 0.5rem;
   font-weight: 300;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .title {
-  font-size: 1.5rem;
+  line-height: 1.2;
+  font-size: 1.35rem;
   font-weight: bold;
 }

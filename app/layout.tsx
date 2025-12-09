@@ -1,14 +1,22 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Poppins, Josefin_Slab } from "next/font/google"
 import "../css/reset.css"
 import "../css/variables.css"
 import "../css/global.css"
 import Header from "@/components/Header/Header"
 import Footer from "@/components/Footer/Footer"
 
-const inter = Inter({
+const poppins = Poppins({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-poppins",
+  display: "swap",
+})
+
+const josefinSlab = Josefin_Slab({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-josefin-slab",
   display: "swap",
 })
 
@@ -29,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='fr' className={inter.variable}>
+    <html lang='fr' className={`${poppins.variable} ${josefinSlab.variable}`}>
       <body>
         <Header />
         <main id='contenu' role='main' tabIndex={-1}>
