@@ -54,8 +54,16 @@
 
 .small {
   .title {
-    max-width: 14rem;
     word-break: break-word;
+    max-width: 30rem;
+
+    @media screen and (max-width: 53rem) {
+      max-width: 14rem;
+    }
+
+    @media screen and (max-width: 70rem) {
+      max-width: 16rem;
+    }
   }
 }
 
