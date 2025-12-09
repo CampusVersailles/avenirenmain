@@ -7,7 +7,7 @@ import FiliereCard from "./FiliereCard"
 const Filieres = ({ filieres }: { filieres: Filiere[] }) => {
   return (
     <>
-      <h1>Découvrir les différentes filières de l'artisanat et du patrimoine</h1>
+      <h1 className={styles.title}>Découvrir les différentes filières de l'artisanat et du patrimoine</h1>
       <div className={styles.filieres}>
         {filieres.map((filiere) => (
           <FiliereCard key={filiere.id} filiere={filiere} />

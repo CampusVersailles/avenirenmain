@@ -16,7 +16,7 @@ const Header = () => {
       <div className='main-container'>
         <div className={styles.container}>
           <Link href='/' title="Accueil de l'avenir en main">
-            <img src='/images/logo.svg' alt='' width={70} height={70} />
+            <img src='/images/logo-cropped.svg' alt='' width={70} height={70} />
           </Link>
           <nav role='navigation' tabIndex={-1} aria-label='Menu principal'>
             <ul className={styles.links}>
