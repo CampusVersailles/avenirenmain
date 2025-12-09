@@ -2,16 +2,14 @@
 
 import { useState } from "react"
 import styles from "./Filter.module.css"
-import GridIcon from "@/components/Icons/GridIcon"
 import classNames from "classnames"
 
 interface FilterProps {
-  title: string
   options: { code: string; description: string }[]
   onFilterChange: (selectedFilters: string[]) => void
 }
 
-const Filter = ({ title, options, onFilterChange }: FilterProps) => {
+const Filter = ({ options, onFilterChange }: FilterProps) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
 
   const toggleFilter = (key: string) => {
@@ -36,10 +34,6 @@ const Filter = ({ title, options, onFilterChange }: FilterProps) => {
 
   return (
     <div className={styles.filter}>
-      <h2 className={styles.title}>
-        <GridIcon />
-        <span>{title}</span>
-      </h2>
       <div className={styles.options}>
         <button
           className={classNames(styles.badge, {

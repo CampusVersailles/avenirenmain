@@ -7,6 +7,7 @@ import Filter from "./Filter/Filter"
 import { useState } from "react"
 import FiliereBanner from "./FiliereBanner"
 import Search from "./Search/Search"
+import Accordion from "@/components/Accordion/Accordion"
 
 const FiliereMetiers = ({
   filiere,
@@ -21,7 +22,9 @@ const FiliereMetiers = ({
     <div>
       <FiliereBanner filiere={filiere} />
       <Search filiere={filiere} />
-      <Filter title='Domaines Professionnels' options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
+      <Accordion title='Filtrer par domaines professionnels' defaultOpen={true}>
+        <Filter options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
+      </Accordion>
       <div className={styles.metiers}>
         {filiere.metiers
           .filter((metier) => !metier.appellation)
