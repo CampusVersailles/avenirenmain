@@ -287,7 +287,7 @@ const Referencer = ({
         {/* Site web */}
         <div className={styles.inputField}>
           <label htmlFor='siteWeb'>Site web</label>
-          <div className={classNames(styles.inputWrapper, { [styles.error]: errors.siteWeb })}>
+          <div className={classNames(styles.inputWrapper, { [styles.error]: formData.siteWeb && errors.siteWeb })}>
             <input
               id='siteWeb'
               type='text'
@@ -301,8 +301,10 @@ const Referencer = ({
 
       <div className={styles.row}>
         {/* Contact */}
-        <div className={styles.inputField}>
-          <label htmlFor='contact'>Contact</label>
+        <div className={classNames(styles.inputField, { [styles.error]: errors.contact })}>
+          <label htmlFor='contact'>
+            Contact <span className={styles.required}>*</span>
+          </label>
           <div className={styles.inputWrapper}>
             <input
               id='contact'
