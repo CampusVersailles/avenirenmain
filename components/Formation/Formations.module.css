@@ -42,7 +42,11 @@
   margin-top: 0;
   flex-shrink: 1;
   padding: 0rem 1rem;
-  max-width: 20rem;
+  max-width: 22rem;
+
+  @media screen and (max-width: 53rem) {
+    max-width: 19rem;
+  }
 }
 
 .hidden {

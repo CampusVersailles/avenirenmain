@@ -19,10 +19,6 @@
   align-items: center;
 }
 
-.small {
-  padding-right: 1.5rem;
-}
-
 .iconWrapper {
   background-color: var(--primary-50);
   border-radius: 50%;
@@ -32,6 +28,10 @@
   justify-content: center;
   width: 3rem;
   height: 3rem;
+
+  @media screen and (max-width: 53rem) {
+    display: none;
+  }
 }
 
 .filiereIcon {
@@ -50,6 +50,13 @@
   line-height: 1.75rem;
   font-weight: 600;
   color: #1a1a1a;
+}
+
+.small {
+  .title {
+    max-width: 14rem;
+    word-break: break-word;
+  }
 }
 
 .etablissement {
