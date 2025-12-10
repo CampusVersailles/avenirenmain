@@ -47,7 +47,7 @@
 
 .title {
   font-size: 1.125rem;
-  line-height: 1.75rem;
+  line-height: 1.5rem;
   font-weight: 600;
   color: #1a1a1a;
 }
@@ -69,6 +69,7 @@
 
 .etablissement {
   font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 .info {
