@@ -19,10 +19,6 @@
   align-items: center;
 }
 
-.small {
-  padding-right: 1.5rem;
-}
-
 .iconWrapper {
   background-color: var(--primary-50);
   border-radius: 50%;
@@ -32,6 +28,10 @@
   justify-content: center;
   width: 3rem;
   height: 3rem;
+
+  @media screen and (max-width: 53rem) {
+    display: none;
+  }
 }
 
 .filiereIcon {
@@ -47,13 +47,29 @@
 
 .title {
   font-size: 1.125rem;
-  line-height: 1.75rem;
+  line-height: 1.5rem;
   font-weight: 600;
   color: #1a1a1a;
 }
 
+.small {
+  .title {
+    word-break: break-word;
+    max-width: 30rem;
+
+    @media screen and (max-width: 53rem) {
+      max-width: 14rem;
+    }
+
+    @media screen and (max-width: 70rem) {
+      max-width: 16rem;
+    }
+  }
+}
+
 .etablissement {
   font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 .info {

@@ -23,10 +23,10 @@ export const referencerFormSchema = z.object({
   formationNiveau: z.string().min(1, "Le niveau de la formation est obligatoire"),
   alternance: z.boolean(),
   certificat: z.string().trim().min(1, "Le certificat est obligatoire"),
+  contact: z.string().trim().min(1, "Le contact est obligatoire"),
 
   // Infos facultatives
   siteWeb: z.url("L'URL du site web est invalide").trim().optional(),
-  contact: z.string().trim().optional(),
 })
 
 export type ReferencerForm = z.infer<typeof referencerFormSchema>

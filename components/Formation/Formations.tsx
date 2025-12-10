@@ -49,6 +49,9 @@ const Formations = ({
   }, [selectedFormation, showMap])
 
   const updateURL = (newFilters: FilterType, page: number, map: boolean | undefined) => {
+    setSelectedFormation(null)
+    setExtraFormation(null)
+
     const params = new URLSearchParams()
     let scroll = false
     if (map) {
@@ -117,22 +120,22 @@ const Formations = ({
             </button>
           </div>
           <div className={styles.mapContent}>
-            <div className={styles.mapSidebar}>
-              <button className={styles.button} onClick={() => updateURL(filters, pagination.page, false)}>
-                Masquer la carte
-              </button>
-              <div className={styles.formations}>
-                {extraFormation && (
-                  <div key={extraFormation.id} id={`formation-${extraFormation.id}`}>
-                    <Formation
-                      formation={extraFormation}
-                      selected={selectedFormation?.id === extraFormation.id}
-                      onClick={() => setSelectedFormation(extraFormation)}
-                    />
-                  </div>
-                )}
-                {formations.length > 0 &&
-                  formations.map((formation) => (
+            {formations.length > 0 && (
+              <div className={styles.mapSidebar}>
+                <button className={styles.button} onClick={() => updateURL(filters, pagination.page, false)}>
+                  Masquer la carte
+                </button>
+                <div className={styles.formations}>
+                  {extraFormation && (
+                    <div key={extraFormation.id} id={`formation-${extraFormation.id}`}>
+                      <Formation
+                        formation={extraFormation}
+                        selected={selectedFormation?.id === extraFormation.id}
+                        onClick={() => setSelectedFormation(extraFormation)}
+                      />
+                    </div>
+                  )}
+                  {formations.map((formation) => (
                     <div key={formation.id} id={`formation-${formation.id}`}>
                       <Formation
                         formation={formation}
@@ -141,16 +144,17 @@ const Formations = ({
                       />
                     </div>
                   ))}
+                </div>
+                {pagination.pageCount > 1 && (
+                  <Pagination
+                    currentPage={pagination.page}
+                    totalPages={pagination.pageCount}
+                    onPageChange={(page) => updateURL(filters, page, showMap)}
+                    mapMode
+                  />
+                )}
               </div>
-              {formations.length > 0 && pagination.pageCount > 1 && (
-                <Pagination
-                  currentPage={pagination.page}
-                  totalPages={pagination.pageCount}
-                  onPageChange={(page) => updateURL(filters, page, showMap)}
-                  mapMode
-                />
-              )}
-            </div>
+            )}
             <div className={styles.mapContainer}>
               <FormationsMap
                 formations={formations}
