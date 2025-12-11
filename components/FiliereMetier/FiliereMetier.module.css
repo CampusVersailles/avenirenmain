@@ -19,7 +19,7 @@
 }
 
 .tile {
-  width: calc((100% - 3rem) / 2);
+  width: calc((100% - 2rem) / 2);
   aspect-ratio: 0.8;
   overflow: hidden;
   border-radius: 0.75rem;
@@ -29,10 +29,6 @@
 
   &:hover {
     transform: translateY(-0.5rem);
-  }
-
-  @media screen and (max-width: 53rem) {
-    width: calc((100% - 2rem) / 2);
   }
 
   @media screen and (max-width: 37.5rem) {
