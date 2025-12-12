@@ -2,11 +2,11 @@
 
 import styles from "./FiliereMetiers.module.css"
 import FiliereMetier from "./FiliereMetier"
-import { FiliereAvecMetiers } from "@/strapi/filieres"
+import { FiliereAvecMetiers, FiliereAvecMetiersSansMedia } from "@/strapi/filieres"
 import Filter from "./Filter/Filter"
 import { useState } from "react"
 import FiliereBanner from "./FiliereBanner"
-import Search from "./Search/Search"
+import Search from "../Search/Search"
 import Accordion from "@/components/Accordion/Accordion"
 
 const FiliereMetiers = ({
@@ -17,11 +17,14 @@ const FiliereMetiers = ({
   domainesPro: { code: string; description: string }[]
 }) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
+  console.log(filiere)
 
   return (
     <div>
       <FiliereBanner filiere={filiere} />
-      <Search filiere={filiere} />
+      <div className={styles.searchContainer}>
+        <Search filieres={[filiere]} />
+      </div>
       <Accordion title='Filtrer par domaines professionnels' defaultOpen={false}>
         <Filter options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
       </Accordion>
