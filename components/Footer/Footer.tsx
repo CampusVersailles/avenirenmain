@@ -8,7 +8,7 @@ const Footer = () => {
       <div className={classNames("main-container", styles.footer)}>
         Propulsé par{" "}
         <Link prefetch={false} href='https://campusversailles.fr/' target='_blank' rel='noreferrer noopener'>
-          le campus Versailles
+          le Campus Versailles
         </Link>{" "}
         avec le soutien de France 2030
       </div>
