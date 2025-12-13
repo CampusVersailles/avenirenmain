@@ -17,7 +17,6 @@ const FiliereMetiers = ({
   domainesPro: { code: string; description: string }[]
 }) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
-  console.log(filiere)
 
   return (
     <div>
