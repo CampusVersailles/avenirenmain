@@ -7,3 +7,7 @@
 .hidden {
   display: none !important;
 }
+
+.searchContainer {
+  margin-top: 1rem;
+}

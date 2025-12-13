@@ -5,7 +5,7 @@ import SearchIcon from "@/components/Icons/SearchIcon"
 import { useMemo, useState, useEffect, useRef } from "react"
 import Fuse from "fuse.js"
 import { useRouter } from "next/navigation"
-import { FiliereAvecMetiers } from "@/strapi/filieres"
+import { FiliereAvecMetiers, FiliereAvecMetiersSansMedia } from "@/strapi/filieres"
 
 const MAX_RESULTS = 10
 
@@ -16,18 +16,27 @@ type SearchItem = {
   documentIdAppellation?: string
   titreAppellation?: string
   titreMetier: string
+  filiereDocumentId: string
 }
 
-function getSearchItemLink(filiere: FiliereAvecMetiers, item: SearchItem) {
+function getSearchItemLink(item: SearchItem) {
   if (item.type === "metier" || !item.documentIdAppellation) {
-    return `/metiers/${filiere.documentId}/${item.documentIdMetier}`
+    return `/metiers/${item.filiereDocumentId}/${item.documentIdMetier}`
   } else {
-    return `/metiers/${filiere.documentId}/${item.documentIdAppellation}`
+    return `/metiers/${item.filiereDocumentId}/${item.documentIdAppellation}`
   }
 }
 
-export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
-  const metiers = filiere.metiers
+export default function Search({ filieres }: { filieres: FiliereAvecMetiersSansMedia[] }) {
+  const allMetiers = filieres.flatMap((filiere) => {
+    return filiere.metiers.map((metier) => ({
+      ...metier,
+      filiereDocumentId: filiere.documentId,
+    }))
+  })
+  const metiers = allMetiers.filter(
+    (metier, index, self) => index === self.findIndex((t) => t.documentId === metier.documentId),
+  )
   const router = useRouter()
   const [results, setResults] = useState<SearchItem[]>([])
   const [isOpen, setIsOpen] = useState(false)
@@ -42,6 +51,7 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
           titre: metier.titre,
           documentIdMetier: metier.documentId,
           titreMetier: metier.titre,
+          filiereDocumentId: metier.filiereDocumentId,
         }
 
         const appellationsItems: SearchItem[] = metier.appellations.map((appellation) => ({
@@ -51,6 +61,7 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
           documentIdAppellation: appellation.metier?.documentId,
           titreAppellation: appellation.nom,
           titreMetier: metier.titre,
+          filiereDocumentId: metier.filiereDocumentId,
         }))
 
         return [metierItem, ...appellationsItems]
@@ -99,7 +110,7 @@ export default function Search({ filiere }: { filiere: FiliereAvecMetiers }) {
   const handleSelect = (item: SearchItem) => {
     setIsOpen(false)
     setResults([])
-    router.push(getSearchItemLink(filiere, item))
+    router.push(getSearchItemLink(item))
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
