@@ -24,7 +24,6 @@ export default async function FiliereMetiers({ params }: Props) {
     getFiliereById(filiereDocumentId).catch(() => null),
     getDomainesPro(),
   ])
-
   if (!filiere) {
     notFound()
   }
