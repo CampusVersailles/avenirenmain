@@ -3,6 +3,7 @@ import styles from "./MetierDescription.module.css"
 import { Metier as MetierType } from "@/strapi/metiers"
 import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import MetierTrouverFormation from "./MetierTrouverFormation"
+import Image from "next/image"
 
 export default function MetierDescription({ metier }: { metier: MetierType }) {
   const getEmbedUrl = (url: string) => {
@@ -33,7 +34,7 @@ export default function MetierDescription({ metier }: { metier: MetierType }) {
           allowFullScreen
         />
       ) : metier.mediaPrincipal ? (
-        <img src={metier.mediaPrincipal.url} alt='' className={styles.descriptionImage} width={500} height={500} />
+        <Image src={metier.mediaPrincipal.url} alt='' className={styles.descriptionImage} width={500} height={500} />
       ) : null}
     </div>
   )

@@ -6,6 +6,7 @@ import { replaceNewlinesInBlocks } from "@/lib/text_utils"
 import { memo } from "react"
 import classNames from "classnames"
 import LinkIcon from "../Icons/LinkIcon"
+import Image from "next/image"
 
 const FiliereMetier = memo(
   ({
@@ -27,7 +28,7 @@ const FiliereMetier = memo(
           <div className={styles.mainContainer}>
             {metier.mediaPrincipal && (
               <>
-                <img className={styles.image} src={metier.mediaPrincipal.url} alt='' width={250} height={145} />
+                <Image className={styles.image} src={metier.mediaPrincipal.url} alt='' width={250} height={145} />
                 <p className={styles.domaine}>
                   {domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))?.description}
                 </p>

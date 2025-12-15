@@ -2,6 +2,7 @@ import styles from "./TabAppellations.module.css"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
 import Link from "next/link"
 import JobIcon from "@/components/Icons/Job"
+import Image from "next/image"
 
 export default function TabAppellations({
   filiere,
@@ -32,14 +33,14 @@ export default function TabAppellations({
                 className={styles.linkTile}
                 key={appellation.nom}>
                 <div className={styles.iconContainer}>
-                  <img className={styles.icon} src={filiere.icone} alt='' width={24} height={24} />
+                  <Image className={styles.icon} src={filiere.icone} alt='' width={24} height={24} />
                 </div>
                 <p className={styles.nom}>{appellation.nom}</p>
               </Link>
             ) : (
               <div className={styles.tile} key={appellation.nom}>
                 <div className={styles.iconContainer}>
-                  <img className={styles.icon} src={filiere.icone} alt='' width={24} height={24} />
+                  <Image className={styles.icon} src={filiere.icone} alt='' width={24} height={24} />
                 </div>
                 <p className={styles.nom}>{appellation.nom}</p>
               </div>
