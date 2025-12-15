@@ -5,6 +5,7 @@ import LikeIcon from "../Icons/Like"
 import ShareButton from "./ShareButton"
 
 import Link from "next/link"
+import LeftChevronIcon from "../Icons/LeftChevron"
 
 export default function MetierBanner({
   metier,
@@ -26,7 +27,12 @@ export default function MetierBanner({
         {domaine && <span className={styles.badgeGhost}>{domaine.description}</span>}
       </div>
       <div className={styles.titleAndActionsContainer}>
-        <h1 className={styles.title}>{metier.titre}</h1>
+        <div className={styles.titleContainer}>
+          <Link href={`/metiers/${metier.filieres[0].documentId}`} className={styles.backButtonLink}>
+            <LeftChevronIcon className={styles.backButton} />
+          </Link>
+          <h1 className={styles.title}>{metier.titre}</h1>
+        </div>
         <div className={styles.actionsContainer}>
           <Link href='#' className={actionStyles.actionButton} aria-label='Liker le métier'>
             <p>Liker</p>
