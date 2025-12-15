@@ -1,13 +1,13 @@
 import Block from "@/components/Block/Block"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs"
 import FiliereMetiers from "@/components/FiliereMetier/FiliereMetiers"
-import { FiliereAvecMetiers } from "@/strapi/filieres"
+import { FiliereAvecMetiersComplets } from "@/strapi/filieres"
 
 const FiliereMetiersPage = ({
   filiere,
   domainesPro,
 }: {
-  filiere: FiliereAvecMetiers
+  filiere: FiliereAvecMetiersComplets
   domainesPro: { code: string; description: string }[]
 }) => {
   return (

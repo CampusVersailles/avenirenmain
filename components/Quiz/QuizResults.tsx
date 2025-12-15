@@ -7,7 +7,7 @@ import FiliereMetier from "../FiliereMetier/FiliereMetier"
 import { FiliereCode, VerbeCode } from "./Questions"
 import styles from "./QuizResults.module.css"
 import { quizResultsByCombination } from "./Results"
-import { FiliereAvecMetiers, getFiliereById } from "@/strapi/filieres"
+import { FiliereAvecMetiersComplets, getFiliereById } from "@/strapi/filieres"
 import ShareButton from "../Metier/ShareButton"
 
 const QuizResults = ({
@@ -21,7 +21,9 @@ const QuizResults = ({
 }) => {
   const result = quizResultsByCombination[filiere]?.[verbe]
 
-  const [metiersWithFilieres, setMetiersWithFilieres] = useState<{ metier: Metier; filiere: FiliereAvecMetiers }[]>([])
+  const [metiersWithFilieres, setMetiersWithFilieres] = useState<
+    { metier: Metier; filiere: FiliereAvecMetiersComplets }[]
+  >([])
 
   useEffect(() => {
     async function load() {

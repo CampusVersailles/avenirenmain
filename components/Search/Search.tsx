@@ -5,7 +5,7 @@ import SearchIcon from "@/components/Icons/SearchIcon"
 import { useMemo, useState, useEffect, useRef } from "react"
 import Fuse from "fuse.js"
 import { useRouter } from "next/navigation"
-import { FiliereAvecMetiers, FiliereAvecMetiersSansMedia } from "@/strapi/filieres"
+import { FiliereAvecMetiersComplets, FiliereAvecMetiers } from "@/strapi/filieres"
 
 const MAX_RESULTS = 10
 
@@ -27,7 +27,7 @@ function getSearchItemLink(item: SearchItem) {
   }
 }
 
-export default function Search({ filieres }: { filieres: FiliereAvecMetiersSansMedia[] }) {
+export default function Search({ filieres }: { filieres: FiliereAvecMetiers[] }) {
   const allMetiers = filieres.flatMap((filiere) => {
     return filiere.metiers.map((metier) => ({
       ...metier,

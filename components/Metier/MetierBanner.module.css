@@ -1,5 +1,4 @@
 .banner {
-  color: white;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -32,6 +31,12 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .title {

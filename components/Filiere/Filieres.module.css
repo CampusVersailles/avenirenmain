@@ -11,3 +11,7 @@
   font-family: var(--font-josefin-slab);
   line-height: 1.2;
 }
+
+.searchContainer {
+  margin-top: 1rem;
+}

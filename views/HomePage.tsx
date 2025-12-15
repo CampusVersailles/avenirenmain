@@ -1,7 +1,7 @@
 import Block from "@/components/Block/Block"
 import Banner from "@/components/Home/Banner"
 import Home from "@/components/Home/Home"
-import { FiliereAvecMetiersSansMedia } from "@/strapi/filieres"
+import { FiliereAvecMetiers } from "@/strapi/filieres"
 
 const HomePage = ({
   formationsCount,
@@ -10,7 +10,7 @@ const HomePage = ({
 }: {
   formationsCount: number
   metiersCount: number
-  filieres: FiliereAvecMetiersSansMedia[]
+  filieres: FiliereAvecMetiers[]
 }) => {
   return (
     <>

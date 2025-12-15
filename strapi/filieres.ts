@@ -46,7 +46,7 @@ export const getFiliereById = async (filiereDocumentId: string) => {
   const response = await axiosClient.get<{
     data: FiliereStrapi
   }>(
-    `filieres/${filiereDocumentId}?populate[icone][fields]=url&populate[metiers][populate][mediaPrincipal][fields]=url&populate=domainesPro&populate[metiers][populate]=codeRomeMetier&populate[metiers][populate][appellations][populate][metier][fields]=documentId`,
+    `filieres/${filiereDocumentId}?populate[icone][fields]=url&populate[photo][fields]=url&populate[metiers][populate][mediaPrincipal][fields]=url&populate=domainesPro&populate[metiers][populate]=codeRomeMetier&populate[metiers][populate][appellations][populate][metier][fields]=documentId`,
   )
 
   return {
@@ -58,22 +58,24 @@ export const getFiliereById = async (filiereDocumentId: string) => {
         mediaPrincipal: metier.mediaPrincipal ? { url: getMediaUrl(metier.mediaPrincipal) } : undefined,
       })),
     icone: getMediaUrl(response.data.data.icone),
+    photo: getMediaUrl(response.data.data.photo),
   }
 }
 
-export type FiliereAvecMetiers = Awaited<ReturnType<typeof getFiliereById>>
+export type FiliereAvecMetiersComplets = Awaited<ReturnType<typeof getFiliereById>>
 
 export const getAllFilieresAvecMetiers = async () => {
   const response = await axiosClient.get<{ data: FiliereStrapi[] }>(
-    "filieres?populate[icone][fields]=url&populate[metiers][populate][appellations][populate][metier][fields]=documentId",
+    "filieres?populate[icone][fields]=url&populate[photo][fields]=url&populate[metiers][populate][appellations][populate][metier][fields]=documentId",
   )
   return response.data.data.map((filiere) => ({
     ...filiere,
+    photo: getMediaUrl(filiere.photo),
     icone: getMediaUrl(filiere.icone),
   }))
 }
 
-export type FiliereAvecMetiersSansMedia = Awaited<ReturnType<typeof getAllFilieresAvecMetiers>>[number]
+export type FiliereAvecMetiers = Awaited<ReturnType<typeof getAllFilieresAvecMetiers>>[number]
 
 export const getDomainesPro = async () => {
   const response = await axiosClient.get<{

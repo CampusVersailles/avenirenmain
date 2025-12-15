@@ -1,6 +1,6 @@
 import styles from "./FiliereMetier.module.css"
 import { BlocksRenderer } from "@strapi/blocks-react-renderer"
-import { FiliereAvecMetiers } from "@/strapi/filieres"
+import { FiliereAvecMetiersComplets } from "@/strapi/filieres"
 import Link from "next/link"
 import { replaceNewlinesInBlocks } from "@/lib/text_utils"
 import { memo } from "react"
@@ -15,8 +15,8 @@ const FiliereMetier = memo(
     className,
     ariaHidden,
   }: {
-    metier: FiliereAvecMetiers["metiers"][number]
-    filiere: FiliereAvecMetiers
+    metier: FiliereAvecMetiersComplets["metiers"][number]
+    filiere: FiliereAvecMetiersComplets
     domainesPro: { code: string; description: string }[]
     className?: string
     ariaHidden?: boolean

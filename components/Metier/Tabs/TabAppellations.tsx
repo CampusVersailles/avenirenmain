@@ -1,5 +1,5 @@
 import styles from "./TabAppellations.module.css"
-import { FiliereAvecMetiers } from "@/strapi/filieres"
+import { FiliereAvecMetiersComplets } from "@/strapi/filieres"
 import Link from "next/link"
 import JobIcon from "@/components/Icons/Job"
 
@@ -8,7 +8,7 @@ export default function TabAppellations({
   appellations,
   notFoundMessage,
 }: {
-  filiere: FiliereAvecMetiers
+  filiere: FiliereAvecMetiersComplets
   appellations: { nom: string; metier?: { documentId: string } }[]
   notFoundMessage: string
 }) {
