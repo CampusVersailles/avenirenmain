@@ -1,4 +1,4 @@
-import { getFilieres } from "@/strapi/filieres"
+import { getAllFilieresAvecMetiers, getFilieres } from "@/strapi/filieres"
 import FilieresPage from "@/views/FilieresPage"
 import { Metadata } from "next"
 
@@ -7,6 +7,6 @@ export const metadata: Metadata = {
 }
 
 export default async function Home() {
-  const filieres = await getFilieres()
+  const filieres = await getAllFilieresAvecMetiers()
   return <FilieresPage filieres={filieres} />
 }

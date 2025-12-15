@@ -1,5 +1,5 @@
 import styles from "./Metier.module.css"
-import { FiliereAvecMetiers } from "@/strapi/filieres"
+import { FiliereAvecMetiersComplets } from "@/strapi/filieres"
 import { Metier as MetierType } from "@/strapi/metiers"
 import MetierBanner from "./MetierBanner"
 import MetierDescription from "./MetierDescription"
@@ -16,7 +16,7 @@ const Metier = ({
   metier,
   domainesPro,
 }: {
-  filiere: FiliereAvecMetiers
+  filiere: FiliereAvecMetiersComplets
   metier: MetierType
   domainesPro: { code: string; description: string }[]
 }) => {

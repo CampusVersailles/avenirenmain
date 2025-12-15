@@ -4,7 +4,6 @@ import "../css/reset.css"
 import "../css/variables.css"
 import "../css/global.css"
 import Header from "@/components/Header/Header"
-import Footer from "@/components/Footer/Footer"
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
@@ -43,7 +42,6 @@ export default function RootLayout({
         <main id='contenu' role='main' tabIndex={-1}>
           {children}
         </main>
-        <Footer />
       </body>
     </html>
   )

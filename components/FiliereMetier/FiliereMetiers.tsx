@@ -2,7 +2,7 @@
 
 import styles from "./FiliereMetiers.module.css"
 import FiliereMetier from "./FiliereMetier"
-import { FiliereAvecMetiers, FiliereAvecMetiersSansMedia } from "@/strapi/filieres"
+import { FiliereAvecMetiersComplets, FiliereAvecMetiers } from "@/strapi/filieres"
 import Filter from "./Filter/Filter"
 import { useState } from "react"
 import FiliereBanner from "./FiliereBanner"
@@ -13,7 +13,7 @@ const FiliereMetiers = ({
   filiere,
   domainesPro,
 }: {
-  filiere: FiliereAvecMetiers
+  filiere: FiliereAvecMetiersComplets
   domainesPro: { code: string; description: string }[]
 }) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])

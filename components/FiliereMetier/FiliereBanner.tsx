@@ -1,4 +1,4 @@
-import { FiliereAvecMetiers } from "@/strapi/filieres"
+import { FiliereAvecMetiersComplets } from "@/strapi/filieres"
 import styles from "./FiliereBanner.module.css"
 
 const mappingNomFiliereTitle: Record<string, string> = {
@@ -9,7 +9,7 @@ const mappingNomFiliereTitle: Record<string, string> = {
   Gastronomie: "Découvrez les métiers de la Gastronomie",
 }
 
-export default function FiliereBanner({ filiere }: { filiere: FiliereAvecMetiers }) {
+export default function FiliereBanner({ filiere }: { filiere: FiliereAvecMetiersComplets }) {
   return (
     <div className={styles.banner}>
       <h1 className={styles.title}>
