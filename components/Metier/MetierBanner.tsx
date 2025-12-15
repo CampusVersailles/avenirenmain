@@ -28,7 +28,7 @@ export default function MetierBanner({
       </div>
       <div className={styles.titleAndActionsContainer}>
         <div className={styles.titleContainer}>
-          <BackButton />
+          <BackButton fallbackHref={`/metiers/${metier.filieres[0].documentId}`} />
           <h1 className={styles.title}>{metier.titre}</h1>
         </div>
         <div className={styles.actionsContainer}>

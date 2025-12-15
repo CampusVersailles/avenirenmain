@@ -3,7 +3,7 @@ import LeftChevronIcon from "../Icons/LeftChevron"
 import styles from "./BackButton.module.css"
 import { useRouter } from "next/navigation"
 
-const BackButton = ({ fallbackHref = "/" }: { fallbackHref?: string }) => {
+const BackButton = ({ fallbackHref }: { fallbackHref: string }) => {
   const router = useRouter()
   return (
     <button
