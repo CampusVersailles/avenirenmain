@@ -122,9 +122,6 @@ const Formations = ({
           <div className={styles.mapContent}>
             {formations.length > 0 && (
               <div className={styles.mapSidebar}>
-                <button className={styles.button} onClick={() => updateURL(filters, pagination.page, false)}>
-                  Masquer la carte
-                </button>
                 <div className={styles.formations}>
                   {extraFormation && (
                     <div key={extraFormation.id} id={`formation-${extraFormation.id}`}>

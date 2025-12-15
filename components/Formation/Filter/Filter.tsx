@@ -167,6 +167,11 @@ const Filter = ({
             Afficher la carte
           </button>
         )}
+        {mapMode && (
+          <button className={formationsStyles.button} onClick={() => updateURL(filters, page, false)}>
+            Masquer la carte
+          </button>
+        )}
       </div>
     </div>
   )
