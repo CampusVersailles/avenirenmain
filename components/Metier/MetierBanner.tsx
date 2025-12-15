@@ -5,7 +5,7 @@ import LikeIcon from "../Icons/Like"
 import ShareButton from "./ShareButton"
 
 import Link from "next/link"
-import LeftChevronIcon from "../Icons/LeftChevron"
+import BackButton from "../BackButton/BackButton"
 
 export default function MetierBanner({
   metier,
@@ -28,9 +28,7 @@ export default function MetierBanner({
       </div>
       <div className={styles.titleAndActionsContainer}>
         <div className={styles.titleContainer}>
-          <Link href={`/metiers/${metier.filieres[0].documentId}`} className={styles.backButtonLink}>
-            <LeftChevronIcon className={styles.backButton} />
-          </Link>
+          <BackButton />
           <h1 className={styles.title}>{metier.titre}</h1>
         </div>
         <div className={styles.actionsContainer}>
