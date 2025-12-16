@@ -38,6 +38,7 @@ const Formations = ({
   const router = useRouter()
   const [selectedFormation, setSelectedFormation] = useState<FormationType | null>(null)
   const [extraFormation, setExtraFormation] = useState<FormationType | null>(null)
+  const [searching, setSearching] = useState(false)
 
   useEffect(() => {
     if (selectedFormation && showMap) {
@@ -48,7 +49,13 @@ const Formations = ({
     }
   }, [selectedFormation, showMap])
 
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSearching(false)
+  }, [formations])
+
   const updateURL = (newFilters: FilterType, page: number, map: boolean | undefined) => {
+    setSearching(true)
     setSelectedFormation(null)
     setExtraFormation(null)
 
@@ -112,6 +119,7 @@ const Formations = ({
             totalResults={pagination.total}
             metier={metier}
             mapMode
+            searching={searching}
           />
           <div className={styles.tooSmall}>
             <p>Votre écran est trop petit pour afficher la carte</p>
@@ -179,6 +187,7 @@ const Formations = ({
         page={pagination.page}
         totalResults={pagination.total}
         metier={metier}
+        searching={searching}
       />
 
       <div className={styles.formations}>
