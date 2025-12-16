@@ -11,6 +11,7 @@ import {
 } from "./Questions"
 import styles from "./Quiz.module.css"
 import classNames from "classnames"
+import { trackEvent } from "@/lib/gtag"
 
 function buildScores<Code extends string>(
   questions: { id: string; answers: { id: string; code: Code }[] }[],
@@ -76,6 +77,7 @@ export const Quiz = () => {
       const maxVerbe = getMaxKey<VerbeCode>(verbesResults, "Organiser")
 
       // Rediriger avec les résultats en query params
+      trackEvent("quiz_complete", { maxFiliere, maxVerbe })
       router.push(`/quiz/resultats?filiere=${maxFiliere}&verbe=${maxVerbe}`)
       return
     }

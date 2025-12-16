@@ -3,11 +3,13 @@ import { useState } from "react"
 import ShareIcon from "../Icons/Share"
 import styles from "./ShareButton.module.css"
 import actionStyles from "./ActionButton.module.css"
+import { trackEvent } from "@/lib/gtag"
 
-export default function ShareButton({ ariaLabel }: { ariaLabel: string }) {
+export default function ShareButton({ ariaLabel, tracking }: { ariaLabel: string; tracking: string }) {
   const [copied, setCopied] = useState(false)
 
   const handleShare = async () => {
+    trackEvent("share", { label: tracking })
     await navigator.clipboard.writeText(window.location.href)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
