@@ -55,7 +55,7 @@ const QuizResults = ({
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>🎉 Voici les résultats de ton quiz !</h1>
-        <ShareButton ariaLabel='Partager les résultats du quiz' />
+        <ShareButton ariaLabel='Partager les résultats du quiz' tracking='Quiz' />
       </div>
       <p className={styles.description}>{result.description}</p>
 

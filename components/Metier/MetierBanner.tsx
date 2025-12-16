@@ -36,7 +36,7 @@ export default function MetierBanner({
             <p>Liker</p>
             <LikeIcon className={styles.icon} />
           </Link>
-          <ShareButton ariaLabel='Partager le métier' />
+          <ShareButton ariaLabel='Partager le métier' tracking={metier.titre} />
         </div>
       </div>
     </div>
