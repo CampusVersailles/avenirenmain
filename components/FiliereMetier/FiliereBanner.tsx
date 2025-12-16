@@ -1,5 +1,6 @@
 import { FiliereAvecMetiersComplets } from "@/strapi/filieres"
 import styles from "./FiliereBanner.module.css"
+import Image from "next/image"
 
 const mappingNomFiliereTitle: Record<string, string> = {
   "Artisanat d'art & design": "Découvrez les métiers de l'Artisanat d'art & design",
@@ -13,7 +14,7 @@ export default function FiliereBanner({ filiere }: { filiere: FiliereAvecMetiers
   return (
     <div className={styles.banner}>
       <h1 className={styles.title}>
-        <img className={styles.icone} src={filiere.icone} alt='' width={24} height={24} />{" "}
+        <Image className={styles.icone} src={filiere.icone} alt='' width={24} height={24} />{" "}
         {mappingNomFiliereTitle[filiere.nom]}
       </h1>
       <p className={styles.description}>{filiere.description}</p>
