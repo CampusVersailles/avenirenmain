@@ -86,7 +86,7 @@ const Formation = ({
           <div className={styles.contactItem}>
             <GlobeIcon className={styles.icon} />
             <Link href={formation.siteWeb} target='_blank' rel='noopener noreferrer' className={styles.link}>
-              {formation.siteWeb}
+              Site officiel de la formation
             </Link>
           </div>
         )}
