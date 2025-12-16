@@ -9,6 +9,8 @@ import { FiliereAvecMetiers } from "@/strapi/filieres"
 
 const MAX_RESULTS = 10
 
+const FUZZY_SEARCH_THRESHOLD = 0.4
+
 type SearchItem = {
   type: "metier" | "appellation"
   titre: string
@@ -72,9 +74,10 @@ export default function Search({ filieres }: { filieres: FiliereAvecMetiers[] })
   const fuse = useMemo(() => {
     return new Fuse(searchItems, {
       keys: ["titre"],
-      threshold: 0.3,
+      threshold: FUZZY_SEARCH_THRESHOLD,
       ignoreLocation: true,
       isCaseSensitive: false,
+      ignoreDiacritics: true,
     })
   }, [searchItems])
 

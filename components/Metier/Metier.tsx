@@ -20,36 +20,48 @@ const Metier = ({
   metier: MetierType
   domainesPro: { code: string; description: string }[]
 }) => {
+  const hasSpecialisations = metier.appellations && metier.appellations.length > 0
+  const hasMetiersProches = metier.metiersProches && metier.metiersProches.length > 0
   const tabs: TabItem[] = [
     {
       id: "formations",
       label: "Formations",
       component: <TabFormations metier={metier} />,
     },
-    {
-      id: "specialisations",
-      label: "Spécialisations",
-      component: (
-        <TabSpecialization
-          filiere={filiere}
-          appellations={metier.appellations}
-          notFoundMessage='Aucune spécialisation disponible pour ce métier.'
-        />
-      ),
-    },
-    {
-      id: "metiers",
-      label: "Métiers proches",
-      component: (
-        <TabSpecialization
-          filiere={filiere}
-          appellations={metier.metiersProches}
-          notFoundMessage='Aucun métier proche disponible pour ce métier.'
-        />
-      ),
-    },
+    ...(hasSpecialisations
+      ? [
+          {
+            id: "specialisations",
+            label: "Spécialisations",
+            component: (
+              <TabSpecialization
+                filiere={filiere}
+                appellations={metier.appellations}
+                notFoundMessage='Aucune spécialisation disponible pour ce métier.'
+              />
+            ),
+          },
+        ]
+      : []),
+    ...(hasMetiersProches
+      ? [
+          {
+            id: "metiers",
+            label: "Métiers proches",
+            component: (
+              <TabSpecialization
+                filiere={filiere}
+                appellations={metier.metiersProches}
+                notFoundMessage='Aucun métier proche disponible pour ce métier.'
+              />
+            ),
+          },
+        ]
+      : []),
     { id: "salaire", label: "Salaire estimé", component: <TabSalaire metier={metier} /> },
   ]
+
+  const defaultActiveTabId = hasSpecialisations ? "specialisations" : hasMetiersProches ? "metiers" : "formations"
 
   return (
     <div className={styles.metier}>
@@ -58,7 +70,7 @@ const Metier = ({
       <MetierCentresInterets metier={metier} />
       <MetierQuotidien metier={metier} />
       <MetierPerspectives metier={metier} />
-      <MetiersTabs tabs={tabs} defaultActiveId='specialisations' ariaLabel='Informations supplémentaires' />
+      <MetiersTabs tabs={tabs} defaultActiveId={defaultActiveTabId} ariaLabel='Informations supplémentaires' />
     </div>
   )
 }
