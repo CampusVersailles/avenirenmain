@@ -2,8 +2,12 @@
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.animating {
+.animatingLike {
   animation: likeAnimation 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animatingUnlike {
+  animation: unlikeAnimation 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes likeAnimation {
@@ -12,6 +16,18 @@
   }
   50% {
     transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes unlikeAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
   }
   100% {
     transform: scale(1);

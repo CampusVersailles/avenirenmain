@@ -51,7 +51,13 @@ export default function LikeButton({
       aria-label={isLiked ? `Ne plus ${ariaLabel}` : ariaLabel}
       aria-pressed={isLiked}>
       <p>{isLiked ? "Liké" : "Liker"}</p>
-      <LikeIcon filled={isLiked} className={classNames(styles.icon, { [styles.animating]: isAnimating })} />
+      <LikeIcon
+        filled={isLiked}
+        className={classNames(styles.icon, {
+          [styles.animatingLike]: isAnimating && isLiked,
+          [styles.animatingUnlike]: isAnimating && !isLiked,
+        })}
+      />
     </button>
   )
 }
