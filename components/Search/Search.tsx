@@ -5,7 +5,7 @@ import SearchIcon from "@/components/Icons/SearchIcon"
 import { useMemo, useState, useEffect, useRef } from "react"
 import Fuse from "fuse.js"
 import { useRouter } from "next/navigation"
-import { FiliereAvecMetiersComplets, FiliereAvecMetiers } from "@/strapi/filieres"
+import { FiliereAvecMetiers } from "@/strapi/filieres"
 
 const MAX_RESULTS = 10
 

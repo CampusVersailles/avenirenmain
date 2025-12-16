@@ -20,6 +20,7 @@ const Filter = ({
   metier,
   mapMode,
   page,
+  searching,
 }: {
   filters: {
     search: string
@@ -38,6 +39,7 @@ const Filter = ({
   metier: Metier | null
   mapMode?: boolean
   page: number
+  searching: boolean
 }) => {
   const [text, setText] = useState(filters.search)
 
@@ -154,7 +156,9 @@ const Filter = ({
       </div>
       <div className={styles.resultCount}>
         <div className={styles.count}>
-          {totalResults > 0 ? (
+          {searching ? (
+            <p>Recherche en cours...</p>
+          ) : totalResults > 0 ? (
             <p>
               {totalResults.toLocaleString()} résultat{totalResults > 1 ? "s" : ""} selon les critères
             </p>
