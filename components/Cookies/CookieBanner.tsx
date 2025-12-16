@@ -7,6 +7,8 @@ import { setAnalyticsConsent } from "@/lib/gtag"
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false)
   const acceptButtonRef = useRef<HTMLButtonElement | null>(null)
+  const titleId = "cookie-banner-title"
+  const textId = "cookie-banner-description"
 
   useEffect(() => {
     try {
