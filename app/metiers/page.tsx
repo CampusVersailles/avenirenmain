@@ -1,4 +1,4 @@
-import { getAllFilieresAvecMetiers, getFilieres } from "@/strapi/filieres"
+import { getAllFilieresAvecMetiers } from "@/strapi/filieres"
 import FilieresPage from "@/views/FilieresPage"
 import { Metadata } from "next"
 
