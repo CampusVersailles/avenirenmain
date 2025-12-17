@@ -51,7 +51,7 @@ export default function CookieBanner() {
       aria-describedby='cookie-banner-description'
       tabIndex={-1}>
       <div className={styles.text} id='cookie-banner-description'>
-        Ce site utilise Google Analytics afin d'analyser son audience et d'améliorer votre expérience de navigation. Ces
+        Ce site utilise des cookies afin d'analyser son audience et d'améliorer votre expérience de navigation. Ces
         données sont traitées de manière anonyme et confidentielle.
       </div>
       <div className={styles.actions}>
