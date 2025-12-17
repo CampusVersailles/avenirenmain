@@ -77,7 +77,7 @@ export const countMetiers = async () => {
         total: number
       }
     }
-  }>("metiers?pagination[pageSize]=1&filters[appellation][$eq]=false")
+  }>("metiers?pagination[pageSize]=1")
 
   return response.data.meta.pagination.total
 }

@@ -42,6 +42,7 @@ const Filter = ({
   searching: boolean
 }) => {
   const [text, setText] = useState(filters.search)
+  const [showMoreFilters, setShowMoreFilters] = useState(false)
 
   useEffect(() => {
     const debounce = setTimeout(() => {
@@ -92,67 +93,79 @@ const Filter = ({
           />
         </div>
       </div>
-      <div className={styles.row}>
-        <div className={styles.field}>
-          <label htmlFor='filiere'>Filières</label>
-          <select
-            id='filiere'
-            value={filters.filiere}
-            onChange={(e) => updateURL({ ...filters, filiere: e.target.value }, 1, mapMode)}
-            className={styles.select}>
-            <option value=''>Toutes</option>
-            {filieres.map((filiere) => (
-              <option key={filiere.value} value={filiere.value}>
-                {filiere.label}
-              </option>
-            ))}
-          </select>
-        </div>
+      <div className={showMoreFilters ? "" : styles.extraFilters} id='mobileFiltersDropdown'>
+        <div className={styles.row}>
+          <div className={styles.field}>
+            <label htmlFor='filiere'>Filières</label>
+            <select
+              id='filiere'
+              value={filters.filiere}
+              onChange={(e) => updateURL({ ...filters, filiere: e.target.value }, 1, mapMode)}
+              className={styles.select}>
+              <option value=''>Toutes</option>
+              {filieres.map((filiere) => (
+                <option key={filiere.value} value={filiere.value}>
+                  {filiere.label}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className={styles.field}>
-          <label htmlFor='diplome'>Diplôme</label>
-          <select
-            id='diplome'
-            value={filters.diplome}
-            onChange={(e) => updateURL({ ...filters, diplome: e.target.value }, 1, mapMode)}
-            className={styles.select}>
-            <option value=''>Tous</option>
-            {niveaux.map((niveau) => (
-              <option key={niveau.value} value={niveau.value}>
-                {niveau.label}
-              </option>
-            ))}
-          </select>
-        </div>
+          <div className={styles.field}>
+            <label htmlFor='diplome'>Diplôme</label>
+            <select
+              id='diplome'
+              value={filters.diplome}
+              onChange={(e) => updateURL({ ...filters, diplome: e.target.value }, 1, mapMode)}
+              className={styles.select}>
+              <option value=''>Tous</option>
+              {niveaux.map((niveau) => (
+                <option key={niveau.value} value={niveau.value}>
+                  {niveau.label}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className={styles.field}>
-          <label htmlFor='alternance'>Alternance</label>
-          <select
-            id='alternance'
-            value={filters.alternance}
-            onChange={(e) => updateURL({ ...filters, alternance: e.target.value }, 1, mapMode)}
-            className={styles.select}>
-            <option value=''>Toutes</option>
-            <option value='true'>Oui</option>
-            <option value='false'>Non</option>
-          </select>
-        </div>
+          <div className={styles.field}>
+            <label htmlFor='alternance'>Alternance</label>
+            <select
+              id='alternance'
+              value={filters.alternance}
+              onChange={(e) => updateURL({ ...filters, alternance: e.target.value }, 1, mapMode)}
+              className={styles.select}>
+              <option value=''>Toutes</option>
+              <option value='true'>Oui</option>
+              <option value='false'>Non</option>
+            </select>
+          </div>
 
-        <div className={styles.field}>
-          <label htmlFor='duree'>Durée</label>
-          <select
-            id='duree'
-            value={filters.duree}
-            onChange={(e) => updateURL({ ...filters, duree: e.target.value }, 1, mapMode)}
-            className={styles.select}>
-            <option value=''>Toutes</option>
-            {durees.map((duree) => (
-              <option key={duree.value} value={duree.value}>
-                {duree.label}
-              </option>
-            ))}
-          </select>
+          <div className={styles.field}>
+            <label htmlFor='duree'>Durée</label>
+            <select
+              id='duree'
+              value={filters.duree}
+              onChange={(e) => updateURL({ ...filters, duree: e.target.value }, 1, mapMode)}
+              className={styles.select}>
+              <option value=''>Toutes</option>
+              {durees.map((duree) => (
+                <option key={duree.value} value={duree.value}>
+                  {duree.label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
+      </div>
+      <div className={styles.mobileMoreFilters}>
+        <button
+          id='mobileFiltersButton'
+          className={styles.moreFiltersButton}
+          onClick={() => setShowMoreFilters(!showMoreFilters)}
+          aria-expanded={showMoreFilters}
+          aria-controls='mobileFiltersDropdown'>
+          {showMoreFilters ? "Masquer les filtres" : "Voir plus de filtres"}
+        </button>
       </div>
       <div className={styles.resultCount}>
         <div className={styles.count}>
@@ -166,14 +179,13 @@ const Filter = ({
             <p>Aucune formation trouvée.</p>
           )}
         </div>
-        {!mapMode && (
-          <button className={formationsStyles.button} onClick={() => updateURL(filters, page, true)}>
-            Afficher la carte
-          </button>
-        )}
-        {mapMode && (
+        {mapMode ? (
           <button className={formationsStyles.button} onClick={() => updateURL(filters, page, false)}>
             Masquer la carte
+          </button>
+        ) : (
+          <button className={formationsStyles.button} onClick={() => updateURL(filters, page, true)}>
+            Afficher la carte
           </button>
         )}
       </div>

@@ -23,6 +23,7 @@
   padding: 0.75rem;
   display: flex;
   border-radius: 0.5rem;
+  align-items: center;
   text-decoration: none;
   gap: 0.5rem;
   font-size: 1.25rem;
