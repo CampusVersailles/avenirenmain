@@ -30,7 +30,7 @@ export default function MetierBanner({
           <h1 className={styles.title}>{metier.titre}</h1>
         </div>
         <div className={styles.actionsContainer}>
-          <LikeButton metierId={metier.documentId} tracking={metier.titre} ariaLabel='Liker le métier' />
+          <LikeButton metierId={metier.documentId} tracking={metier.titre} />
           <ShareButton ariaLabel='Partager le métier' tracking={metier.titre} />
         </div>
       </div>

@@ -7,15 +7,7 @@ import actionStyles from "./ActionButton.module.css"
 import styles from "./LikeButton.module.css"
 import { trackEvent } from "@/lib/gtag"
 
-export default function LikeButton({
-  metierId,
-  tracking,
-  ariaLabel,
-}: {
-  metierId: string
-  tracking: string
-  ariaLabel: string
-}) {
+export default function LikeButton({ metierId, tracking }: { metierId: string; tracking: string }) {
   const [isLiked, setIsLiked] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
 
@@ -40,7 +32,11 @@ export default function LikeButton({
 
     const consent = localStorage.getItem("analytics_consent")
     if (consent === "granted") {
-      trackEvent(`like_${tracking}`)
+      if (newLikedState) {
+        trackEvent(`like_${tracking}`)
+      } else {
+        trackEvent(`unlike_${tracking}`)
+      }
     }
   }
 
@@ -48,7 +44,7 @@ export default function LikeButton({
     <button
       onClick={handleLikeClick}
       className={actionStyles.actionButton}
-      aria-label={isLiked ? `Ne plus ${ariaLabel}` : ariaLabel}
+      aria-label={isLiked ? "Ne plus liker le métier" : "Liker le métier"}
       aria-pressed={isLiked}>
       <p>{isLiked ? "Liké" : "Liker"}</p>
       <LikeIcon

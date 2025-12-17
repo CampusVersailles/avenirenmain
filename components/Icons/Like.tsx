@@ -1,12 +1,12 @@
 import classNames from "classnames"
 
-const LikeIcon = ({ className, filled = false }: { className?: string; filled?: boolean }) => (
+const LikeIcon = ({ className, filled }: { className?: string; filled?: boolean }) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width='24'
     height='24'
     viewBox='0 0 24 24'
-    fill={filled ? 'currentColor' : 'none'}
+    fill={filled ? "currentColor" : "none"}
     stroke='currentColor'
     strokeWidth='2'
     strokeLinecap='round'
