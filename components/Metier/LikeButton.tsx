@@ -40,7 +40,7 @@ export default function LikeButton({
 
     const consent = localStorage.getItem("analytics_consent")
     if (consent === "granted") {
-      trackEvent("like", { label: tracking })
+      trackEvent(`like_${tracking}`)
     }
   }
 
