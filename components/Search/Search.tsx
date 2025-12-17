@@ -31,15 +31,18 @@ function getSearchItemLink(item: SearchItem) {
 }
 
 export default function Search({ filieres }: { filieres: FiliereAvecMetiers[] }) {
-  const allMetiers = filieres.flatMap((filiere) => {
-    return filiere.metiers.map((metier) => ({
-      ...metier,
-      filiereDocumentId: filiere.documentId,
-    }))
-  })
-  const metiers = allMetiers.filter(
-    (metier, index, self) => index === self.findIndex((t) => t.documentId === metier.documentId),
-  )
+  const metiers = useMemo(() => {
+    const allMetiers = filieres.flatMap((filiere) => {
+      return filiere.metiers.map((metier) => ({
+        ...metier,
+        filiereDocumentId: filiere.documentId,
+      }))
+    })
+    return allMetiers.filter(
+      (metier, index, self) => index === self.findIndex((t) => t.documentId === metier.documentId),
+    )
+  }, [filieres])
+
   const router = useRouter()
   const [results, setResults] = useState<SearchItem[]>([])
   const [isOpen, setIsOpen] = useState(false)
