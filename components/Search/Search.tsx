@@ -6,6 +6,7 @@ import { useMemo, useState, useEffect, useRef } from "react"
 import Fuse from "fuse.js"
 import { useRouter } from "next/navigation"
 import { FiliereAvecMetiers } from "@/strapi/filieres"
+import { trackEvent } from "@/lib/gtag"
 
 const MAX_RESULTS = 10
 
@@ -43,7 +44,9 @@ export default function Search({ filieres }: { filieres: FiliereAvecMetiers[] })
   const [results, setResults] = useState<SearchItem[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [searchValue, setSearchValue] = useState("")
   const wrapperRef = useRef<HTMLDivElement>(null)
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   const searchItems = useMemo<SearchItem[]>(() => {
     return metiers
@@ -93,21 +96,40 @@ export default function Search({ filieres }: { filieres: FiliereAvecMetiers[] })
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
+  useEffect(() => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current)
+    }
+
+    const trimmed = searchValue.trim()
+    if (!trimmed) {
+      return
+    }
+
+    debounceTimerRef.current = setTimeout(() => {
+      trackEvent(`recherche_metier_${trimmed}`)
+      const searchResults = fuse.search(trimmed).slice(0, MAX_RESULTS)
+      setResults(searchResults.map((r) => r.item))
+      setSelectedIndex(-1)
+      setIsOpen(true)
+    }, 300)
+
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current)
+      }
+    }
+  }, [searchValue, fuse])
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-
+    setSearchValue(value)
     const trimmed = value.trim()
     if (!trimmed) {
       setResults([])
       setSelectedIndex(-1)
       setIsOpen(false)
-      return
     }
-
-    const searchResults = fuse.search(trimmed).slice(0, MAX_RESULTS)
-    setResults(searchResults.map((r) => r.item))
-    setSelectedIndex(-1)
-    setIsOpen(true)
   }
 
   const handleSelect = (item: SearchItem) => {
@@ -152,7 +174,9 @@ export default function Search({ filieres }: { filieres: FiliereAvecMetiers[] })
             placeholder='Recherche ton métier'
             onChange={handleChange}
             onFocus={() => {
-              if (results.length) setIsOpen(true)
+              if (results.length) {
+                setIsOpen(true)
+              }
             }}
             onKeyDown={handleKeyDown}
             autoComplete='off'

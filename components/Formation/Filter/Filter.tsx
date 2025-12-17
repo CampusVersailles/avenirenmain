@@ -9,6 +9,7 @@ import JobIcon from "@/components/Icons/Job"
 import CloseIcon from "@/components/Icons/CloseIcon"
 import formationsStyles from "../Formations.module.css"
 import AdresseAutocomplete, { AddressResult } from "@/components/AdresseAutocomplete/AdresseAutocomplete"
+import { trackEvent } from "@/lib/gtag"
 
 const Filter = ({
   filters,
@@ -47,6 +48,7 @@ const Filter = ({
   useEffect(() => {
     const debounce = setTimeout(() => {
       if (filters.search !== text) {
+        trackEvent(`formation_recherche_${text}`)
         updateURL({ ...filters, search: text }, 1, mapMode)
       }
     }, 300)
@@ -88,7 +90,12 @@ const Filter = ({
           <label htmlFor='adresse'>Ville</label>
           <AdresseAutocomplete
             value={filters.city}
-            onChange={(city) => updateURL({ ...filters, city }, 1, mapMode)}
+            onChange={(city) => {
+              if (city) {
+                trackEvent(`formation_ville_${city.properties.label}`)
+              }
+              updateURL({ ...filters, city }, 1, mapMode)
+            }}
             searchType='city'
           />
         </div>
@@ -100,7 +107,10 @@ const Filter = ({
             <select
               id='filiere'
               value={filters.filiere}
-              onChange={(e) => updateURL({ ...filters, filiere: e.target.value }, 1, mapMode)}
+              onChange={(e) => {
+                trackEvent(`formation_filiere_${e.target.value}`)
+                updateURL({ ...filters, filiere: e.target.value }, 1, mapMode)
+              }}
               className={styles.select}>
               <option value=''>Toutes</option>
               {filieres.map((filiere) => (
@@ -116,7 +126,10 @@ const Filter = ({
             <select
               id='diplome'
               value={filters.diplome}
-              onChange={(e) => updateURL({ ...filters, diplome: e.target.value }, 1, mapMode)}
+              onChange={(e) => {
+                trackEvent(`formation_diplome_${e.target.value}`)
+                updateURL({ ...filters, diplome: e.target.value }, 1, mapMode)
+              }}
               className={styles.select}>
               <option value=''>Tous</option>
               {niveaux.map((niveau) => (
@@ -132,7 +145,10 @@ const Filter = ({
             <select
               id='alternance'
               value={filters.alternance}
-              onChange={(e) => updateURL({ ...filters, alternance: e.target.value }, 1, mapMode)}
+              onChange={(e) => {
+                trackEvent(`formation_alternance_${e.target.value}`)
+                updateURL({ ...filters, alternance: e.target.value }, 1, mapMode)
+              }}
               className={styles.select}>
               <option value=''>Toutes</option>
               <option value='true'>Oui</option>
@@ -145,7 +161,10 @@ const Filter = ({
             <select
               id='duree'
               value={filters.duree}
-              onChange={(e) => updateURL({ ...filters, duree: e.target.value }, 1, mapMode)}
+              onChange={(e) => {
+                trackEvent(`formation_duree_${e.target.value}`)
+                updateURL({ ...filters, duree: e.target.value }, 1, mapMode)
+              }}
               className={styles.select}>
               <option value=''>Toutes</option>
               {durees.map((duree) => (
@@ -179,15 +198,14 @@ const Filter = ({
             <p>Aucune formation trouvée.</p>
           )}
         </div>
-        {mapMode ? (
-          <button className={formationsStyles.button} onClick={() => updateURL(filters, page, false)}>
-            Masquer la carte
-          </button>
-        ) : (
-          <button className={formationsStyles.button} onClick={() => updateURL(filters, page, true)}>
-            Afficher la carte
-          </button>
-        )}
+        <button
+          className={formationsStyles.button}
+          onClick={() => {
+            trackEvent(`formation_carte_${mapMode ? "masquer" : "afficher"}`)
+            updateURL(filters, page, !mapMode)
+          }}>
+          {mapMode ? "Masquer la carte" : "Afficher la carte"}
+        </button>
       </div>
     </div>
   )
