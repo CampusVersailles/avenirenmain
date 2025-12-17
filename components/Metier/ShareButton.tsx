@@ -9,7 +9,7 @@ export default function ShareButton({ ariaLabel, tracking }: { ariaLabel: string
   const [copied, setCopied] = useState(false)
 
   const handleShare = async () => {
-    trackEvent("share", { label: tracking })
+    trackEvent(`partage_${tracking}`)
     await navigator.clipboard.writeText(window.location.href)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)

@@ -77,7 +77,9 @@ export const Quiz = () => {
       const maxVerbe = getMaxKey<VerbeCode>(verbesResults, "Organiser")
 
       // Rediriger avec les résultats en query params
-      trackEvent("quiz_complete", { maxFiliere, maxVerbe })
+      trackEvent("quiz_fini", { maxFiliere, maxVerbe })
+      trackEvent(`quiz_filiere_${maxFiliere}`)
+      trackEvent(`quiz_verbe_${maxVerbe}`)
       router.push(`/quiz/resultats?filiere=${maxFiliere}&verbe=${maxVerbe}`)
       return
     }

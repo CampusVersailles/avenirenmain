@@ -4,18 +4,9 @@ import { Metier as MetierType } from "@/strapi/metiers"
 import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import MetierTrouverFormation from "./MetierTrouverFormation"
 import Image from "next/image"
+import VideoPlayer from "./VideoPlayer"
 
 export default function MetierDescription({ metier }: { metier: MetierType }) {
-  const getEmbedUrl = (url: string) => {
-    // Convertir l'URL YouTube en URL embed
-    const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/
-    const match = url.match(youtubeRegex)
-    if (match) {
-      return `https://www.youtube.com/embed/${match[1]}`
-    }
-    return url
-  }
-
   return (
     <div className={styles.descriptionBlock}>
       <div className={styles.descriptionTitleContainer}>
@@ -26,13 +17,7 @@ export default function MetierDescription({ metier }: { metier: MetierType }) {
         <MetierTrouverFormation metier={metier} />
       </div>
       {metier.videoUrl ? (
-        <iframe
-          title='Vidéo de présentation du métier'
-          src={getEmbedUrl(metier.videoUrl)}
-          className={styles.descriptionVideo}
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-          allowFullScreen
-        />
+        <VideoPlayer videoUrl={metier.videoUrl} metierTitle={metier.titre} />
       ) : metier.mediaPrincipal ? (
         <Image src={metier.mediaPrincipal.url} alt='' className={styles.descriptionImage} width={500} height={500} />
       ) : null}
