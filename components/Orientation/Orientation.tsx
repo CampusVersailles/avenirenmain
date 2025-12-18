@@ -55,6 +55,25 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
             <span>Explore les métiers</span>
           </Link>
         </div>
+
+        <h2 className={styles.sectionTitle}>
+          <span className={styles.highlight}>À qui sert</span> l'Avenir en main ?
+        </h2>
+        <div className={styles.aQuiSertAemTileContainer}>
+          {orientation.a_qui_sert_aem.map((carte, index) => (
+            <div className={styles.aQuiSertAemTile} key={`aQuiSertAemTile-${index}`}>
+              <div className={styles.aQuiSertAemTileImageContainer}>
+                {carte.media?.url && <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />}
+              </div>
+              {carte.titre && <p className={styles.aQuiSertAemTileTitle}>{carte.titre}</p>}
+              {carte.description && (
+                <div className={strapiStyles.strapiRichText}>
+                  <BlocksRenderer content={carte.description} />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </>
   )

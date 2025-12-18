@@ -35,7 +35,9 @@ export type OrientationStrapi = {
 export const getOrientation = async () => {
   const response = await axiosClient.get<{
     data: OrientationStrapi
-  }>("orientation?populate[bienvenue_aem_cartes][populate][media][fields]=url&populate[pourquoi_choisir_raisons]=*")
+  }>(
+    "orientation?populate[bienvenue_aem_cartes][populate][media][fields]=url&populate[pourquoi_choisir_raisons][populate]=*&populate[a_qui_sert_aem][populate]",
+  )
 
   return {
     ...response.data.data,

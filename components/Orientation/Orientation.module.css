@@ -46,6 +46,8 @@
   width: calc((100% - 15rem) / 3);
   font-weight: 600;
   font-size: 0.8rem;
+  box-shadow: 0 10px 20px rgba(237, 110, 76, 0.15);
+  text-align: center;
 
   @media screen and (max-width: 53rem) {
     width: 100%;
@@ -79,6 +81,7 @@
   border-radius: 1rem;
   padding: 1rem;
   gap: 1rem;
+  box-shadow: 0 5px 10px rgba(237, 110, 76, 0.15);
 }
 
 .pourquoiChoisirRaisonsTileDescription {
