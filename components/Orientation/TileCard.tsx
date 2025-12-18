@@ -1,18 +1,22 @@
 import Image from "next/image"
 import classNames from "classnames"
-import { BlocksRenderer } from "@strapi/blocks-react-renderer"
+import { BlocksContent, BlocksRenderer } from "@strapi/blocks-react-renderer"
 import strapiStyles from "./StrapiComponents.module.css"
 import styles from "./Orientation.module.css"
 
-interface TileCardProps {
+const TileCard = ({
+  media,
+  titre,
+  description,
+  className,
+  showTitle = true,
+}: {
   media?: { url: string } | null
   titre?: string | null
-  description?: any
+  description?: BlocksContent
   className?: string
   showTitle?: boolean
-}
-
-const TileCard = ({ media, titre, description, className, showTitle = true }: TileCardProps) => {
+}) => {
   return (
     <div className={classNames(styles.tile, className)}>
       {media?.url && (
