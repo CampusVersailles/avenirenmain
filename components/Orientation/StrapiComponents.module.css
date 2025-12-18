@@ -1,0 +1,12 @@
+.strapiRichText {
+  p {
+    margin-bottom: 1rem;
+  }
+  ul {
+    list-style: disc;
+    padding-left: 1rem;
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
