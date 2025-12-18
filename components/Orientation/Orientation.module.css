@@ -65,7 +65,7 @@
 .pourquoiChoisirRaisonsContainer {
   display: flex;
   flex-direction: column;
-  border: 2px solid #e6e6e6;
+  border: 1px solid #e6e6e6;
   border-radius: 1rem;
   padding: 1rem;
   gap: 1rem;
@@ -85,4 +85,35 @@
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.4;
+}
+
+.ctaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  background: var(--primary-50);
+  border-radius: 1rem;
+  padding: 3rem;
+  color: white;
+}
+
+.ctaText {
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  justify-content: center;
+  text-decoration: none;
+  gap: 0.5rem;
+  border: 1px solid var(--primary-50);
+  background: var(--card-color);
+  border-radius: 1rem;
+  padding: 1rem;
+  color: black;
 }

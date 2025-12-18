@@ -4,6 +4,7 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import styles from "./Orientation.module.css"
 import Image from "next/image"
 import classNames from "classnames"
+import Link from "next/link"
 
 const Orientation = ({ orientation }: { orientation: OrientationType }) => {
   console.log(orientation)
@@ -47,6 +48,12 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
               <p className={styles.pourquoiChoisirRaisonsTileDescription}>{raison.description}</p>
             </div>
           ))}
+        </div>
+        <div className={styles.ctaContainer}>
+          <p className={styles.ctaText}>Tu souhaites en savoir plus ?</p>
+          <Link href='/metiers' className={styles.cta}>
+            <span>Explore les métiers</span>
+          </Link>
         </div>
       </div>
     </>
