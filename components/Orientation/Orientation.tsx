@@ -2,9 +2,10 @@ import { Orientation as OrientationType } from "@/strapi/orientation"
 import strapiStyles from "./StrapiComponents.module.css"
 import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import styles from "./Orientation.module.css"
-import Image from "next/image"
 import classNames from "classnames"
 import Link from "next/link"
+import TileCard from "./TileCard"
+import TwoColumnLayout from "./TwoColumnLayout"
 
 const Orientation = ({ orientation }: { orientation: OrientationType }) => {
   return (
@@ -19,18 +20,15 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
           </div>
         </div>
 
-        <div className={styles.bienvenueAemTileContainer}>
+        <div className={classNames(styles.tileGrid, styles.tileGridThreeColumns)}>
           {orientation.bienvenue_aem_cartes.map((carte, index) => (
-            <div className={styles.bienvenueAemTile} key={`bienvenueAemTile-${index}`}>
-              <div className={styles.tileImageContainer}>
-                {carte.media?.url && <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />}
-              </div>
-              {carte.description && (
-                <div className={strapiStyles.strapiRichText}>
-                  <BlocksRenderer content={carte.description} />
-                </div>
-              )}
-            </div>
+            <TileCard
+              key={`bienvenueAemTile-${index}`}
+              media={carte.media}
+              titre={carte.titre}
+              description={carte.description}
+              showTitle={false}
+            />
           ))}
         </div>
 
@@ -57,90 +55,32 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
         <h2 className={styles.sectionTitle}>
           <span className={styles.highlight}>À qui sert</span> L'Avenir en main ?
         </h2>
-        <div className={styles.tilesContainer}>
-          <div className={styles.column}>
-            {orientation.a_qui_sert_aem
-              .filter((_, index) => index % 2 === 0)
-              .map((carte, index) => (
-                <div className={styles.tile} key={`aQuiSertAemTile-${index}`}>
-                  <div className={styles.tileImageContainer}>
-                    {carte.media?.url && (
-                      <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />
-                    )}
-                  </div>
-                  {carte.titre && <p className={styles.tileTitle}>{carte.titre}</p>}
-                  {carte.description && (
-                    <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
-                      <BlocksRenderer content={carte.description} />
-                    </div>
-                  )}
-                </div>
-              ))}
-          </div>
-          <div className={styles.columnBis}>
-            {orientation.a_qui_sert_aem
-              .filter((_, index) => index % 2 === 1)
-              .map((carte, index) => (
-                <div className={styles.tile} key={`aQuiSertAemTile-${index}`}>
-                  <div className={styles.tileImageContainer}>
-                    {carte.media?.url && (
-                      <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />
-                    )}
-                  </div>
-                  {carte.titre && <p className={styles.tileTitle}>{carte.titre}</p>}
-                  {carte.description && (
-                    <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
-                      <BlocksRenderer content={carte.description} />
-                    </div>
-                  )}
-                </div>
-              ))}
-          </div>
-        </div>
+        <TwoColumnLayout
+          items={orientation.a_qui_sert_aem}
+          renderItem={(carte, index) => (
+            <TileCard
+              key={`aQuiSertAemTile-${index}`}
+              media={carte.media}
+              titre={carte.titre}
+              description={carte.description}
+            />
+          )}
+        />
 
         <h2 className={styles.sectionTitle}>
-          Ce que permet <span className={styles.highlight}>« L’Avenir en main »</span>
+          Ce que permet <span className={styles.highlight}>« L'Avenir en main »</span>
         </h2>
-        <div className={styles.tilesContainer}>
-          <div className={styles.column}>
-            {orientation.ce_que_permet_aem
-              .filter((_, index) => index % 2 === 0)
-              .map((carte, index) => (
-                <div className={styles.tile} key={`ceQuePermetAemTile-${index}`}>
-                  <div className={styles.tileImageContainer}>
-                    {carte.media?.url && (
-                      <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />
-                    )}
-                  </div>
-                  {carte.titre && <p className={styles.tileTitle}>{carte.titre}</p>}
-                  {carte.description && (
-                    <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
-                      <BlocksRenderer content={carte.description} />
-                    </div>
-                  )}
-                </div>
-              ))}
-          </div>
-          <div className={styles.columnBis}>
-            {orientation.ce_que_permet_aem
-              .filter((_, index) => index % 2 === 1)
-              .map((carte, index) => (
-                <div className={styles.tile} key={`ceQuePermetAemTile-${index}`}>
-                  <div className={styles.tileImageContainer}>
-                    {carte.media?.url && (
-                      <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />
-                    )}
-                  </div>
-                  {carte.titre && <p className={styles.tileTitle}>{carte.titre}</p>}
-                  {carte.description && (
-                    <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
-                      <BlocksRenderer content={carte.description} />
-                    </div>
-                  )}
-                </div>
-              ))}
-          </div>
-        </div>
+        <TwoColumnLayout
+          items={orientation.ce_que_permet_aem}
+          renderItem={(carte, index) => (
+            <TileCard
+              key={`ceQuePermetAemTile-${index}`}
+              media={carte.media}
+              titre={carte.titre}
+              description={carte.description}
+            />
+          )}
+        />
 
         <h2 className={styles.sectionTitle}>
           Les voies de la formation dans <span className={styles.highlight}>nos filières</span>
