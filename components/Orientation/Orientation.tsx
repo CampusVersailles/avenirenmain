@@ -57,7 +57,7 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
         </div>
 
         <h2 className={styles.sectionTitle}>
-          <span className={styles.highlight}>À qui sert</span> l'Avenir en main ?
+          <span className={styles.highlight}>À qui sert</span> L'Avenir en main ?
         </h2>
         <div className={styles.tilesContainer}>
           {orientation.a_qui_sert_aem.map((carte, index) => (
@@ -73,6 +73,48 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
               )}
             </div>
           ))}
+        </div>
+
+        <h2 className={styles.sectionTitle}>
+          Ce que permet <span className={styles.highlight}>« L’Avenir en main »</span>
+        </h2>
+        <div className={styles.tilesContainer}>
+          {orientation.ce_que_permet_aem.map((carte, index) => (
+            <div className={styles.tile} key={`ceQuePermetAemTile-${index}`}>
+              <div className={styles.tileImageContainer}>
+                {carte.media?.url && <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />}
+              </div>
+              {carte.titre && <p className={styles.tileTitle}>{carte.titre}</p>}
+              {carte.description && (
+                <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
+                  <BlocksRenderer content={carte.description} />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <h2 className={styles.sectionTitle}>
+          Les voies de la formation dans <span className={styles.highlight}>nos filières</span>
+        </h2>
+        <div className={styles.voiesDeFormationContainer}>
+          {orientation.voies_de_formation.map((voie, index) => (
+            <div className={styles.voieDeFormationTile} key={`voieDeFormationTile-${index}`}>
+              {voie.titre && <p className={styles.voieDeFormationTileTitle}>{voie.titre}</p>}
+              {voie.description && (
+                <div className={classNames(strapiStyles.strapiRichText, styles.voieDeFormationDescription)}>
+                  <BlocksRenderer content={voie.description} />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className={styles.ctaContainer}>
+          <p className={styles.ctaText}>Tu te poses plein de questions ?</p>
+          <Link href='/quiz' className={styles.cta}>
+            <span>Passe le test</span>
+          </Link>
         </div>
       </div>
     </>
