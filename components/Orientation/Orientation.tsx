@@ -60,38 +60,88 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
           <span className={styles.highlight}>À qui sert</span> L'Avenir en main ?
         </h2>
         <div className={styles.tilesContainer}>
-          {orientation.a_qui_sert_aem.map((carte, index) => (
-            <div className={styles.tile} key={`aQuiSertAemTile-${index}`}>
-              <div className={styles.tileImageContainer}>
-                {carte.media?.url && <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />}
-              </div>
-              {carte.titre && <p className={styles.tileTitle}>{carte.titre}</p>}
-              {carte.description && (
-                <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
-                  <BlocksRenderer content={carte.description} />
+          <div className={styles.column}>
+            {orientation.a_qui_sert_aem
+              .filter((_, index) => index % 2 === 0)
+              .map((carte, index) => (
+                <div className={styles.tile} key={`aQuiSertAemTile-${index}`}>
+                  <div className={styles.tileImageContainer}>
+                    {carte.media?.url && (
+                      <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />
+                    )}
+                  </div>
+                  {carte.titre && <p className={styles.tileTitle}>{carte.titre}</p>}
+                  {carte.description && (
+                    <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
+                      <BlocksRenderer content={carte.description} />
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          ))}
+              ))}
+          </div>
+          <div className={styles.columnBis}>
+            {orientation.a_qui_sert_aem
+              .filter((_, index) => index % 2 === 1)
+              .map((carte, index) => (
+                <div className={styles.tile} key={`aQuiSertAemTile-${index}`}>
+                  <div className={styles.tileImageContainer}>
+                    {carte.media?.url && (
+                      <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />
+                    )}
+                  </div>
+                  {carte.titre && <p className={styles.tileTitle}>{carte.titre}</p>}
+                  {carte.description && (
+                    <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
+                      <BlocksRenderer content={carte.description} />
+                    </div>
+                  )}
+                </div>
+              ))}
+          </div>
         </div>
 
         <h2 className={styles.sectionTitle}>
           Ce que permet <span className={styles.highlight}>« L’Avenir en main »</span>
         </h2>
         <div className={styles.tilesContainer}>
-          {orientation.ce_que_permet_aem.map((carte, index) => (
-            <div className={styles.tile} key={`ceQuePermetAemTile-${index}`}>
-              <div className={styles.tileImageContainer}>
-                {carte.media?.url && <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />}
-              </div>
-              {carte.titre && <p className={styles.tileTitle}>{carte.titre}</p>}
-              {carte.description && (
-                <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
-                  <BlocksRenderer content={carte.description} />
+          <div className={styles.column}>
+            {orientation.ce_que_permet_aem
+              .filter((_, index) => index % 2 === 0)
+              .map((carte, index) => (
+                <div className={styles.tile} key={`ceQuePermetAemTile-${index}`}>
+                  <div className={styles.tileImageContainer}>
+                    {carte.media?.url && (
+                      <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />
+                    )}
+                  </div>
+                  {carte.titre && <p className={styles.tileTitle}>{carte.titre}</p>}
+                  {carte.description && (
+                    <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
+                      <BlocksRenderer content={carte.description} />
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          ))}
+              ))}
+          </div>
+          <div className={styles.columnBis}>
+            {orientation.ce_que_permet_aem
+              .filter((_, index) => index % 2 === 1)
+              .map((carte, index) => (
+                <div className={styles.tile} key={`ceQuePermetAemTile-${index}`}>
+                  <div className={styles.tileImageContainer}>
+                    {carte.media?.url && (
+                      <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />
+                    )}
+                  </div>
+                  {carte.titre && <p className={styles.tileTitle}>{carte.titre}</p>}
+                  {carte.description && (
+                    <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
+                      <BlocksRenderer content={carte.description} />
+                    </div>
+                  )}
+                </div>
+              ))}
+          </div>
         </div>
 
         <h2 className={styles.sectionTitle}>

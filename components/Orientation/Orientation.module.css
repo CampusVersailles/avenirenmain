@@ -115,6 +115,17 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
+  @media screen and (max-width: 53rem) {
+    flex-direction: column;
+  }
+}
+
+.columnBis,
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
 }
 
 .tile {
@@ -126,11 +137,11 @@
   background: var(--card-color);
   border-radius: 1rem;
   padding: 2rem 1rem 1rem 1rem;
-  width: calc((100% - 6rem) / 2);
   font-weight: 600;
   font-size: 0.8rem;
   box-shadow: 0 10px 20px rgba(237, 110, 76, 0.15);
   text-align: center;
+  height: fit-content;
 
   @media screen and (max-width: 53rem) {
     width: 100%;
