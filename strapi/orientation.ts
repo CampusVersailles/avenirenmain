@@ -35,9 +35,15 @@ export type OrientationStrapi = {
 export const getOrientation = async () => {
   const response = await axiosClient.get<{
     data: OrientationStrapi
-  }>("orientation")
+  }>("orientation?populate[bienvenue_aem_cartes][populate][media][fields]=url")
 
-  return response.data.data
+  return {
+    ...response.data.data,
+    bienvenue_aem_cartes: response.data.data.bienvenue_aem_cartes.map((carte) => ({
+      ...carte,
+      media: carte.media ? { url: getMediaUrl(carte.media) } : undefined,
+    })),
+  }
 }
 
 export type Orientation = Awaited<ReturnType<typeof getOrientation>>
