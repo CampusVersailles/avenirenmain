@@ -24,7 +24,7 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
         <div className={styles.bienvenueAemTileContainer}>
           {orientation.bienvenue_aem_cartes.map((carte, index) => (
             <div className={styles.bienvenueAemTile} key={`bienvenueAemTile-${index}`}>
-              <div className={styles.bienvenueAemTileImageContainer}>
+              <div className={styles.tileImageContainer}>
                 {carte.media?.url && <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />}
               </div>
               {carte.description && (
@@ -59,15 +59,15 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
         <h2 className={styles.sectionTitle}>
           <span className={styles.highlight}>À qui sert</span> l'Avenir en main ?
         </h2>
-        <div className={styles.aQuiSertAemTileContainer}>
+        <div className={styles.tilesContainer}>
           {orientation.a_qui_sert_aem.map((carte, index) => (
-            <div className={styles.aQuiSertAemTile} key={`aQuiSertAemTile-${index}`}>
-              <div className={styles.aQuiSertAemTileImageContainer}>
+            <div className={styles.tile} key={`aQuiSertAemTile-${index}`}>
+              <div className={styles.tileImageContainer}>
                 {carte.media?.url && <Image src={carte.media.url} alt={carte.titre || ""} width={125} height={125} />}
               </div>
-              {carte.titre && <p className={styles.aQuiSertAemTileTitle}>{carte.titre}</p>}
+              {carte.titre && <p className={styles.tileTitle}>{carte.titre}</p>}
               {carte.description && (
-                <div className={strapiStyles.strapiRichText}>
+                <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
                   <BlocksRenderer content={carte.description} />
                 </div>
               )}

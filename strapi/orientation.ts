@@ -36,12 +36,16 @@ export const getOrientation = async () => {
   const response = await axiosClient.get<{
     data: OrientationStrapi
   }>(
-    "orientation?populate[bienvenue_aem_cartes][populate][media][fields]=url&populate[pourquoi_choisir_raisons][populate]=*&populate[a_qui_sert_aem][populate]",
+    "orientation?populate[bienvenue_aem_cartes][populate][media][fields]=url&populate[pourquoi_choisir_raisons][populate]=*&populate[a_qui_sert_aem][populate][media][fields]=url",
   )
 
   return {
     ...response.data.data,
     bienvenue_aem_cartes: response.data.data.bienvenue_aem_cartes.map((carte) => ({
+      ...carte,
+      media: carte.media ? { url: getMediaUrl(carte.media) } : undefined,
+    })),
+    a_qui_sert_aem: response.data.data.a_qui_sert_aem.map((carte) => ({
       ...carte,
       media: carte.media ? { url: getMediaUrl(carte.media) } : undefined,
     })),
