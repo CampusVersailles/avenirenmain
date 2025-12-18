@@ -2,7 +2,7 @@
 
 import styles from "./FiliereMetiers.module.css"
 import FiliereMetier from "./FiliereMetier"
-import { FiliereAvecMetiersComplets, FiliereAvecMetiers } from "@/strapi/filieres"
+import { FiliereAvecMetiersComplets } from "@/strapi/filieres"
 import Filter from "./Filter/Filter"
 import { useState } from "react"
 import FiliereBanner from "./FiliereBanner"
