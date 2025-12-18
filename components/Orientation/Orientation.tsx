@@ -7,8 +7,6 @@ import classNames from "classnames"
 import Link from "next/link"
 
 const Orientation = ({ orientation }: { orientation: OrientationType }) => {
-  console.log(orientation)
-  console.log(orientation.pourquoi_choisir_raisons)
   return (
     <>
       <div className={styles.container}>
