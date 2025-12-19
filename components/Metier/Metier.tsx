@@ -22,6 +22,7 @@ const Metier = ({
 }) => {
   const hasSpecialisations = metier.appellations && metier.appellations.length > 0
   const hasMetiersProches = metier.metiersProches && metier.metiersProches.length > 0
+  const hasSalaire = metier.salaire && metier.salaire.valeur_basse && metier.salaire.valeur_haute
   const tabs: TabItem[] = [
     {
       id: "formations",
@@ -58,7 +59,7 @@ const Metier = ({
           },
         ]
       : []),
-    { id: "salaire", label: "Salaire estimé", component: <TabSalaire metier={metier} /> },
+    ...(hasSalaire ? [{ id: "salaire", label: "Salaire estimé", component: <TabSalaire metier={metier} /> }] : []),
   ]
 
   const defaultActiveTabId = hasSpecialisations ? "specialisations" : hasMetiersProches ? "metiers" : "formations"
