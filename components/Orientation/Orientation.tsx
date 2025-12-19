@@ -12,7 +12,7 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
     <>
       <div className={styles.container}>
         <h1 className={styles.title}>
-          Bienvenue sur l'<span className={styles.highlight}>Avenir en main !</span>
+          Bienvenue sur <span className={styles.highlight}>l'Avenir en main !</span>
         </h1>
         <div className={styles.bienvenueAemDescription}>
           <div className={classNames(strapiStyles.strapiRichText, styles.bienvenueAemDescriptionText)}>
