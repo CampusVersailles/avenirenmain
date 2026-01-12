@@ -1,12 +1,11 @@
 import styles from "./FiliereMetier.module.css"
-import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import { FiliereAvecMetiersComplets } from "@/strapi/filieres"
 import Link from "next/link"
-import { replaceNewlinesInBlocks } from "@/lib/text_utils"
 import { memo } from "react"
 import classNames from "classnames"
 import LinkIcon from "../Icons/LinkIcon"
 import Image from "next/image"
+import StrapiRichText from "@/components/Strapi/StrapiRichText"
 
 const FiliereMetier = memo(
   ({
@@ -36,9 +35,7 @@ const FiliereMetier = memo(
             )}
             <div className={styles.content}>
               <p className={styles.title}>{metier.titre}</p>
-              <div className={styles.description}>
-                <BlocksRenderer content={replaceNewlinesInBlocks(metier.description)} />
-              </div>
+              <StrapiRichText content={metier.description} className={styles.description} />
             </div>
           </div>
           <div className={styles.linkIconContainer}>

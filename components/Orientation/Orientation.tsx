@@ -1,23 +1,20 @@
 import { Orientation as OrientationType } from "@/strapi/orientation"
-import strapiStyles from "./StrapiComponents.module.css"
-import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import styles from "./Orientation.module.css"
-import classNames from "classnames"
 import Link from "next/link"
 import TileCard from "./TileCard"
 import TwoColumnLayout from "./TwoColumnLayout"
+import StrapiRichText from "@/components/Strapi/StrapiRichText"
+import classNames from "classnames"
 
 const Orientation = ({ orientation }: { orientation: OrientationType }) => {
   return (
     <>
       <div className={styles.container}>
         <h1 className={styles.title}>
-          Bienvenue sur <span className={styles.highlight}>l'Avenir en main !</span>
+          <span className={styles.highlight}>Avenir en main</span>, mode d'emploi
         </h1>
         <div className={styles.bienvenueAemDescription}>
-          <div className={classNames(strapiStyles.strapiRichText, styles.bienvenueAemDescriptionText)}>
-            <BlocksRenderer content={orientation.bienvenue_aem} />
-          </div>
+          <StrapiRichText content={orientation.bienvenue_aem} className={styles.bienvenueAemDescriptionText} />
         </div>
 
         <div className={classNames(styles.tileGrid, styles.tileGridThreeColumns)}>
@@ -35,9 +32,7 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
         <h2 className={styles.sectionTitle}>
           Pourquoi choisir <span className={styles.highlight}>un métier de savoir-faire ?</span>
         </h2>
-        <div className={strapiStyles.strapiRichText}>
-          <BlocksRenderer content={orientation.pourquoi_choisir_description} />
-        </div>
+        <StrapiRichText content={orientation.pourquoi_choisir_description} />
         <div className={styles.pourquoiChoisirRaisonsContainer}>
           {orientation.pourquoi_choisir_raisons.map((raison, index) => (
             <div className={styles.pourquoiChoisirRaisonsTile} key={`pourquoiChoisirRaisonsTile-${index}`}>
@@ -90,9 +85,7 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
             <div className={styles.voieDeFormationTile} key={`voieDeFormationTile-${index}`}>
               {voie.titre && <p className={styles.voieDeFormationTileTitle}>{voie.titre}</p>}
               {voie.description && (
-                <div className={classNames(strapiStyles.strapiRichText, styles.voieDeFormationDescription)}>
-                  <BlocksRenderer content={voie.description} />
-                </div>
+                <StrapiRichText content={voie.description} className={styles.voieDeFormationDescription} />
               )}
             </div>
           ))}

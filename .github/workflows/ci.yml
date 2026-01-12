@@ -38,7 +38,7 @@ jobs:
         id: lighthouseCheck
         with:
           device: all
-          urls: "http://localhost:3000,http://localhost:3000/formations,http://localhost:3000/metiers,http://localhost:3000/metiers/cv4a83s0alfyflx7hz46fi8v,http://localhost:3000/metiers/cv4a83s0alfyflx7hz46fi8v/fxekq97pz1a6h2amxmrhwsrw,http://localhost:3000/quiz"
+          urls: "http://localhost:3000,http://localhost:3000/formations,http://localhost:3000/metiers,http://localhost:3000/metiers/cv4a83s0alfyflx7hz46fi8v,http://localhost:3000/metiers/cv4a83s0alfyflx7hz46fi8v/fxekq97pz1a6h2amxmrhwsrw,http://localhost:3000/quiz,http://localhost:3000/qui-sommes-nous,http://localhost:3000/a-propos"
           outputDirectory: ${{ github.workspace }}/tmp/artifacts
       - name: Verify Lighthouse Check results
         uses: foo-software/lighthouse-check-status-action@master

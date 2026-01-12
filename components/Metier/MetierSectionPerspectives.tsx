@@ -1,6 +1,6 @@
 import styles from "./MetierSection.module.css"
 import { Metier as MetierType } from "@/strapi/metiers"
-import { BlocksRenderer } from "@strapi/blocks-react-renderer"
+import StrapiRichText from "@/components/Strapi/StrapiRichText"
 
 export default function MetierPerspectives({ metier }: { metier: MetierType }) {
   return (
@@ -13,13 +13,13 @@ export default function MetierPerspectives({ metier }: { metier: MetierType }) {
           {metier.pourquoi.environnementTravail && (
             <div className={styles.tile} key='environnementTravail'>
               <h3 className={styles.tileTitle}>Environnement de travail</h3>
-              <BlocksRenderer content={metier.pourquoi.environnementTravail} />
+              <StrapiRichText content={metier.pourquoi.environnementTravail} />
             </div>
           )}
           {metier.pourquoi.opportunites && (
             <div className={styles.tile} key='opportunites'>
               <h3 className={styles.tileTitle}>Opportunités</h3>
-              <BlocksRenderer content={metier.pourquoi.opportunites} />
+              <StrapiRichText content={metier.pourquoi.opportunites} />
             </div>
           )}
         </div>
@@ -27,13 +27,13 @@ export default function MetierPerspectives({ metier }: { metier: MetierType }) {
           {metier.pourquoi.statuts && (
             <div className={styles.tile} key='statuts'>
               <h3 className={styles.tileTitle}>Statuts</h3>
-              <BlocksRenderer content={metier.pourquoi.statuts} />
+              <StrapiRichText content={metier.pourquoi.statuts} />
             </div>
           )}
           {metier.pourquoi.notes && (
             <div className={styles.tile} key='notes'>
               <h3 className={styles.tileTitle}>Bon à savoir</h3>
-              <BlocksRenderer content={metier.pourquoi.notes} />
+              <StrapiRichText content={metier.pourquoi.notes} />
             </div>
           )}
         </div>

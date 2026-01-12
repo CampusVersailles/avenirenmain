@@ -1,8 +1,8 @@
 import Image from "next/image"
-import classNames from "classnames"
-import { BlocksContent, BlocksRenderer } from "@strapi/blocks-react-renderer"
-import strapiStyles from "./StrapiComponents.module.css"
+import { BlocksContent } from "@strapi/blocks-react-renderer"
 import styles from "./Orientation.module.css"
+import StrapiRichText from "@/components/Strapi/StrapiRichText"
+import classNames from "classnames"
 
 const TileCard = ({
   media,
@@ -25,11 +25,7 @@ const TileCard = ({
         </div>
       )}
       {showTitle && titre && <p className={styles.tileTitle}>{titre}</p>}
-      {description && (
-        <div className={classNames(strapiStyles.strapiRichText, styles.tileDescription)}>
-          <BlocksRenderer content={description} />
-        </div>
-      )}
+      {description && <StrapiRichText content={description} className={styles.tileDescription} />}
     </div>
   )
 }

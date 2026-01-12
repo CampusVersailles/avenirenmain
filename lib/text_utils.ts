@@ -40,3 +40,27 @@ function processNode<T>(node: T): T {
 
   return node
 }
+
+export function isBlocksContentEmpty(content: BlocksContent | null | undefined): boolean {
+  if (!content || content.length === 0) {
+    return true
+  }
+
+  const hasText = (node: unknown): boolean => {
+    if (isTextNode(node)) {
+      return node.text.trim() !== ""
+    }
+
+    if (hasArrayProp(node, "children")) {
+      return node.children.some(hasText)
+    }
+
+    if (hasArrayProp(node, "value")) {
+      return node.value.some(hasText)
+    }
+
+    return false
+  }
+
+  return !content.some(hasText)
+}
