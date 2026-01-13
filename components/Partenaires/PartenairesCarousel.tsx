@@ -69,7 +69,12 @@ const PartenairesCarousel = ({ partenaires }: { partenaires: Partenaire[] }) => 
           </div>
         )}
         {selected && selected.description ? (
-          <StrapiRichText content={selected.description} />
+          <>
+            <StrapiRichText content={selected.description} />
+            <Link href={selected.site} className={styles.buttonSite} target='_blank' rel='noopener noreferrer'>
+              Visiter le site
+            </Link>
+          </>
         ) : (
           <div className={styles.logos}>
             {partenaires
