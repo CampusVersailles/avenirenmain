@@ -9,7 +9,7 @@ const OrientationPage = ({ orientation }: { orientation: OrientationType }) => {
       <Breadcrumbs
         items={[
           { label: "Accueil", href: "/" },
-          { label: "Orientation", href: "/orientation" },
+          { label: "À propos", href: "/a-propos" },
         ]}
       />
       <Block>

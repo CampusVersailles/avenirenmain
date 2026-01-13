@@ -1,10 +1,9 @@
-import { replaceNewlinesInBlocks } from "@/lib/text_utils"
 import styles from "./MetierDescription.module.css"
 import { Metier as MetierType } from "@/strapi/metiers"
-import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import MetierTrouverFormation from "./MetierTrouverFormation"
 import Image from "next/image"
 import VideoPlayer from "./VideoPlayer"
+import StrapiRichText from "@/components/Strapi/StrapiRichText"
 
 export default function MetierDescription({ metier }: { metier: MetierType }) {
   return (
@@ -13,7 +12,7 @@ export default function MetierDescription({ metier }: { metier: MetierType }) {
         <h2 className={styles.descriptionTitle}>
           Le métier en <span className={styles.highlight}>un clin d'œil</span>
         </h2>
-        <BlocksRenderer content={replaceNewlinesInBlocks(metier.description)} />
+        <StrapiRichText content={metier.description} />
         <MetierTrouverFormation metier={metier} />
       </div>
       {metier.videoUrl ? (

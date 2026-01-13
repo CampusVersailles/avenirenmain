@@ -4,6 +4,7 @@ import "../css/reset.css"
 import "../css/variables.css"
 import "../css/global.css"
 import Header from "@/components/Header/Header"
+import Footer from "@/components/Footer/Footer"
 import Script from "next/script"
 import AnalyticsProvider from "@/components/Analytics/AnalyticsProvider"
 import CookieBanner from "@/components/Cookies/CookieBanner"
@@ -101,6 +102,7 @@ gtag('js', new Date());
           </Suspense>
           {children}
         </main>
+        <Footer />
         <CookieBanner />
       </body>
     </html>

@@ -1,7 +1,7 @@
 import styles from "./MetierSection.module.css"
 import { Metier as MetierType } from "@/strapi/metiers"
-import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import Image from "next/image"
+import StrapiRichText from "@/components/Strapi/StrapiRichText"
 
 export default function MetierCentresInterets({ metier }: { metier: MetierType }) {
   const secondaryImage = metier.videoUrl ? metier.mediaPrincipal : metier.mediaSecondaire
@@ -21,7 +21,7 @@ export default function MetierCentresInterets({ metier }: { metier: MetierType }
               .map((centreInteret) => (
                 <div className={styles.tile} key={centreInteret.titre}>
                   <h3 className={styles.tileTitle}>{centreInteret.titre}</h3>
-                  <BlocksRenderer content={centreInteret.description} />
+                  <StrapiRichText content={centreInteret.description} />
                 </div>
               ))
           )}
@@ -31,7 +31,7 @@ export default function MetierCentresInterets({ metier }: { metier: MetierType }
             (centreInteret) => (
               <div className={styles.tile} key={centreInteret.titre}>
                 <h3 className={styles.tileTitle}>{centreInteret.titre}</h3>
-                <BlocksRenderer content={centreInteret.description} />
+                <StrapiRichText content={centreInteret.description} />
               </div>
             ),
           )}
