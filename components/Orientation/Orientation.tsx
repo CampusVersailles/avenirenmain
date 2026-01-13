@@ -11,7 +11,7 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
     <>
       <div className={styles.container}>
         <h1 className={styles.title}>
-          <span className={styles.highlight}>Avenir en main</span>, mode d'emploi
+          <span className={styles.highlight}>L'Avenir en main</span>, mode d'emploi
         </h1>
         <div className={styles.bienvenueAemDescription}>
           <StrapiRichText content={orientation.bienvenue_aem} className={styles.bienvenueAemDescriptionText} />
@@ -48,7 +48,7 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
         </div>
 
         <h2 className={styles.sectionTitle}>
-          <span className={styles.highlight}>À qui sert</span> L'Avenir en main ?
+          <span className={styles.highlight}>À qui sert</span> l'Avenir en main ?
         </h2>
         <TwoColumnLayout
           items={orientation.a_qui_sert_aem}
@@ -63,7 +63,7 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
         />
 
         <h2 className={styles.sectionTitle}>
-          Ce que permet <span className={styles.highlight}>« L'Avenir en main »</span>
+          Ce que permet <span className={styles.highlight}>« l'Avenir en main »</span>
         </h2>
         <TwoColumnLayout
           items={orientation.ce_que_permet_aem}
@@ -77,9 +77,7 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
           )}
         />
 
-        <h2 className={styles.sectionTitle}>
-          Les voies de la formation dans <span className={styles.highlight}>nos filières</span>
-        </h2>
+        <h2 className={styles.sectionTitle}>Les voies de la formation</h2>
         <div className={styles.voiesDeFormationContainer}>
           {orientation.voies_de_formation.map((voie, index) => (
             <div className={styles.voieDeFormationTile} key={`voieDeFormationTile-${index}`}>
@@ -93,9 +91,14 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
 
         <div className={styles.ctaContainer}>
           <p className={styles.ctaText}>Tu te poses plein de questions ?</p>
-          <Link href='/quiz' className={styles.cta}>
-            <span>Passe le test</span>
-          </Link>
+          <div className={styles.ctaButtons}>
+            <Link href='/quiz' className={styles.cta}>
+              Passe le test
+            </Link>
+            <Link href='mailto:contact@campusversailles.fr' className={styles.ctaSecondary}>
+              Nous contacter
+            </Link>
+          </div>
         </div>
       </div>
     </>

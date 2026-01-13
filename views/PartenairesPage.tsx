@@ -9,7 +9,7 @@ const PartenairesPage = async ({ partenaires }: { partenaires: Partenaire[] }) =
       <Breadcrumbs
         items={[
           { label: "Accueil", href: "/" },
-          { label: "Qui sommes-nous", href: "/qui-sommes-nous" },
+          { label: "Qui sommes-nous ?", href: "/qui-sommes-nous" },
         ]}
       />
       <Block>
