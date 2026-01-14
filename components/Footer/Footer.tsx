@@ -10,7 +10,7 @@ const Footer = () => {
           <Link href='/a-propos'>À propos</Link>
         </li>
         <li>
-          <Link href='/qui-sommes-nous'>Qui sommes-nous</Link>
+          <Link href='/qui-sommes-nous'>Qui sommes-nous ?</Link>
         </li>
       </ul>
     </footer>

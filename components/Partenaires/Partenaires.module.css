@@ -54,10 +54,10 @@
   padding: 0.5rem;
   border: 1px solid #e0e0e0;
   border-radius: 0.5rem;
-  max-width: 10rem;
-  max-height: 10rem;
-  width: 10rem;
-  height: 10rem;
+  max-width: 12rem;
+  max-height: 12rem;
+  width: 12rem;
+  height: 12rem;
   cursor: pointer;
   color: black;
   font-weight: bold;
@@ -75,9 +75,6 @@
 }
 
 .logoImage {
-  width: 9rem;
-  height: auto;
-  max-height: 9rem;
   object-fit: contain;
 }
 

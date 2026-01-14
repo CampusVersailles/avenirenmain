@@ -3,7 +3,7 @@ import PartenairesPage from "@/views/PartenairesPage"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Qui sommes-nous | L’Avenir en Main",
+  title: "Qui sommes-nous ? | L’Avenir en Main",
 }
 
 export default async function Partenaires() {
