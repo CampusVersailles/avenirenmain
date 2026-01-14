@@ -32,7 +32,10 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
         <h2 className={styles.sectionTitle}>
           Pourquoi choisir <span className={styles.highlight}>un métier de savoir-faire ?</span>
         </h2>
-        <StrapiRichText content={orientation.pourquoi_choisir_description} />
+        <StrapiRichText
+          content={orientation.pourquoi_choisir_description}
+          className={styles.pourquoiChoisirRaisonsDescription}
+        />
         <div className={styles.pourquoiChoisirRaisonsContainer}>
           {orientation.pourquoi_choisir_raisons.map((raison, index) => (
             <div className={styles.pourquoiChoisirRaisonsTile} key={`pourquoiChoisirRaisonsTile-${index}`}>
