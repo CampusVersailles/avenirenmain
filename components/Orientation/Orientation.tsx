@@ -85,17 +85,6 @@ const Orientation = ({ orientation }: { orientation: OrientationType }) => {
         {orientation.voies_de_formation_diagramme && (
           <Diagram imageUrl={orientation.voies_de_formation_diagramme.url} alt='Diagramme des voies de formation' />
         )}
-        {/* {orientation.voies_de_formation_diagramme && (
-          <div className={styles.voiesDeFormationDiagramme}>
-            <Image
-              src={orientation.voies_de_formation_diagramme.url}
-              alt='Diagramme des voies de formation'
-              width={1280}
-              height={720}
-              className={styles.voiesDeFormationDiagrammeImage}
-            />
-          </div>
-        )} */}
         <div className={styles.voiesDeFormationContainer}>
           {orientation.voies_de_formation.map((voie, index) => (
             <div className={styles.voieDeFormationTile} key={`voieDeFormationTile-${index}`}>
