@@ -1,20 +1,12 @@
 .diagramme {
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  border-radius: 2rem;
-  border: 1px solid var(--primary-50);
-  overflow: hidden;
-  cursor: zoom-in; */
-
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 0.5rem;
-  border-radius: 2rem;
+  border-radius: 1rem;
   border: 1px solid var(--primary-50);
   overflow: hidden;
+  cursor: zoom-in;
 }
 
 .diagrammeImage {
