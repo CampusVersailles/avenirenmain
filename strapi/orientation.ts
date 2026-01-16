@@ -30,13 +30,14 @@ export type OrientationStrapi = {
     titre?: string
     description?: BlocksContent
   }[]
+  voies_de_formation_diagramme: { url: string }
 }
 
 export const getOrientation = async () => {
   const response = await axiosClient.get<{
     data: OrientationStrapi
   }>(
-    "orientation?populate[bienvenue_aem_cartes][populate][media][fields]=url&populate[pourquoi_choisir_raisons][populate]=*&populate[a_qui_sert_aem][populate][media][fields]=url&populate[ce_que_permet_aem][populate][media][fields]=url&populate[voies_de_formation][populate]=*",
+    "orientation?populate[bienvenue_aem_cartes][populate][media][fields]=url&populate[pourquoi_choisir_raisons][populate]=*&populate[a_qui_sert_aem][populate][media][fields]=url&populate[ce_que_permet_aem][populate][media][fields]=url&populate[voies_de_formation][populate]=*&populate[voies_de_formation_diagramme][populate]",
   )
 
   return {
@@ -53,6 +54,9 @@ export const getOrientation = async () => {
       ...carte,
       media: carte.media ? { url: getMediaUrl(carte.media) } : undefined,
     })),
+    voies_de_formation_diagramme: response.data.data.voies_de_formation_diagramme.url
+      ? { url: getMediaUrl(response.data.data.voies_de_formation_diagramme) }
+      : undefined,
   }
 }
 

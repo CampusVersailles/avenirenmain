@@ -1,0 +1,39 @@
+.diagramme {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--primary-50);
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.diagrammeImage {
+  width: 100%;
+  height: auto;
+}
+
+.diagrammeModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+
+.diagrammeModalContent {
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.diagrammeModalImage {
+  max-width: none;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
