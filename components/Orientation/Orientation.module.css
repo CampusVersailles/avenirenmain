@@ -220,18 +220,3 @@
   font-size: 0.8rem;
   font-weight: 300;
 }
-
-.voiesDeFormationDiagramme {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  border-radius: 2rem;
-  border: 1px solid var(--primary-50);
-  overflow: hidden;
-}
-
-.voiesDeFormationDiagrammeImage {
-  width: 100%;
-  height: auto;
-}
