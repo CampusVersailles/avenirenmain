@@ -51,8 +51,17 @@ export default function CookieBanner() {
       aria-describedby='cookie-banner-description'
       tabIndex={-1}>
       <div className={styles.text} id='cookie-banner-description'>
-        Ce site utilise des cookies afin d'analyser son audience et d'améliorer votre expérience de navigation. Ces
-        données sont traitées de manière anonyme et confidentielle.
+        <p>Nous utilisons des cookies pour mesurer l’audience et améliorer le site. Vous pouvez accepter ou refuser.</p>
+        <p>
+          Mesure d’audience : Google Analytics (Google LLC) nous aide à comprendre la fréquentation du site (pages
+          consultées, temps passé, type d’appareil).
+        </p>
+        <p>
+          <strong>Vos droits RGPD :</strong> Vous disposez d'un droit d'accès, de rectification, d'effacement et de
+          portabilité de vos données personnelles. Les données sont conservées pour une durée de 24 mois maximum. Pour
+          exercer ces droits ou vous opposer au traitement, contactez-nous à{" "}
+          <a href='mailto:contact@campusversailles.fr'>contact@campusversailles.fr</a>
+        </p>
       </div>
       <div className={styles.actions}>
         <button className={styles.button} onClick={refuse}>
