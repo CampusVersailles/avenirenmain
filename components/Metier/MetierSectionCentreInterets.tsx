@@ -6,7 +6,7 @@ import StrapiRichText from "@/components/Strapi/StrapiRichText"
 export default function MetierCentresInterets({ metier }: { metier: MetierType }) {
   const secondaryImage = metier.videoUrl ? metier.mediaPrincipal : metier.mediaSecondaire
 
-  return (
+  return metier.centresInterets.length > 0 ? (
     <div className={styles.sectionBlock}>
       <h2 className={styles.sectionTitle}>
         Ce qu’il faut <span className={styles.highlight}>aimer</span>
@@ -38,5 +38,5 @@ export default function MetierCentresInterets({ metier }: { metier: MetierType }
         </div>
       </div>
     </div>
-  )
+  ) : null
 }

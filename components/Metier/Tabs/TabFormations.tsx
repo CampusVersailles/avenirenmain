@@ -5,7 +5,9 @@ import Formation from "@/components/Formation/Formation"
 import Link from "next/link"
 
 export default async function TabFormations({ metier }: { metier: MetierType }) {
-  const formations = await getFormationsByRomeCode({ romeCode: metier.codeRomeMetier.code })
+  const formations = metier.codeRomeMetier
+    ? await getFormationsByRomeCode({ romeCode: metier.codeRomeMetier.code })
+    : []
   const hasFormations = formations.length > 0
   return (
     <div className={styles.container}>

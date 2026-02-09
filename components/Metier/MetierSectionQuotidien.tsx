@@ -4,7 +4,7 @@ import classNames from "classnames"
 import StrapiRichText from "@/components/Strapi/StrapiRichText"
 
 export default function MetierQuotidien({ metier }: { metier: MetierType }) {
-  return (
+  return metier.tachesQuotidiennes.length > 0 ? (
     <div className={styles.sectionBlock}>
       <h2 className={styles.sectionTitle}>
         Ce que tu fais <span className={styles.highlight}>au quotidien</span>
@@ -32,5 +32,5 @@ export default function MetierQuotidien({ metier }: { metier: MetierType }) {
         </div>
       </div>
     </div>
-  )
+  ) : null
 }

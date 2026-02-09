@@ -28,9 +28,11 @@ const FiliereMetier = memo(
             {metier.mediaPrincipal && (
               <>
                 <Image className={styles.image} src={metier.mediaPrincipal.url} alt='' width={250} height={145} />
-                <p className={styles.domaine}>
-                  {domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))?.description}
-                </p>
+                {metier.codeRomeMetier && (
+                  <p className={styles.domaine}>
+                    {domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))?.description}
+                  </p>
+                )}
               </>
             )}
             <div className={styles.content}>
