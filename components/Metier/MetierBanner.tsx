@@ -12,7 +12,7 @@ export default function MetierBanner({
   metier: MetierType
   domainesPro: { code: string; description: string }[]
 }) {
-  const domaine = domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))
+  const domaine = domainesPro.find((domaine) => metier.codeRomeMetier?.code.startsWith(domaine.code))
 
   return (
     <div className={styles.banner}>
@@ -26,7 +26,7 @@ export default function MetierBanner({
       </div>
       <div className={styles.titleAndActionsContainer}>
         <div className={styles.titleContainer}>
-          <BackButton fallbackHref={`/metiers/${metier.filieres[0].documentId}`} />
+          <BackButton fallbackHref={`/metiers/${metier.filieres[0]?.documentId || ""}`} />
           <h1 className={styles.title}>{metier.titre}</h1>
         </div>
         <div className={styles.actionsContainer}>

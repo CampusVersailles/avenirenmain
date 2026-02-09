@@ -3,7 +3,7 @@ import { Metier as MetierType } from "@/strapi/metiers"
 import StrapiRichText from "@/components/Strapi/StrapiRichText"
 
 export default function MetierPerspectives({ metier }: { metier: MetierType }) {
-  return (
+  return metier.pourquoi ? (
     <div className={styles.sectionBlock}>
       <h2 className={styles.sectionTitle}>
         Pourquoi <span className={styles.highlight}>ce métier</span> ?
@@ -39,5 +39,5 @@ export default function MetierPerspectives({ metier }: { metier: MetierType }) {
         </div>
       </div>
     </div>
-  )
+  ) : null
 }
