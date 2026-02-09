@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   title: "Qui sommes-nous ? | L’Avenir en Main",
 }
 
+export const revalidate = 3600
+
 export default async function Partenaires() {
   const partenaires = await getPartenaires()
   return <PartenairesPage partenaires={partenaires} />
