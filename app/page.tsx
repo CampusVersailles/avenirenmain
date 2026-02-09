@@ -3,7 +3,7 @@ import { countFormations } from "@/strapi/formations"
 import { countMetiers } from "@/strapi/metiers"
 import HomePage from "@/views/HomePage"
 
-export const revalidate = 3600
+export const dynamic = "force-dynamic"
 
 export default async function Home() {
   const [formationsCount, metiersCount, filieres] = await Promise.all([
