@@ -3,6 +3,7 @@
 import axiosClient from "@/services/axios"
 import { MetierStrapi } from "./metiers"
 import { getMediaUrl } from "@/lib/media_utils"
+import { withStrapiFallback } from "./safe"
 
 type FiliereStrapi = {
   id: number
@@ -20,25 +21,29 @@ type FiliereStrapi = {
 }
 
 export const getFilieres = async () => {
-  const response = await axiosClient.get<{
-    data: Omit<FiliereStrapi, "metiers">[]
-  }>("filieres?populate=photo&populate=icone")
+  return withStrapiFallback("getFilieres", [], async () => {
+    const response = await axiosClient.get<{
+      data: Omit<FiliereStrapi, "metiers">[]
+    }>("filieres?populate=photo&populate=icone")
 
-  return response.data.data.map((filiere) => ({
-    ...filiere,
-    photo: getMediaUrl(filiere.photo),
-    icone: getMediaUrl(filiere.icone),
-  }))
+    return response.data.data.map((filiere) => ({
+      ...filiere,
+      photo: getMediaUrl(filiere.photo),
+      icone: getMediaUrl(filiere.icone),
+    }))
+  })
 }
 
 export type Filiere = Awaited<ReturnType<typeof getFilieres>>[number]
 
 export const getFilieresAvecMetiersRomeCodes = async () => {
-  const response = await axiosClient.get<{ data: FiliereStrapi[] }>(
-    "filieres?populate[metiers][fields][0]=id&populate[metiers][fields][1]=titre&populate[metiers][populate][codeRomeMetier][fields][0]=*",
-  )
+  return withStrapiFallback("getFilieresAvecMetiersRomeCodes", [] as FiliereStrapi[], async () => {
+    const response = await axiosClient.get<{ data: FiliereStrapi[] }>(
+      "filieres?populate[metiers][fields][0]=id&populate[metiers][fields][1]=titre&populate[metiers][populate][codeRomeMetier][fields][0]=*",
+    )
 
-  return response.data.data
+    return response.data.data
+  })
 }
 export type FilieresAvecMetiersRomeCodes = Awaited<ReturnType<typeof getFilieresAvecMetiersRomeCodes>>[number]
 
@@ -65,21 +70,25 @@ export const getFiliereById = async (filiereDocumentId: string) => {
 export type FiliereAvecMetiersComplets = Awaited<ReturnType<typeof getFiliereById>>
 
 export const getAllFilieresAvecMetiers = async () => {
-  const response = await axiosClient.get<{ data: FiliereStrapi[] }>(
-    "filieres?populate[icone][fields]=url&populate[photo][fields]=url&populate[metiers][populate][appellations][populate][metier][fields]=documentId",
-  )
-  return response.data.data.map((filiere) => ({
-    ...filiere,
-    photo: getMediaUrl(filiere.photo),
-    icone: getMediaUrl(filiere.icone),
-  }))
+  return withStrapiFallback("getAllFilieresAvecMetiers", [], async () => {
+    const response = await axiosClient.get<{ data: FiliereStrapi[] }>(
+      "filieres?populate[icone][fields]=url&populate[photo][fields]=url&populate[metiers][populate][appellations][populate][metier][fields]=documentId",
+    )
+    return response.data.data.map((filiere) => ({
+      ...filiere,
+      photo: getMediaUrl(filiere.photo),
+      icone: getMediaUrl(filiere.icone),
+    }))
+  })
 }
 
 export type FiliereAvecMetiers = Awaited<ReturnType<typeof getAllFilieresAvecMetiers>>[number]
 
 export const getDomainesPro = async () => {
-  const response = await axiosClient.get<{
-    data: FiliereStrapi[]
-  }>("filieres?populate=domainesPro")
-  return response.data.data.flatMap((filiere) => filiere.domainesPro)
+  return withStrapiFallback("getDomainesPro", [], async () => {
+    const response = await axiosClient.get<{
+      data: FiliereStrapi[]
+    }>("filieres?populate=domainesPro")
+    return response.data.data.flatMap((filiere) => filiere.domainesPro)
+  })
 }
