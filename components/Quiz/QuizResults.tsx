@@ -22,7 +22,7 @@ const QuizResults = ({
   const result = quizResultsByCombination[filiere]?.[verbe]
 
   const [metiersWithFilieres, setMetiersWithFilieres] = useState<
-    { metier: Metier; filiere: FiliereAvecMetiersComplets }[]
+    { metier: Metier | null; filiere: FiliereAvecMetiersComplets | null }[]
   >([])
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const QuizResults = ({
       const metiersWithFilieres = await Promise.all(
         result.metiers.map(async (romeCode) => {
           const metier = await getMetierByRomeCode(romeCode)
-          const filiere = await getFiliereById(metier.filieres[0].documentId)
+          const filiere = metier ? await getFiliereById(metier.filieres[0].documentId) : null
           return { metier, filiere }
         }),
       )
@@ -62,9 +62,11 @@ const QuizResults = ({
       <p className={styles.metiersTitle}>As-tu pensé à regarder les métiers de...</p>
 
       <div className={styles.metiers}>
-        {metiersWithFilieres.map(({ metier, filiere }) => (
-          <FiliereMetier key={metier.documentId} metier={metier} filiere={filiere} domainesPro={domainesPro} />
-        ))}
+        {metiersWithFilieres.map(({ metier, filiere }) =>
+          metier && filiere ? (
+            <FiliereMetier key={metier.documentId} metier={metier} filiere={filiere} domainesPro={domainesPro} />
+          ) : null,
+        )}
       </div>
 
       <div className={styles.buttonContainer}>

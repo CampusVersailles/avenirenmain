@@ -3,6 +3,7 @@
 import { getMediaUrl } from "@/lib/media_utils"
 import axiosClient from "@/services/axios"
 import { type BlocksContent } from "@strapi/blocks-react-renderer"
+import { withStrapiFallback } from "./safe"
 
 export type MetierStrapi = {
   id: number
@@ -71,27 +72,34 @@ export const getMetier = async (metierDocumentId: string) => {
 export type Metier = Awaited<ReturnType<typeof getMetier>>
 
 export const countMetiers = async () => {
-  const response = await axiosClient.get<{
-    meta: {
-      pagination: {
-        total: number
+  return withStrapiFallback("countMetiers", 0, async () => {
+    const response = await axiosClient.get<{
+      meta: {
+        pagination: {
+          total: number
+        }
       }
-    }
-  }>("metiers?pagination[pageSize]=1")
+    }>("metiers?pagination[pageSize]=1")
 
-  return response.data.meta.pagination.total
+    return response.data.meta.pagination.total
+  })
 }
 
 export const getMetierByRomeCode = async (romeCode: string) => {
-  const response = await axiosClient.get<{
-    data: MetierStrapi[]
-  }>(`metiers?filters[codeRomeMetier][code][$eq]=${romeCode}&populate=*`)
+  return withStrapiFallback("getMetierByRomeCode", null as Metier | null, async () => {
+    const response = await axiosClient.get<{
+      data: MetierStrapi[]
+    }>(`metiers?filters[codeRomeMetier][code][$eq]=${romeCode}&populate=*`)
 
-  return {
-    ...response.data.data[0],
-    mediaPrincipal: response.data.data[0].mediaPrincipal
-      ? { url: getMediaUrl(response.data.data[0].mediaPrincipal) }
-      : undefined,
-    mediaSecondaire: undefined,
-  }
+    const metier = response.data.data[0]
+    if (!metier) {
+      return null
+    }
+
+    return {
+      ...metier,
+      mediaPrincipal: metier.mediaPrincipal ? { url: getMediaUrl(metier.mediaPrincipal) } : undefined,
+      mediaSecondaire: undefined,
+    }
+  })
 }
