@@ -1,0 +1,11 @@
+.time {
+  position: absolute;
+  background-color: white;
+  font-size: 0.875rem;
+  color: var(--primary-50);
+  padding: calc(0.25rem - 2px) 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  top: 0.25rem;
+  right: 0.25rem;
+}

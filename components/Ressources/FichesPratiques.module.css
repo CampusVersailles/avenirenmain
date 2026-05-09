@@ -1,0 +1,12 @@
+.intro {
+  background-color: var(--primary-50);
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.introTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}

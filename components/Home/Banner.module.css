@@ -21,6 +21,7 @@
   line-height: 1.2;
 }
 
+.description p,
 .text {
   margin-bottom: 1rem;
   font-size: 1.25rem;

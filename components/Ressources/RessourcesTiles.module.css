@@ -1,0 +1,40 @@
+.title {
+  text-align: center;
+  margin-bottom: 1rem;
+  b {
+    color: var(--primary-50);
+  }
+}
+
+.tag {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.icon {
+  padding: 0.75rem;
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+  margin-bottom: 1rem;
+  width: 3rem;
+  height: 3rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.yellow {
+  background-color: #f6f5ac;
+}
+
+.blue {
+  background-color: #acdcf6;
+}

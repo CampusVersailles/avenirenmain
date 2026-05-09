@@ -38,6 +38,14 @@ const Header = () => {
                 </Link>
               </li>
               <li>
+                <Link
+                  className={classNames(styles.link, { [styles.active]: pathname.startsWith("/ressources") })}
+                  href='/ressources'
+                  aria-current={pathname.startsWith("/ressources") ? "page" : undefined}>
+                  Ressources
+                </Link>
+              </li>
+              <li>
                 <Link className={styles.linkButton} href='/quiz'>
                   Je passe le test
                 </Link>
