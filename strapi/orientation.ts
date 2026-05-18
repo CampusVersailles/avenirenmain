@@ -39,7 +39,7 @@ export const getOrientation = async () => {
     const response = await axiosClient.get<{
       data: OrientationStrapi
     }>(
-      "orientation?populate[bienvenue_aem_cartes][populate][media][fields]=url&populate[pourquoi_choisir_raisons][populate]=*&populate[a_qui_sert_aem][populate][media][fields]=url&populate[ce_que_permet_aem][populate][media][fields]=url&populate[voies_de_formation][populate]=*&populate[voies_de_formation_diagramme][populate]",
+      "orientation?populate[bienvenue_aem_cartes][populate][media][fields]=url&populate[pourquoi_choisir_raisons][populate]=*&populate[a_qui_sert_aem][populate][media][fields]=url&populate[ce_que_permet_aem][populate][media][fields]=url&populate[voies_de_formation][populate]=*&populate[voies_de_formation_diagramme][fields]=url",
     )
 
     return {
