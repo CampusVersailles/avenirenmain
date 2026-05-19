@@ -54,6 +54,14 @@ const Menu = () => {
           </Link>
         </li>
         <li>
+          <Link
+            className={classNames(headerStyles.link, { [headerStyles.active]: pathname.startsWith("/ressources") })}
+            href='/ressources'
+            aria-current={pathname.startsWith("/ressources") ? "page" : undefined}>
+            Ressources
+          </Link>
+        </li>
+        <li>
           <Link className={headerStyles.link} href='/quiz'>
             Je passe le test
           </Link>

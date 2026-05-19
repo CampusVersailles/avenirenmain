@@ -7,11 +7,15 @@ interface TileProps {
   href: string
   children: ReactNode
   className?: string
+  disabled?: boolean
 }
 
-const Tile = ({ href, children, className }: TileProps) => {
+const Tile = ({ href, children, className, disabled }: TileProps) => {
   return (
-    <Link href={href} className={classNames(styles.tile, className)}>
+    <Link
+      href={href}
+      className={classNames(styles.tile, className, { [styles.disabled]: disabled })}
+      aria-disabled={disabled}>
       {children}
     </Link>
   )

@@ -1,0 +1,75 @@
+.contentItem {
+  margin-bottom: 1.5rem;
+}
+
+.callout {
+  border: 2px solid var(--primary-50);
+  background-color: #fff9f6;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin: 1rem 0;
+}
+
+.calloutTitle {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-80);
+}
+
+.testimonial {
+  border-left: 4px solid var(--primary-40);
+  background-color: #fafafa;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 0.75rem 0.75rem 0;
+}
+
+.testimonialTitle {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--title-color);
+}
+
+.source {
+  font-size: 0.875rem;
+  color: var(--text-color);
+  margin-top: 0.75rem;
+}
+
+.figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.figure {
+  flex: 1;
+  border: 2px solid #f1dbd3;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  background-color: #fff;
+}
+
+.figureTitle {
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+}
+
+.figureValue {
+  margin: 0 0 0.75rem 0;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary-50);
+}
+
+.imageWrapper {
+  margin: 1.5rem 0;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}

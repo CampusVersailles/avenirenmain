@@ -7,9 +7,10 @@ import classNames from "classnames"
 interface FilterProps {
   options: { code: string; description: string }[]
   onFilterChange: (selectedFilters: string[]) => void
+  text?: string
 }
 
-const Filter = ({ options, onFilterChange }: FilterProps) => {
+const Filter = ({ options, onFilterChange, text }: FilterProps) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
 
   const toggleFilter = (key: string) => {
@@ -40,7 +41,7 @@ const Filter = ({ options, onFilterChange }: FilterProps) => {
             [styles.active]: selectedFilters.length === 0 || selectedFilters.length === options.length,
           })}
           onClick={toggleSelectAll}>
-          <span>Tous les métiers</span>
+          <span>{text || "Tous les métiers"}</span>
         </button>
         {options.map((option) => (
           <button
