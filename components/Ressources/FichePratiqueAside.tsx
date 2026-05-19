@@ -53,10 +53,10 @@ const FichePratiqueAside = ({
           <div className={styles.sousPartieCircle} />
           <span className={styles.sousPartieText}>Introduction</span>
         </button>
-        {fiche.parties.map((partie: any, partieIdx: number) => (
+        {fiche.parties.map((partie, partieIdx) => (
           <div key={partie.id} className={styles.partieGroup}>
             <p className={styles.partieLabel}>Étape {partieIdx + 1}</p>
-            {partie.sousParties.map((sousPartie: any, sousPartieIdx: number) => {
+            {partie.sousParties.map((sousPartie, sousPartieIdx) => {
               const isActive =
                 !isIntroPage && currentStep?.partieIndex === partieIdx && currentStep?.sousPartieIndex === sousPartieIdx
               return (

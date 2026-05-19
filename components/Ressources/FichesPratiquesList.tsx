@@ -54,7 +54,7 @@ const FichesPratiquesList = ({ fiches }: { fiches: FichePratiqueStrapi[] }) => {
       <Filter options={typeOptions} onFilterChange={setSelectedTypes} text='Tous les types' />
 
       {filteredFiches.length === 0 ? (
-        <p>Aucune fiche ne correspond a votre recherche.</p>
+        <p>Aucune fiche ne correspond à votre recherche.</p>
       ) : (
         <div className={metierStyles.metiers}>
           {filteredFiches.map((fiche) => (
