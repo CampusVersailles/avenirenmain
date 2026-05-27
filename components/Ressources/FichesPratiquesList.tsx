@@ -58,7 +58,7 @@ const FichesPratiquesList = ({ fiches }: { fiches: FichePratiqueStrapi[] }) => {
       ) : (
         <div className={metierStyles.metiers}>
           {filteredFiches.map((fiche) => (
-            <div key={fiche.id} className={ficheStyles.tile}>
+            <div key={fiche.id} className={ficheStyles.bigTile}>
               <Link href={`/fiches-pratiques/${fiche.documentId}`} className={ficheStyles.link}>
                 <div className={ficheStyles.mainContainer}>
                   {fiche.image && (
