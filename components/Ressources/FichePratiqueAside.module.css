@@ -7,6 +7,10 @@
   }
 }
 
+.asideMinimized {
+  max-width: unset;
+}
+
 .nav {
   position: sticky;
   top: 1.5rem;
@@ -32,12 +36,49 @@
   }
 }
 
+.navProgressMinimized {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 .progressLabel {
   font-size: 0.8125rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   color: var(--primary-70);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navDisplayButton {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid var(--primary-70);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary-70);
+  }
+
+  &:hover {
+    background-color: var(--primary-70);
+    svg {
+      color: white;
+    }
+  }
+
+  @media screen and (max-width: 53rem) {
+    display: none;
+  }
 }
 
 .progressBarContainer {
@@ -66,61 +107,8 @@
   font-weight: 500;
 }
 
-.introButton {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  padding: 0.875rem;
-  background-color: transparent;
-  border: 1px solid #e8d5cb;
-  border-radius: 0.75rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--title-color);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-bottom: 1.5rem;
-  text-align: left;
-
-  @media screen and (max-width: 53rem) {
-    display: none;
-  }
-}
-
-.introButton:hover {
-  border-color: var(--primary-50);
-  background-color: #fff9f6;
-}
-
-.introButtonActive {
-  background-color: var(--primary-50);
-  border-color: var(--primary-50);
-  color: white;
-}
-
-.introButtonCircle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 50%;
-  font-size: 1rem;
-}
-
-.introButtonActive .introButtonCircle {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.partieGroup {
-  margin-top: 1.5rem;
-
-  @media screen and (max-width: 53rem) {
-    display: none;
-  }
+.partieGroupMinimized {
+  display: none;
 }
 
 .partieLabel {
@@ -152,6 +140,10 @@
   @media screen and (max-width: 53rem) {
     display: none;
   }
+}
+
+.sousPartieButtonMinimized {
+  display: none;
 }
 
 .sousPartieButton:hover {
