@@ -28,7 +28,7 @@ const FichePratiqueStep = ({
     <section className={styles.stepContainer}>
       <div className={styles.stepHeader}>
         <p className={styles.stepLabel}>
-          Étape {currentStep.partieIndex + 1}.{currentStep.sousPartieIndex + 1}
+          Partie {currentStep.partieIndex + 1}.{currentStep.sousPartieIndex + 1}
         </p>
         <h1 className={styles.stepPartieTitle}>{currentStep.partie.titre}</h1>
         <h2 className={styles.stepSousPartieTitle}>{currentStep.sousPartie.titre}</h2>
@@ -42,11 +42,11 @@ const FichePratiqueStep = ({
         <button
           onClick={handlePrev}
           className={classNames(styles.navButton, styles.navButtonPrev)}
-          aria-label='Étape précédente'>
+          aria-label='Partie précédente'>
           <ArrowLeftSLine /> Précédent
         </button>
         {currentIdx < allSteps.length - 1 ? (
-          <button onClick={handleNext} className={styles.navButton} aria-label='Étape suivante'>
+          <button onClick={handleNext} className={styles.navButton} aria-label='Partie suivante'>
             Suivant <ArrowRightSLine />
           </button>
         ) : (

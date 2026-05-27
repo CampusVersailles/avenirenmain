@@ -1,7 +1,7 @@
 "use client"
 
 import { useSearchParams, useRouter } from "next/navigation"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import FichePratiqueIntro from "./FichePratiqueIntro"
 import FichePratiqueStep from "./FichePratiqueStep"
 import FichePratiqueAside from "./FichePratiqueAside"
@@ -11,6 +11,7 @@ import {
   FichePratiqueSousPartieStrapi,
 } from "@/strapi/ressources"
 import styles from "./FichePratiqueDetail.module.css"
+import classNames from "classnames"
 
 type StepInfo = {
   partieIndex: number
@@ -22,6 +23,7 @@ type StepInfo = {
 const FichePratiqueDetail = ({ fiche }: { fiche: FichePratiqueDetailStrapi }) => {
   const searchParams = useSearchParams()
   const router = useRouter()
+  const [minimized, setMinimized] = useState(false)
 
   const allSteps: StepInfo[] = useMemo(() => {
     const steps: StepInfo[] = []
@@ -83,7 +85,7 @@ const FichePratiqueDetail = ({ fiche }: { fiche: FichePratiqueDetailStrapi }) =>
   return (
     <>
       <div className={styles.introBadge}>{fiche.type && <p className={styles.badge}>{fiche.type}</p>}</div>
-      <div className={styles.layout}>
+      <div className={classNames(styles.layout, { [styles.layoutMinimized]: minimized })}>
         <article className={styles.content}>
           {isIntroPage ? (
             <FichePratiqueIntro fiche={fiche} onStart={() => goToStep(0, 0)} />
@@ -99,6 +101,8 @@ const FichePratiqueDetail = ({ fiche }: { fiche: FichePratiqueDetailStrapi }) =>
           )}
         </article>
         <FichePratiqueAside
+          minimized={minimized}
+          setMinimized={setMinimized}
           fiche={fiche}
           allSteps={allSteps}
           currentStep={currentStep}
