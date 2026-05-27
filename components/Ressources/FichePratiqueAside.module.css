@@ -107,6 +107,14 @@
   font-weight: 500;
 }
 
+.partieGroup {
+  margin-top: 1.5rem;
+
+  @media screen and (max-width: 53rem) {
+    display: none;
+  }
+}
+
 .partieGroupMinimized {
   display: none;
 }
