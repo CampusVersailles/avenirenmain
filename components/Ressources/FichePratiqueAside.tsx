@@ -77,7 +77,7 @@ const FichePratiqueAside = ({
         </button>
         {fiche.parties.map((partie, partieIdx) => (
           <div key={partie.id} className={classNames(styles.partieGroup, { [styles.partieGroupMinimized]: minimized })}>
-            <p className={styles.partieLabel}>Partie {partieIdx + 1}</p>
+            <p className={styles.partieLabel}>{partie.titre}</p>
             {partie.sousParties.map((sousPartie, sousPartieIdx) => {
               const isActive =
                 !isIntroPage && currentStep?.partieIndex === partieIdx && currentStep?.sousPartieIndex === sousPartieIdx
