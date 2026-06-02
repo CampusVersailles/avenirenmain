@@ -6,7 +6,7 @@ import { replaceNewlinesInBlocks } from "@/lib/text_utils"
 export default function StrapiRichText({ content, className }: { content: BlocksContent; className?: string }) {
   return (
     <div className={classNames(styles.strapiRichText, className)}>
-      <BlocksRenderer content={replaceNewlinesInBlocks(content)} />
+      {content && <BlocksRenderer content={replaceNewlinesInBlocks(content)} />}
     </div>
   )
 }
