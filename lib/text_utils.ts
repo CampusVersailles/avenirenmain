@@ -1,6 +1,6 @@
 import { BlocksContent } from "@strapi/blocks-react-renderer"
 
-export function replaceNewlinesInBlocks(content: BlocksContent): BlocksContent {
+export function replaceNewlinesInBlocks(content: BlocksContent) {
   return content.map((block) => processNode(block)) as BlocksContent
 }
 
