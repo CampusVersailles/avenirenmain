@@ -17,6 +17,12 @@
 
 .content {
   min-width: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: justify;
+  p {
+    margin-bottom: 1.25rem;
+  }
 }
 
 .badge {
