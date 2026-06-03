@@ -23,7 +23,7 @@ type StepInfo = {
 const FichePratiqueDetail = ({ fiche }: { fiche: FichePratiqueDetailStrapi }) => {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const [minimized, setMinimized] = useState(false)
+  const [minimized, setMinimized] = useState(true)
 
   const allSteps: StepInfo[] = useMemo(() => {
     const steps: StepInfo[] = []
