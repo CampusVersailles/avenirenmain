@@ -164,7 +164,9 @@ const FichePratiquePdfExport = ({ fiche }: { fiche: FichePratiqueDetailStrapi })
       iframeRef.current?.remove()
       iframeRef.current = null
     } finally {
-      setIsExportingPdf(false)
+      if (mountedRef.current) {
+        setIsExportingPdf(false)
+      }
     }
   }
 
