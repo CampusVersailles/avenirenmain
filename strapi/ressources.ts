@@ -63,7 +63,7 @@ export type FichePratiqueContenuStrapi = {
   cta?: FichePratiqueCtaStrapi | null
   temoignage?: FichePratiqueTemoignageStrapi | null
   chiffre?: { chiffres: FichePratiqueChiffreStrapi[] } | null
-  image?: { image: { url: string }; titre: string; source: string } | null
+  image?: { image: { url: string }; titre?: string | null; source?: string | null } | null
 }
 
 export type FichePratiqueSousPartieStrapi = {

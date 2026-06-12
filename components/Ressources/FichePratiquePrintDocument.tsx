@@ -10,7 +10,7 @@ const FichePratiquePrintDocument = ({ fiche }: { fiche: FichePratiqueDetailStrap
         {fiche.sousTitre && <p className={styles.subtitle}>{fiche.sousTitre}</p>}
         <div className={styles.meta}>
           {fiche.type && <p>{fiche.type}</p>}
-          {fiche.temps && <p>Temps estime: {fiche.temps}</p>}
+          {fiche.temps && <p>Temps estimé: {fiche.temps}</p>}
         </div>
       </header>
 

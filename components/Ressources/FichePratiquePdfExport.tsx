@@ -160,7 +160,7 @@ const FichePratiquePdfExport = ({ fiche }: { fiche: FichePratiqueDetailStrapi })
       }
     } catch (error) {
       // Keep this log for support diagnostics if browser-side PDF generation fails.
-      console.error("Erreur pendant la generation du PDF", error)
+      console.error("Erreur pendant la génération du PDF", error)
       iframeRef.current?.remove()
       iframeRef.current = null
     } finally {
@@ -172,7 +172,7 @@ const FichePratiquePdfExport = ({ fiche }: { fiche: FichePratiqueDetailStrapi })
 
   return (
     <button className={styles.downloadButton} onClick={handleDownloadPdf} disabled={isExportingPdf}>
-      {isExportingPdf ? "Generation du PDF..." : "Telecharger la fiche en PDF"}
+      {isExportingPdf ? "Génération du PDF..." : "Telecharger la fiche en PDF"}
     </button>
   )
 }

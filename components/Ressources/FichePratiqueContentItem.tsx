@@ -3,7 +3,6 @@ import StrapiRichText from "@/components/Strapi/StrapiRichText"
 import styles from "./FichePratiqueContentItem.module.css"
 
 export const FichePratiqueContentItem = ({ item }: { item: FichePratiqueContenuStrapi }) => {
-  console.log(item.image)
   return (
     <div className={styles.contentItem}>
       {item.texte?.texte && <StrapiRichText content={item.texte.texte} />}
