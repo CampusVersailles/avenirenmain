@@ -26,7 +26,7 @@ const RessourcesTiles = () => {
             <div className={classNames(styles.icon, styles.yellow)}>
               <img src='/images/guide.svg' alt='' width={40} height={40} />
             </div>
-            <h3 className={tilesStyles.smallTitle}>Guide de l'entrepreneur</h3>
+            <h3 className={tilesStyles.smallTitle}>Guide de l'entrepreneuriat</h3>
           </div>
           <ArrowRightIcon />
         </Tile>

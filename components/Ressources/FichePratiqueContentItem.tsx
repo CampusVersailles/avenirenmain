@@ -1,9 +1,9 @@
 import { FichePratiqueContenuStrapi } from "@/strapi/ressources"
-import Image from "next/image"
 import StrapiRichText from "@/components/Strapi/StrapiRichText"
 import styles from "./FichePratiqueContentItem.module.css"
 
 export const FichePratiqueContentItem = ({ item }: { item: FichePratiqueContenuStrapi }) => {
+  console.log(item.image)
   return (
     <div className={styles.contentItem}>
       {item.texte?.texte && <StrapiRichText content={item.texte.texte} />}
@@ -32,7 +32,9 @@ export const FichePratiqueContentItem = ({ item }: { item: FichePratiqueContenuS
       )}
       {item.image && (
         <div className={styles.imageWrapper}>
-          <Image src={item.image.image.url} alt='' width={920} height={520} className={styles.image} />
+          {item.image.titre && <p>{item.image.titre}</p>}
+          <img src={item.image.image.url} alt={item.image.titre || ""} className={styles.image} />
+          {item.image.source && <p>{item.image.source}</p>}
         </div>
       )}
     </div>

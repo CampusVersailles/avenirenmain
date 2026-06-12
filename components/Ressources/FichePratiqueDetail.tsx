@@ -5,6 +5,7 @@ import { useMemo, useState } from "react"
 import FichePratiqueIntro from "./FichePratiqueIntro"
 import FichePratiqueStep from "./FichePratiqueStep"
 import FichePratiqueAside from "./FichePratiqueAside"
+import FichePratiquePdfExport from "./FichePratiquePdfExport"
 import {
   FichePratiqueDetailStrapi,
   FichePratiquePartieStrapi,
@@ -84,7 +85,10 @@ const FichePratiqueDetail = ({ fiche }: { fiche: FichePratiqueDetailStrapi }) =>
 
   return (
     <>
-      <div className={styles.introBadge}>{fiche.type && <p className={styles.badge}>{fiche.type}</p>}</div>
+      <div className={styles.topBar}>
+        <div className={styles.introBadge}>{fiche.type && <p className={styles.badge}>{fiche.type}</p>}</div>
+        <FichePratiquePdfExport fiche={fiche} />
+      </div>
       <div className={classNames(styles.layout, { [styles.layoutMinimized]: minimized })}>
         <article className={styles.content}>
           {isIntroPage ? (

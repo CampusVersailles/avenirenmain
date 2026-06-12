@@ -47,7 +47,7 @@ const FichePratiqueAside = ({
       aria-label='Sommaire de la fiche'>
       <nav className={styles.nav}>
         <div className={classNames(styles.navProgress, { [styles.navProgressMinimized]: minimized })}>
-          <p className={styles.progressLabel}>
+          <p className={classNames(styles.progressLabel, { [styles.progressLabelMinimized]: minimized })}>
             <button
               className={styles.navDisplayButton}
               title={minimized ? "Agrandir la barre d'avancée" : "Minimiser la barre d'avancée"}
