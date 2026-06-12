@@ -1,13 +1,21 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { FichePratiqueDetailStrapi } from "@/strapi/ressources"
 import styles from "./FichePratiquePdfExport.module.css"
 
 const FichePratiquePdfExport = ({ fiche }: { fiche: FichePratiqueDetailStrapi }) => {
   const [isExportingPdf, setIsExportingPdf] = useState(false)
   const iframeRef = useRef<HTMLIFrameElement | null>(null)
+  const mountedRef = useRef(true)
 
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false
+      iframeRef.current?.remove()
+      iframeRef.current = null
+    }
+  }, [])
   const rewriteImagesForPdf = (container: ParentNode) => {
     const origin = window.location.origin
     const images = Array.from(container.querySelectorAll("img"))
