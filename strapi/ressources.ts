@@ -63,7 +63,7 @@ export type FichePratiqueContenuStrapi = {
   cta?: FichePratiqueCtaStrapi | null
   temoignage?: FichePratiqueTemoignageStrapi | null
   chiffre?: { chiffres: FichePratiqueChiffreStrapi[] } | null
-  image?: { image: { url: string } } | null
+  image?: { image: { url: string }; titre?: string | null; source?: string | null } | null
 }
 
 export type FichePratiqueSousPartieStrapi = {
@@ -125,7 +125,9 @@ export const getFichePratique = async (documentId: string) => {
           ...sousPartie,
           contenu: (sousPartie.contenu || []).map((item) => ({
             ...item,
-            image: item.image ? { image: { url: getMediaUrl(item.image.image) } } : null,
+            image: item.image
+              ? { image: { url: getMediaUrl(item.image.image) }, titre: item.image.titre, source: item.image.source }
+              : null,
           })),
         })),
       })),

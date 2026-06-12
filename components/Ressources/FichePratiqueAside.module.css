@@ -53,6 +53,11 @@
   gap: 1rem;
 }
 
+.progressLabelMinimized {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
 .navDisplayButton {
   width: 2rem;
   height: 2rem;
