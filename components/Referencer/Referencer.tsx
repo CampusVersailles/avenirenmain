@@ -50,12 +50,14 @@ const Referencer = ({
     return filieresAvecMetiersRomeCodes
       .filter((filiere) => formData.filieres.includes(filiere.documentId))
       .flatMap((filiere) =>
-        filiere.metiers.map((metier) => {
-          return {
-            value: metier.codeRomeMetier.code,
-            label: metier.titre,
-          }
-        }),
+        filiere.metiers
+          ? filiere.metiers.map((metier) => {
+              return {
+                value: metier.codeRomeMetier.code,
+                label: metier.titre,
+              }
+            })
+          : [],
       )
       .filter((romeCode, index, self) => self.findIndex((t) => t.value === romeCode.value) === index)
   }, [formData.filieres, filieresAvecMetiersRomeCodes])

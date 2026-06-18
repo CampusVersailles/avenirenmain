@@ -11,7 +11,7 @@ const MetierPage = ({
 }: {
   filiere: FiliereAvecMetiersComplets
   metier: MetierType
-  domainesPro: { code: string; description: string }[]
+  domainesPro: ({ code: string; description: string } | undefined)[]
 }) => {
   return (
     <>

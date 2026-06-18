@@ -1,17 +1,17 @@
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs"
-import { getFichesPratiques } from "@/strapi/ressources"
+import { getFicheFormations } from "@/strapi/guide"
 import FichesPratiquesPage from "@/views/FichesPratiquesPage"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
-  title: "Fiches pédagogiques | L’Avenir en Main",
+  title: "Entreprendre | L’Avenir en Main",
 }
 
 export const dynamic = "force-dynamic"
 
-export default async function FichesPratiques() {
-  const { fiches, meta } = await getFichesPratiques()
+export default async function FichesFormations() {
+  const { fiches, meta } = await getFicheFormations()
   if (!fiches || !meta) {
     notFound()
   }
@@ -21,10 +21,11 @@ export default async function FichesPratiques() {
         items={[
           { label: "Accueil", href: "/" },
           { label: "Ressources", href: "/ressources" },
-          { label: "Fiches pédagogiques", href: "/fiches-pratiques" },
+          { label: "Guide de l'entrepreneuriat", href: "/guide-de-l-entrepreneuriat" },
+          { label: "Entreprendre", href: "/guide-de-l-entrepreneuriat/entreprendre" },
         ]}
       />
-      <FichesPratiquesPage fiches={fiches} meta={meta} placeholder='Rechercher une fiche pédagogique' />
+      <FichesPratiquesPage fiches={fiches} meta={meta} placeholder='Rechercher une fiche de pré-formation' />
     </>
   )
 }

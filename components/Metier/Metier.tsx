@@ -18,7 +18,7 @@ const Metier = ({
 }: {
   filiere: FiliereAvecMetiersComplets
   metier: MetierType
-  domainesPro: { code: string; description: string }[]
+  domainesPro: ({ code: string; description: string } | undefined)[]
 }) => {
   const hasSpecialisations = metier.appellations && metier.appellations.length > 0
   const hasMetiersProches = metier.metiersProches && metier.metiersProches.length > 0

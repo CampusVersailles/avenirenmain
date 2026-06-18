@@ -21,7 +21,7 @@ type StepInfo = {
   sousPartie: FichePratiqueSousPartieStrapi
 }
 
-const FichePratiqueDetail = ({ fiche }: { fiche: FichePratiqueDetailStrapi }) => {
+const FichePratiqueDetail = ({ fiche, noDownload }: { fiche: FichePratiqueDetailStrapi; noDownload?: boolean }) => {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [minimized, setMinimized] = useState(true)
@@ -87,7 +87,7 @@ const FichePratiqueDetail = ({ fiche }: { fiche: FichePratiqueDetailStrapi }) =>
     <>
       <div className={styles.topBar}>
         <div className={styles.introBadge}>{fiche.type && <p className={styles.badge}>{fiche.type}</p>}</div>
-        <FichePratiquePdfExport fiche={fiche} />
+        {!noDownload && <FichePratiquePdfExport fiche={fiche} />}
       </div>
       <div className={classNames(styles.layout, { [styles.layoutMinimized]: minimized })}>
         <article className={styles.content}>

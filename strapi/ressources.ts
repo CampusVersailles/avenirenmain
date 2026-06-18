@@ -27,6 +27,7 @@ export type FichePratiqueStrapi = {
   id: number
   documentId: string
   titre: string
+  sousTitre: string
   intro: BlocksContent
   type: string
   temps: string
@@ -42,6 +43,7 @@ type FichePratiqueCtaStrapi = {
   id: number
   cta: string
   texte: BlocksContent
+  sideTexte: BlocksContent
 }
 
 type FichePratiqueTemoignageStrapi = {

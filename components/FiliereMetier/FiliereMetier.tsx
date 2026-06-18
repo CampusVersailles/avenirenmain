@@ -17,7 +17,7 @@ const FiliereMetier = memo(
   }: {
     metier: FiliereAvecMetiersComplets["metiers"][number]
     filiere: FiliereAvecMetiersComplets
-    domainesPro: { code: string; description: string }[]
+    domainesPro: ({ code: string; description: string } | undefined)[]
     className?: string
     ariaHidden?: boolean
   }) => {
@@ -30,7 +30,10 @@ const FiliereMetier = memo(
                 <Image className={styles.image} src={metier.mediaPrincipal.url} alt='' width={250} height={145} />
                 {metier.codeRomeMetier && (
                   <p className={styles.domaine}>
-                    {domainesPro.find((domaine) => metier.codeRomeMetier.code.startsWith(domaine.code))?.description}
+                    {
+                      domainesPro.find((domaine) => domaine && metier.codeRomeMetier.code.startsWith(domaine.code))
+                        ?.description
+                    }
                   </p>
                 )}
               </>

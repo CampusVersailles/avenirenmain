@@ -8,8 +8,15 @@ export const FichePratiqueContentItem = ({ item }: { item: FichePratiqueContenuS
       {item.texte?.texte && <StrapiRichText content={item.texte.texte} />}
       {item.cta && (
         <div className={styles.callout}>
-          <p className={styles.calloutTitle}>{item.cta.cta}</p>
-          <StrapiRichText content={item.cta.texte} />
+          <div>
+            <p className={styles.calloutTitle}>{item.cta.cta}</p>
+            <StrapiRichText content={item.cta.texte} />
+          </div>
+          {item.cta.sideTexte && (
+            <div className={styles.calloutSide}>
+              <StrapiRichText content={item.cta.sideTexte} />
+            </div>
+          )}
         </div>
       )}
       {item.temoignage && (

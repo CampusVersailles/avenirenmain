@@ -14,7 +14,7 @@ const FiliereMetiers = ({
   domainesPro,
 }: {
   filiere: FiliereAvecMetiersComplets
-  domainesPro: { code: string; description: string }[]
+  domainesPro: ({ code: string; description: string } | undefined)[]
 }) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
 
@@ -24,9 +24,11 @@ const FiliereMetiers = ({
       <div className={styles.searchContainer}>
         <Search filieres={[filiere]} />
       </div>
-      <Accordion title='Filtrer par domaines professionnels' defaultOpen={false}>
-        <Filter options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
-      </Accordion>
+      {filiere.domainesPro && (
+        <Accordion title='Filtrer par domaines professionnels' defaultOpen={false}>
+          <Filter options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
+        </Accordion>
+      )}
       <div className={styles.metiers}>
         {filiere.metiers
           .filter((metier) => !metier.appellation)
