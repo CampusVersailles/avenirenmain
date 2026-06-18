@@ -33,10 +33,12 @@ function getSearchItemLink(item: SearchItem) {
 export default function Search({ filieres }: { filieres: FiliereAvecMetiers[] }) {
   const metiers = useMemo(() => {
     const allMetiers = filieres.flatMap((filiere) => {
-      return filiere.metiers.map((metier) => ({
-        ...metier,
-        filiereDocumentId: filiere.documentId,
-      }))
+      return filiere.metiers
+        ? filiere.metiers.map((metier) => ({
+            ...metier,
+            filiereDocumentId: filiere.documentId,
+          }))
+        : []
     })
     return allMetiers.filter(
       (metier, index, self) => index === self.findIndex((t) => t.documentId === metier.documentId),

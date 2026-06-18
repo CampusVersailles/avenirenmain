@@ -10,7 +10,7 @@ const QuizResultsPage = ({
 }: {
   filiere: FiliereCode
   verbe: VerbeCode
-  domainesPro: { code: string; description: string }[]
+  domainesPro: ({ code: string; description: string } | undefined)[]
 }) => {
   return (
     <>

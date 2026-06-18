@@ -1,5 +1,5 @@
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs"
-import { getFichePratique } from "@/strapi/ressources"
+import { getFicheFormation } from "@/strapi/guide"
 import FichePratiquePage from "@/views/FichePratiquePage"
 import { Metadata, ResolvingMetadata } from "next"
 import { notFound } from "next/navigation"
@@ -10,7 +10,7 @@ type Props = {
 
 export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const { documentId } = await props.params
-  const fiche = await getFichePratique(documentId).catch(() => null)
+  const fiche = await getFicheFormation(documentId).catch(() => null)
 
   if (fiche) {
     return {
@@ -23,9 +23,9 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
 
 export const dynamic = "force-dynamic"
 
-export default async function FichePratique({ params }: Props) {
+export default async function FicheFormation({ params }: Props) {
   const { documentId } = await params
-  const fiche = await getFichePratique(documentId)
+  const fiche = await getFicheFormation(documentId)
 
   if (!fiche) {
     notFound()
@@ -37,8 +37,9 @@ export default async function FichePratique({ params }: Props) {
         items={[
           { label: "Accueil", href: "/" },
           { label: "Ressources", href: "/ressources" },
-          { label: "Fiches pédagogiques", href: "/fiches-pratiques" },
-          { label: fiche.titre, href: `/fiches-pratiques/${fiche.documentId}` },
+          { label: "Guide de l'entrepreneuriat", href: "/guide-de-l-entrepreneuriat" },
+          { label: "Entreprendre", href: "/guide-de-l-entrepreneuriat/entreprendre" },
+          { label: fiche.titre, href: `/guide-de-l-entrepreneuriat/entreprendre/${fiche.documentId}` },
         ]}
       />
       <FichePratiquePage fiche={fiche} />

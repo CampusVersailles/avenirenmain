@@ -10,11 +10,11 @@ type FiliereStrapi = {
   documentId: string
   titre: string
   nom: string
-  photo: { url: string }
-  icone: { url: string }
-  description: string
-  metiers: MetierStrapi[]
-  domainesPro: {
+  photo?: { url: string }
+  icone?: { url: string }
+  description?: string
+  metiers?: MetierStrapi[]
+  domainesPro?: {
     code: string
     description: string
   }[]
@@ -28,8 +28,8 @@ export const getFilieres = async () => {
 
     return response.data.data.map((filiere) => ({
       ...filiere,
-      photo: getMediaUrl(filiere.photo),
-      icone: getMediaUrl(filiere.icone),
+      photo: filiere.photo ? { url: getMediaUrl(filiere.photo) } : undefined,
+      icone: filiere.icone ? { url: getMediaUrl(filiere.icone) } : undefined,
     }))
   })
 }
@@ -57,13 +57,15 @@ export const getFiliereById = async (filiereDocumentId: string) => {
   return {
     ...response.data.data,
     metiers: response.data.data.metiers
-      .sort((a, b) => a.titre.localeCompare(b.titre))
-      .map((metier) => ({
-        ...metier,
-        mediaPrincipal: metier.mediaPrincipal ? { url: getMediaUrl(metier.mediaPrincipal) } : undefined,
-      })),
-    icone: getMediaUrl(response.data.data.icone),
-    photo: getMediaUrl(response.data.data.photo),
+      ? response.data.data.metiers
+          .sort((a, b) => a.titre.localeCompare(b.titre))
+          .map((metier) => ({
+            ...metier,
+            mediaPrincipal: metier.mediaPrincipal ? { url: getMediaUrl(metier.mediaPrincipal) } : undefined,
+          }))
+      : [],
+    icone: response.data.data.icone ? { url: getMediaUrl(response.data.data.icone) } : undefined,
+    photo: response.data.data.photo ? { url: getMediaUrl(response.data.data.photo) } : undefined,
   }
 }
 
@@ -76,8 +78,8 @@ export const getAllFilieresAvecMetiers = async () => {
     )
     return response.data.data.map((filiere) => ({
       ...filiere,
-      photo: getMediaUrl(filiere.photo),
-      icone: getMediaUrl(filiere.icone),
+      photo: filiere.photo ? { url: getMediaUrl(filiere.photo) } : undefined,
+      icone: filiere.icone ? { url: getMediaUrl(filiere.icone) } : undefined,
     }))
   })
 }

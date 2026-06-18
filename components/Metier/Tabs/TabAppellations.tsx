@@ -32,16 +32,20 @@ export default function TabAppellations({
                 href={`/metiers/${filiere.documentId}/${appellation.metier.documentId}`}
                 className={styles.linkTile}
                 key={appellation.nom}>
-                <div className={styles.iconContainer}>
-                  <Image className={styles.icon} src={filiere.icone} alt='' width={24} height={24} />
-                </div>
+                {filiere.icone && (
+                  <div className={styles.iconContainer}>
+                    <Image className={styles.icon} src={filiere.icone.url} alt='' width={24} height={24} />
+                  </div>
+                )}
                 <p className={styles.nom}>{appellation.nom}</p>
               </Link>
             ) : (
               <div className={styles.tile} key={appellation.nom}>
-                <div className={styles.iconContainer}>
-                  <Image className={styles.icon} src={filiere.icone} alt='' width={24} height={24} />
-                </div>
+                {filiere.icone && (
+                  <div className={styles.iconContainer}>
+                    <Image className={styles.icon} src={filiere.icone.url} alt='' width={24} height={24} />
+                  </div>
+                )}
                 <p className={styles.nom}>{appellation.nom}</p>
               </div>
             )

@@ -10,9 +10,9 @@ export default function MetierBanner({
   domainesPro,
 }: {
   metier: MetierType
-  domainesPro: { code: string; description: string }[]
+  domainesPro: ({ code: string; description: string } | undefined)[]
 }) {
-  const domaine = domainesPro.find((domaine) => metier.codeRomeMetier?.code.startsWith(domaine.code))
+  const domaine = domainesPro?.find((domaine) => domaine && metier.codeRomeMetier?.code.startsWith(domaine.code))
 
   return (
     <div className={styles.banner}>

@@ -14,7 +14,7 @@ const Filieres = ({ filieres }: { filieres: FiliereAvecMetiers[] }) => {
       </div>
       <div className={styles.filieres}>
         {filieres.map((filiere) => (
-          <FiliereCard key={filiere.id} filiere={filiere} />
+          <FiliereCard key={filiere.id} filiere={filiere} link={`/metiers/${filiere.documentId}`} />
         ))}
       </div>
     </>

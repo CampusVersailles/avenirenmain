@@ -13,8 +13,10 @@ import Image from "next/image"
 import StrapiRichText from "../Strapi/StrapiRichText"
 import LinkIcon from "../Icons/LinkIcon"
 import styles from "./FichesPratiquesList.module.css"
+import { usePathname } from "next/navigation"
 
-const FichesPratiquesList = ({ fiches }: { fiches: FichePratiqueStrapi[] }) => {
+const FichesPratiquesList = ({ fiches, placeholder }: { fiches: FichePratiqueStrapi[]; placeholder: string }) => {
+  const pathname = usePathname()
   const [selectedTypes, setSelectedTypes] = useState<string[]>([])
   const [searchValue, setSearchValue] = useState("")
 
@@ -42,9 +44,9 @@ const FichesPratiquesList = ({ fiches }: { fiches: FichePratiqueStrapi[] }) => {
           <SearchIcon />
           <input
             id='fiches-search'
-            aria-label='Rechercher une fiche pratique'
+            aria-label={placeholder}
             type='text'
-            placeholder='Rechercher une fiche pratique'
+            placeholder={placeholder}
             value={searchValue}
             onChange={(event) => setSearchValue(event.target.value)}
           />
@@ -59,7 +61,7 @@ const FichesPratiquesList = ({ fiches }: { fiches: FichePratiqueStrapi[] }) => {
         <div className={metierStyles.metiers}>
           {filteredFiches.map((fiche) => (
             <div key={fiche.id} className={ficheStyles.bigTile}>
-              <Link href={`/fiches-pratiques/${fiche.documentId}`} className={ficheStyles.link}>
+              <Link href={`${pathname}/${fiche.documentId}`} className={ficheStyles.link}>
                 <div className={ficheStyles.mainContainer}>
                   {fiche.image && (
                     <>

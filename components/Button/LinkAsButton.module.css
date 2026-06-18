@@ -8,12 +8,13 @@
 }
 
 .secondary {
-  background-color: white;
+  background-color: transparent;
   color: var(--primary-50);
   border: var(--border);
-  border-color: white;
+  border-color: var(--primary-50);
 
   &:hover {
-    border-color: var(--primary-50);
+    color: var(--primary-70);
+    border-color: var(--primary-70);
   }
 }

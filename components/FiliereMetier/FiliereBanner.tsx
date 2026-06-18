@@ -14,7 +14,11 @@ export default function FiliereBanner({ filiere }: { filiere: FiliereAvecMetiers
   return (
     <div className={styles.banner}>
       <h1 className={styles.title}>
-        <Image className={styles.icone} src={filiere.icone} alt='' width={24} height={24} />{" "}
+        {filiere.icone && (
+          <>
+            <Image className={styles.icone} src={filiere.icone.url} alt='' width={24} height={24} />{" "}
+          </>
+        )}
         {mappingNomFiliereTitle[filiere.nom]}
       </h1>
       <p className={styles.description}>{filiere.description}</p>

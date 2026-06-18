@@ -17,7 +17,7 @@ const QuizResults = ({
 }: {
   filiere: FiliereCode
   verbe: VerbeCode
-  domainesPro: { code: string; description: string }[]
+  domainesPro: ({ code: string; description: string } | undefined)[]
 }) => {
   const result = quizResultsByCombination[filiere]?.[verbe]
 

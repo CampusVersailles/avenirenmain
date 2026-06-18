@@ -1,0 +1,29 @@
+.title {
+  margin-bottom: 1rem;
+}
+
+.map {
+  margin-top: 2rem;
+  width: 100%;
+  height: auto;
+}
+
+.guide {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media screen and (max-width: 37.5rem) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+.cas {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}

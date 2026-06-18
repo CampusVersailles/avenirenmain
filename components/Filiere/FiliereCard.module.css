@@ -43,7 +43,9 @@
   color: white;
 }
 
+.badgeSecondary,
 .badge {
+  color: white;
   background-color: var(--primary-50);
   border-radius: 0.5rem;
   padding: 0.5rem;
@@ -54,6 +56,12 @@
   margin-bottom: 0.5rem;
   font-weight: 300;
   font-size: 0.9rem;
+}
+
+.badgeSecondary {
+  position: absolute;
+  margin: 1rem;
+  font-size: 0.75rem;
 }
 
 .title {
