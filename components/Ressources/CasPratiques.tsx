@@ -17,7 +17,7 @@ const CasPratiques = ({ cas, meta }: { cas: FichePratiqueStrapi[]; meta: MetaFic
       <Block>
         <div className={styles.guide}>
           <h2>Le guide</h2>
-          <LinkAsButton href='/' className={styles.guideLink} secondary>
+          <LinkAsButton href='#' className={styles.guideLink} secondary>
             Télécharger le guide
           </LinkAsButton>
         </div>

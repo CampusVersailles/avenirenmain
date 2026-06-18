@@ -5,7 +5,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
-  title: "Entreprendre | L’Avenir en Main",
+  title: "Études de cas | L’Avenir en Main",
 }
 
 export const dynamic = "force-dynamic"
