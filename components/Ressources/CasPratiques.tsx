@@ -32,6 +32,7 @@ const CasPratiques = ({ cas, meta }: { cas: FichePratiqueStrapi[]; meta: MetaFic
                 documentId: item.documentId,
                 titre: item.titre,
                 nom: item.type,
+                description: item.sousTitre,
                 photo: item.image ? { url: item.image.url } : undefined,
                 icone: undefined,
               }}

@@ -37,6 +37,8 @@ export type FichePratiqueStrapi = {
 type FichePratiqueTexteStrapi = {
   id: number
   texte: BlocksContent
+  image?: { url: string }
+  titre?: string
 }
 
 type FichePratiqueCtaStrapi = {
@@ -57,6 +59,7 @@ type FichePratiqueChiffreStrapi = {
   id: number
   titre?: string
   chiffre?: string
+  unite?: string
 }
 
 export type FichePratiqueContenuStrapi = {
@@ -108,31 +111,42 @@ export const getFichesPratiques = async () => {
   return { fiches, meta }
 }
 
-export const getFichePratique = async (documentId: string) => {
-  return withStrapiFallback("getFichePratique", null, async () => {
+const FICHE_DETAIL_POPULATE_QUERY =
+  "?populate=parties&populate=parties.sousParties&populate=parties.sousParties.contenu&populate=parties.sousParties.contenu.texte&populate=parties.sousParties.contenu.texte.image&populate=parties.sousParties.contenu.image&populate=parties.sousParties.contenu.image.image&populate=parties.sousParties.contenu.chiffre&populate=parties.sousParties.contenu.chiffre.chiffres&populate=parties.sousParties.contenu.cta&populate=parties.sousParties.contenu.temoignage&populate=image"
+
+const transformFichePratiqueDetail = (fiche: FichePratiqueDetailStrapi): FichePratiqueDetailStrapi => ({
+  ...fiche,
+  image: fiche.image ? { url: getMediaUrl(fiche.image) } : undefined,
+  parties: (fiche.parties || []).map((partie) => ({
+    ...partie,
+    sousParties: (partie.sousParties || []).map((sousPartie) => ({
+      ...sousPartie,
+      contenu: (sousPartie.contenu || []).map((item) => ({
+        ...item,
+        texte: item.texte
+          ? {
+              ...item.texte,
+              image: item.texte.image ? { url: getMediaUrl(item.texte.image) } : undefined,
+            }
+          : null,
+        image: item.image
+          ? { image: { url: getMediaUrl(item.image.image) }, titre: item.image.titre, source: item.image.source }
+          : null,
+      })),
+    })),
+  })),
+})
+
+export const getFichePratiqueDetail = async (endpoint: string, documentId: string, fallbackName: string) => {
+  return withStrapiFallback(fallbackName, null, async () => {
     const response = await axiosClient.get<{
       data: FichePratiqueDetailStrapi
-    }>(
-      `fiches/${documentId}?populate=parties&populate=parties.sousParties&populate=parties.sousParties.contenu&populate=parties.sousParties.contenu.texte&populate=parties.sousParties.contenu.image&populate=parties.sousParties.contenu.image.image&populate=parties.sousParties.contenu.chiffre&populate=parties.sousParties.contenu.chiffre.chiffres&populate=parties.sousParties.contenu.cta&populate=parties.sousParties.contenu.temoignage&populate=image`,
-    )
+    }>(`${endpoint}/${documentId}${FICHE_DETAIL_POPULATE_QUERY}`)
 
-    const fiche = response.data.data
-
-    return {
-      ...fiche,
-      image: fiche.image ? { url: getMediaUrl(fiche.image) } : undefined,
-      parties: (fiche.parties || []).map((partie) => ({
-        ...partie,
-        sousParties: (partie.sousParties || []).map((sousPartie) => ({
-          ...sousPartie,
-          contenu: (sousPartie.contenu || []).map((item) => ({
-            ...item,
-            image: item.image
-              ? { image: { url: getMediaUrl(item.image.image) }, titre: item.image.titre, source: item.image.source }
-              : null,
-          })),
-        })),
-      })),
-    }
+    return transformFichePratiqueDetail(response.data.data)
   })
+}
+
+export const getFichePratique = async (documentId: string) => {
+  return getFichePratiqueDetail("fiches", documentId, "getFichePratique")
 }
