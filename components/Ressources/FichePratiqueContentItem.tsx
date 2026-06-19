@@ -5,7 +5,15 @@ import styles from "./FichePratiqueContentItem.module.css"
 export const FichePratiqueContentItem = ({ item }: { item: FichePratiqueContenuStrapi }) => {
   return (
     <div className={styles.contentItem}>
-      {item.texte?.texte && <StrapiRichText content={item.texte.texte} />}
+      {item.texte?.texte && (
+        <div className={styles.text}>
+          {item.texte.image && <img src={item.texte.image.url} alt='' className={styles.textImage} />}
+          <div>
+            {item.texte.titre && <p className={styles.textTitle}>{item.texte.titre}</p>}
+            <StrapiRichText content={item.texte.texte} />
+          </div>
+        </div>
+      )}
       {item.cta && (
         <div className={styles.callout}>
           <div>
@@ -30,7 +38,12 @@ export const FichePratiqueContentItem = ({ item }: { item: FichePratiqueContenuS
         <div className={styles.figures}>
           {item.chiffre.chiffres.map((chiffre) => (
             <div key={chiffre.id} className={styles.figure}>
-              {chiffre.chiffre !== undefined && <p className={styles.figureValue}>{chiffre.chiffre}</p>}
+              {chiffre.chiffre !== undefined && (
+                <p className={styles.figureValue}>
+                  {chiffre.chiffre}
+                  {chiffre.unite && ` ${chiffre.unite}`}
+                </p>
+              )}
               {chiffre.titre && <p className={styles.figureTitle}>{chiffre.titre}</p>}
             </div>
           ))}

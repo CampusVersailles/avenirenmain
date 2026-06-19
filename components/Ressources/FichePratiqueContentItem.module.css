@@ -1,3 +1,22 @@
+.text {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.textImage {
+  @media screen and (max-width: 29.875rem) {
+    display: none;
+  }
+}
+
+.textTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary-50);
+}
+
 .contentItem {
   margin-bottom: 1.5rem;
 }
@@ -70,16 +89,24 @@
   border-radius: 0.75rem;
   padding: 1.5rem;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .figureTitle {
-  margin: 0 0 0.5rem 0;
   font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-bottom: 0 !important;
 }
 
 .figureValue {
-  margin: 0 0 0.75rem 0;
+  margin-bottom: 0 !important;
   font-size: 3rem;
+  line-height: 3.5rem;
   font-weight: 700;
   color: var(--primary-50);
 }

@@ -19,6 +19,7 @@ const FiliereCard = ({ filiere, secondary, link }: { filiere: Filiere; secondary
       <div className={styles.content}>
         {!secondary && badge}
         <p className={styles.title}>{filiere.titre}</p>
+        {secondary && filiere.description && <p className={styles.description}>{filiere.description}</p>}
       </div>
     </Link>
   )
