@@ -93,7 +93,8 @@ export const getFichesPratiques = async () => {
     withStrapiFallback("getFichesPratiques", [] as FichePratiqueStrapi[], async () => {
       const response = await axiosClient.get<{
         data: FichePratiqueStrapi[]
-      }>("fiches?populate[image][fields]=url")
+      }>("fiches?populate[image][fields]=url&pagination[pageSize]=100")
+
       return response.data.data.map((fiche) => ({
         ...fiche,
         image: fiche.image ? { url: getMediaUrl(fiche.image) } : undefined,
