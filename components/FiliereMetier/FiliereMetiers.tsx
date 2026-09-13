@@ -25,7 +25,7 @@ const FiliereMetiers = ({
         <Search filieres={[filiere]} />
       </div>
       {filiere.domainesPro && (
-        <Accordion title='Filtrer par domaines professionnels' defaultOpen={false}>
+        <Accordion title='Filtrer par domaines professionnels'>
           <Filter options={filiere.domainesPro} onFilterChange={setSelectedFilters} />
         </Accordion>
       )}
