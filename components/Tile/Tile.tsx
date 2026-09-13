@@ -8,14 +8,17 @@ interface TileProps {
   children: ReactNode
   className?: string
   disabled?: boolean
+  external?: boolean
 }
 
-const Tile = ({ href, children, className, disabled }: TileProps) => {
+const Tile = ({ href, children, className, disabled, external }: TileProps) => {
   return (
     <Link
       href={href}
       className={classNames(styles.tile, className, { [styles.disabled]: disabled })}
-      aria-disabled={disabled}>
+      aria-disabled={disabled}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}>
       {children}
     </Link>
   )

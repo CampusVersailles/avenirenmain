@@ -1,26 +1,13 @@
 import { useMemo } from "react"
 import Fuse from "fuse.js"
 import { FichePratiqueStrapi } from "@/strapi/ressources"
+import { extractNodeText } from "@/lib/extract_text"
 
 const FUZZY_SEARCH_THRESHOLD = 0.35
 
 type IndexedFiche = {
   fiche: FichePratiqueStrapi
   descriptionText: string
-}
-
-const extractNodeText = (node: unknown): string => {
-  if (!node || typeof node !== "object") {
-    return ""
-  }
-
-  const typedNode = node as { text?: unknown; children?: unknown[] }
-  const ownText = typeof typedNode.text === "string" ? typedNode.text : ""
-  const childrenText = Array.isArray(typedNode.children)
-    ? typedNode.children.map((child) => extractNodeText(child)).join(" ")
-    : ""
-
-  return [ownText, childrenText].filter(Boolean).join(" ").trim()
 }
 
 const getDescriptionText = (fiche: FichePratiqueStrapi) => {

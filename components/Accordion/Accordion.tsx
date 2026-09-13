@@ -9,11 +9,10 @@ import GridIcon from "../Icons/GridIcon"
 interface AccordionProps {
   title: string
   children: ReactNode
-  defaultOpen?: boolean
 }
 
-const Accordion = ({ title, children, defaultOpen = false }: AccordionProps) => {
-  const [isOpen, setIsOpen] = useState(defaultOpen)
+const Accordion = ({ title, children }: AccordionProps) => {
+  const [isOpen, setIsOpen] = useState(false)
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen)
