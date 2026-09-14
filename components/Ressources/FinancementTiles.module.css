@@ -48,7 +48,7 @@
 
 .title {
   font-size: 1.5rem;
-  margin: 1.5rem 0 0.75rem 0;
+  margin: 1.5rem 0 0.5rem 0;
   line-height: 2;
 }
 
@@ -61,4 +61,10 @@
 .description {
   margin: 1.25rem 0;
   line-height: 1.6;
+}
+
+.info {
+  font-size: 0.925rem;
+  color: #777;
+  margin: 0.5rem 0;
 }
