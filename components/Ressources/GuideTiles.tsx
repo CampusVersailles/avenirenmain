@@ -29,9 +29,8 @@ const GuideTiles = () => {
           </div>
           <ArrowRightIcon />
         </Tile>
-        <Tile className={tilesStyles.tile} href='/guide-de-l-entrepreneuriat/financement' disabled>
+        <Tile className={tilesStyles.tile} href='/guide-de-l-entrepreneuriat/financement'>
           <div>
-            <p className={styles.tag}>Arrive bientôt</p>
             <div className={classNames(styles.icon, styles.green)}>
               <img src='/images/financement.svg' alt='' width={40} height={40} />
             </div>

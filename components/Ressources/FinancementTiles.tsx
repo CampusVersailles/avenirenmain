@@ -150,8 +150,10 @@ const FinancementTiles = ({ dispositifs }: { dispositifs: DispositifFinancementS
                 </span>
               ))}
             </div>
-            <p className={styles.title}>{dispositif.type}</p>
-            <p className={styles.subTitle}>{dispositif.echelle}</p>
+            <p className={styles.title}>{dispositif.titre}</p>
+            <p className={styles.subTitle}>{dispositif.sousTitre}</p>
+            <p className={styles.info}>Type : {dispositif.type}</p>
+            <p className={styles.info}>Échelle de financement : {dispositif.echelle}</p>
             <div className={styles.description}>
               <StrapiRichText content={dispositif.description} />
             </div>
