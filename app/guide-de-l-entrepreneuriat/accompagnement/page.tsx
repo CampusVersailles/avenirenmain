@@ -5,7 +5,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
-  title: "Dispositifs de financement | L'Avenir en Main",
+  title: "Dispositifs d'accompagnement | L'Avenir en Main",
 }
 
 export const dynamic = "force-dynamic"
@@ -23,7 +23,7 @@ export default async function Financement() {
           { label: "Accueil", href: "/" },
           { label: "Ressources", href: "/ressources" },
           { label: "Guide de l'entrepreneuriat", href: "/guide-de-l-entrepreneuriat" },
-          { label: "Dispositifs de financement", href: "/guide-de-l-entrepreneuriat/financement" },
+          { label: "Dispositifs d'accompagnement", href: "/guide-de-l-entrepreneuriat/accompagnement" },
         ]}
       />
       <FinancementPage dispositifs={dispositifs} meta={meta} />
