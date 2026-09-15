@@ -18,3 +18,7 @@
   width: 100%;
   height: auto;
 }
+
+.downloadButton {
+  margin: 1rem auto 0 auto;
+}

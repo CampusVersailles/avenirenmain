@@ -18,3 +18,16 @@
     border-color: var(--primary-70);
   }
 }
+
+.tertiary {
+  background-color: var(--primary-50);
+  color: white;
+  border: var(--border);
+  border-color: var(--primary-50);
+
+  &:hover {
+    color: white;
+    background-color: var(--primary-70);
+    border-color: var(--primary-70);
+  }
+}
