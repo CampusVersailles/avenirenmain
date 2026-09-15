@@ -4,11 +4,18 @@ import classNames from "classnames"
 import { AnchorHTMLAttributes } from "react"
 
 const LinkAsButton = ({
-  secondary,
+  priority,
   ...props
-}: LinkProps & AnchorHTMLAttributes<HTMLAnchorElement> & { secondary?: boolean }) => {
+}: LinkProps & AnchorHTMLAttributes<HTMLAnchorElement> & { priority?: "secondary" | "tertiary" }) => {
   return (
-    <Link {...props} className={classNames(styles.linkButton, { [styles.secondary]: secondary }, props.className)} />
+    <Link
+      {...props}
+      className={classNames(
+        styles.linkButton,
+        { [styles.secondary]: priority === "secondary", [styles.tertiary]: priority === "tertiary" },
+        props.className,
+      )}
+    />
   )
 }
 

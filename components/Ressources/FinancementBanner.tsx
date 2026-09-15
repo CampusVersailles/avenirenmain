@@ -10,9 +10,7 @@ const FinancementBanner = ({ meta }: { meta: MetaFichePratiqueStrapi }) => {
         <h1 className={styles.title}>{meta.titre}</h1>
         <StrapiRichText content={meta.description} className={styles.description} />
       </div>
-      <>
-        <Image className={styles.image} src='/images/cameo.png' alt='' width={1140} height={519} />
-      </>
+      <Image className={styles.image} src='/images/dispositif.jpg' alt='' width={1140} height={519} />
     </>
   )
 }
