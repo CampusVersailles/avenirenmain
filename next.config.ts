@@ -81,40 +81,9 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // Redirects from guide-de-l-entrepreneuriat to savoir-faire-et-territoires
       {
-        source: "/guide-de-l-entrepreneuriat",
-        destination: "/savoir-faire-et-territoires",
-        permanent: true,
-      },
-      {
-        source: "/guide-de-l-entrepreneuriat/entreprendre",
-        destination: "/savoir-faire-et-territoires/entreprendre",
-        permanent: true,
-      },
-      {
-        source: "/guide-de-l-entrepreneuriat/entreprendre/:documentId",
-        destination: "/savoir-faire-et-territoires/entreprendre/:documentId",
-        permanent: true,
-      },
-      {
-        source: "/guide-de-l-entrepreneuriat/entreprendre/:documentId/print",
-        destination: "/savoir-faire-et-territoires/entreprendre/:documentId/print",
-        permanent: true,
-      },
-      {
-        source: "/guide-de-l-entrepreneuriat/accompagnement",
-        destination: "/savoir-faire-et-territoires/accompagnement",
-        permanent: true,
-      },
-      {
-        source: "/guide-de-l-entrepreneuriat/etudes-de-cas",
-        destination: "/savoir-faire-et-territoires/etudes-de-cas",
-        permanent: true,
-      },
-      {
-        source: "/guide-de-l-entrepreneuriat/etudes-de-cas/:documentId",
-        destination: "/savoir-faire-et-territoires/etudes-de-cas/:documentId",
+        source: "/guide-de-l-entrepreneuriat/:path*",
+        destination: "/savoir-faire-et-territoires/:path*",
         permanent: true,
       },
     ]
