@@ -26,7 +26,7 @@ const CasPratiques = ({ cas, meta }: { cas: FichePratiqueStrapi[]; meta: MetaFic
             <FiliereCard
               secondary
               key={item.id}
-              link={`/guide-de-l-entrepreneuriat/etudes-de-cas/${item.documentId}`}
+              link={`/savoir-faire-et-territoires/etudes-de-cas/${item.documentId}`}
               filiere={{
                 id: item.id,
                 documentId: item.documentId,

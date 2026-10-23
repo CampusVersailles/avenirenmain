@@ -22,8 +22,8 @@ export default async function Financement() {
         items={[
           { label: "Accueil", href: "/" },
           { label: "Ressources", href: "/ressources" },
-          { label: "Guide de l'entrepreneuriat", href: "/guide-de-l-entrepreneuriat" },
-          { label: "Dispositifs d'accompagnement", href: "/guide-de-l-entrepreneuriat/accompagnement" },
+          { label: "Savoir-faire et territoires", href: "/savoir-faire-et-territoires" },
+          { label: "Dispositifs d'accompagnement", href: "/savoir-faire-et-territoires/accompagnement" },
         ]}
       />
       <FinancementPage dispositifs={dispositifs} meta={meta} />
