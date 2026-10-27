@@ -71,3 +71,17 @@
 .badge.badgeObjectif.active {
   border-color: #2d7a2d;
 }
+
+.badge.badgeIntervention {
+  background-color: #fef3c7;
+  color: #7c2d12;
+}
+
+.badge.badgeIntervention:hover {
+  background-color: #fce88f;
+  box-shadow: 0 2px 8px rgba(124, 45, 18, 0.2);
+}
+
+.badge.badgeIntervention.active {
+  border-color: #9d5d2c;
+}

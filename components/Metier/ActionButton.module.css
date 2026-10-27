@@ -19,12 +19,8 @@
   }
 
   @media screen and (max-width: 37.5rem) {
-    width: fit-content;
     display: flex;
     gap: 1rem;
-    padding: 0.5rem 1rem;
-    height: unset;
-    font-size: 1.25rem;
     line-height: 1;
     p {
       display: block;

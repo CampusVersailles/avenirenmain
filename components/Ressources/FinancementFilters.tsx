@@ -7,18 +7,22 @@ interface FinancementFiltersProps {
   acteurs: string[]
   besoins: string[]
   objectifs: string[]
+  interventions: string[]
   onActeursChange: (selected: string[]) => void
   onBesoinsChange: (selected: string[]) => void
   onObjectifsChange: (selected: string[]) => void
+  onInterventionsChange: (selected: string[]) => void
 }
 
 const FinancementFilters = ({
   acteurs,
   besoins,
   objectifs,
+  interventions,
   onActeursChange,
   onBesoinsChange,
   onObjectifsChange,
+  onInterventionsChange,
 }: FinancementFiltersProps) => {
   return (
     <div className={styles.filtersWrapper}>
@@ -40,6 +44,13 @@ const FinancementFilters = ({
         <div className={styles.filterSection}>
           <h3 className={styles.sectionTitle}>Objectifs</h3>
           <FinancementFilter options={objectifs} onFilterChange={onObjectifsChange} badgeClass='badgeObjectif' />
+        </div>
+      )}
+
+      {interventions.length > 0 && (
+        <div className={styles.filterSection}>
+          <h3 className={styles.sectionTitle}>Échelle d'intervention</h3>
+          <FinancementFilter options={interventions} onFilterChange={onInterventionsChange} badgeClass='badgeIntervention' />
         </div>
       )}
     </div>
