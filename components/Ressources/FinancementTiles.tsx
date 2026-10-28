@@ -20,27 +20,29 @@ const FinancementTiles = ({ dispositifs }: { dispositifs: DispositifFinancementS
   const [selectedActeurs, setSelectedActeurs] = useState<string[]>([])
   const [selectedBesoins, setSelectedBesoins] = useState<string[]>([])
   const [selectedObjectifs, setSelectedObjectifs] = useState<string[]>([])
+  const [selectedInterventions, setSelectedInterventions] = useState<string[]>([])
 
-  // Récupérer les listes uniques d'acteurs, besoins et objectifs
   const uniqueOptions = useMemo(() => {
     const acteurs = new Set<string>()
     const besoins = new Set<string>()
     const objectifs = new Set<string>()
+    const interventions = new Set<string>()
 
     dispositifs.forEach((d) => {
       d.acteurs?.forEach((a) => acteurs.add(a.acteur))
       d.besoins?.forEach((b) => besoins.add(b.besoin))
       d.objectifs?.forEach((o) => objectifs.add(o.objectif))
+      d.interventions?.forEach((i) => interventions.add(i.intervention))
     })
 
     return {
       acteurs: Array.from(acteurs).sort(),
       besoins: Array.from(besoins).sort(),
       objectifs: Array.from(objectifs).sort(),
+      interventions: Array.from(interventions).sort(),
     }
   }, [dispositifs])
 
-  // Transformer les dispositifs pour inclure une version searchable de la description
   const searchableDispositifs = useMemo(
     () =>
       dispositifs.map((d) => ({
@@ -72,28 +74,30 @@ const FinancementTiles = ({ dispositifs }: { dispositifs: DispositifFinancementS
   const filteredDispositifs = useMemo(() => {
     let results = dispositifs
 
-    // Filtrer par recherche texte
     if (searchQuery.trim()) {
       results = fuse.search(searchQuery).map((result) => result.item)
     }
 
-    // Filtrer par acteurs
     if (selectedActeurs.length > 0) {
       results = results.filter((d) => selectedActeurs.some((a) => d.acteurs?.some((act) => act.acteur === a)))
     }
 
-    // Filtrer par besoins
     if (selectedBesoins.length > 0) {
       results = results.filter((d) => selectedBesoins.some((b) => d.besoins?.some((bes) => bes.besoin === b)))
     }
 
-    // Filtrer par objectifs
     if (selectedObjectifs.length > 0) {
       results = results.filter((d) => selectedObjectifs.some((o) => d.objectifs?.some((obj) => obj.objectif === o)))
     }
 
+    if (selectedInterventions.length > 0) {
+      results = results.filter((d) =>
+        selectedInterventions.some((i) => d.interventions?.some((int) => int.intervention === i)),
+      )
+    }
+
     return results
-  }, [searchQuery, selectedActeurs, selectedBesoins, selectedObjectifs, fuse, dispositifs])
+  }, [searchQuery, selectedActeurs, selectedBesoins, selectedObjectifs, selectedInterventions, fuse, dispositifs])
 
   return (
     <>
@@ -111,16 +115,21 @@ const FinancementTiles = ({ dispositifs }: { dispositifs: DispositifFinancementS
         </div>
       </div>
 
-      {(uniqueOptions.acteurs.length > 0 || uniqueOptions.besoins.length > 0 || uniqueOptions.objectifs.length > 0) && (
+      {(uniqueOptions.acteurs.length > 0 ||
+        uniqueOptions.besoins.length > 0 ||
+        uniqueOptions.objectifs.length > 0 ||
+        uniqueOptions.interventions.length > 0) && (
         <div className={styles.accordion}>
           <Accordion title='Filtrer'>
             <FinancementFilters
               acteurs={uniqueOptions.acteurs}
               besoins={uniqueOptions.besoins}
               objectifs={uniqueOptions.objectifs}
+              interventions={uniqueOptions.interventions}
               onActeursChange={setSelectedActeurs}
               onBesoinsChange={setSelectedBesoins}
               onObjectifsChange={setSelectedObjectifs}
+              onInterventionsChange={setSelectedInterventions}
             />
           </Accordion>
         </div>
@@ -129,31 +138,45 @@ const FinancementTiles = ({ dispositifs }: { dispositifs: DispositifFinancementS
       <div className={styles.tiles}>
         {filteredDispositifs.map((dispositif) => (
           <Tile key={dispositif.id} href={dispositif.lien} className={tileStyles.tile} external>
-            <div className={styles.badgesContainer}>
-              {dispositif.acteurs?.map(({ acteur }, idx) => (
-                <span key={`acteur-${idx}`} className={classNames(styles.badge, styles.badgeActeur)}>
-                  {acteur}
-                </span>
-              ))}
-            </div>
-            <div className={styles.badgesContainer}>
-              {dispositif.besoins?.map(({ besoin }, idx) => (
-                <span key={`besoin-${idx}`} className={classNames(styles.badge, styles.badgeBesoin)}>
-                  {besoin}
-                </span>
-              ))}
-            </div>
-            <div className={styles.badgesContainer}>
-              {dispositif.objectifs?.map(({ objectif }, idx) => (
-                <span key={`objectif-${idx}`} className={classNames(styles.badge, styles.badgeObjectif)}>
-                  {objectif}
-                </span>
-              ))}
-            </div>
+            {dispositif.acteurs?.length > 0 && (
+              <div className={styles.badgesContainer}>
+                {dispositif.acteurs.map(({ acteur }, idx) => (
+                  <span key={`acteur-${idx}`} className={classNames(styles.badge, styles.badgeActeur)}>
+                    {acteur}
+                  </span>
+                ))}
+              </div>
+            )}
+            {dispositif.besoins?.length > 0 && (
+              <div className={styles.badgesContainer}>
+                {dispositif.besoins.map(({ besoin }, idx) => (
+                  <span key={`besoin-${idx}`} className={classNames(styles.badge, styles.badgeBesoin)}>
+                    {besoin}
+                  </span>
+                ))}
+              </div>
+            )}
+            {dispositif.objectifs?.length > 0 && (
+              <div className={styles.badgesContainer}>
+                {dispositif.objectifs.map(({ objectif }, idx) => (
+                  <span key={`objectif-${idx}`} className={classNames(styles.badge, styles.badgeObjectif)}>
+                    {objectif}
+                  </span>
+                ))}
+              </div>
+            )}
+            {dispositif.interventions?.length > 0 && (
+              <div className={styles.badgesContainer}>
+                {dispositif.interventions.map(({ intervention }, idx) => (
+                  <span key={`intervention-${idx}`} className={classNames(styles.badge, styles.badgeIntervention)}>
+                    {intervention}
+                  </span>
+                ))}
+              </div>
+            )}
             <p className={styles.title}>{dispositif.titre}</p>
             <p className={styles.subTitle}>{dispositif.sousTitre}</p>
             <p className={styles.info}>Type : {dispositif.type}</p>
-            <p className={styles.info}>Échelle de financement : {dispositif.echelle}</p>
             <div className={styles.description}>
               <StrapiRichText content={dispositif.description} />
             </div>

@@ -46,7 +46,6 @@ export default function LikeButton({ metierId, tracking }: { metierId: string; t
       className={actionStyles.actionButton}
       aria-label={isLiked ? "Ne plus liker le métier" : "Liker le métier"}
       aria-pressed={isLiked}>
-      <p>{isLiked ? "Liké" : "Liker"}</p>
       <LikeIcon
         filled={isLiked}
         className={classNames(styles.icon, {

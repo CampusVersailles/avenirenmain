@@ -46,6 +46,11 @@
   color: #2d5b23;
 }
 
+.badgeIntervention {
+  background-color: #fef3c7;
+  color: #7c2d12;
+}
+
 .title {
   font-size: 1.5rem;
   margin: 1.5rem 0 0.5rem 0;

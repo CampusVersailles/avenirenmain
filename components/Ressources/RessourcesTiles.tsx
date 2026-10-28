@@ -20,13 +20,13 @@ const RessourcesTiles = () => {
           </div>
           <ArrowRightIcon />
         </Tile>
-        <Tile className={tilesStyles.tile} href='/guide-de-l-entrepreneuriat' disabled>
+        <Tile className={tilesStyles.tile} href='/savoir-faire-et-territoires' disabled>
           <div>
             <p className={styles.tag}>Arrive bientôt</p>
             <div className={classNames(styles.icon, styles.yellow)}>
               <img src='/images/guide.svg' alt='' width={40} height={40} />
             </div>
-            <h3 className={tilesStyles.smallTitle}>Guide de l'entrepreneuriat</h3>
+            <h3 className={tilesStyles.smallTitle}>Savoir-faire et territoires</h3>
           </div>
           <ArrowRightIcon />
         </Tile>

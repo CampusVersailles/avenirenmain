@@ -8,10 +8,10 @@ export type DispositifFinancementStrapi = {
   titre: string
   sousTitre: string
   type: string
-  echelle: string
   objectifs: { objectif: string }[]
   besoins: { besoin: string }[]
   acteurs: { acteur: string }[]
+  interventions: { intervention: string }[]
   lien: string
   description: BlocksContent
 }

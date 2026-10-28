@@ -79,6 +79,15 @@ const nextConfig: NextConfig = {
       },
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: "/guide-de-l-entrepreneuriat/:path*",
+        destination: "/savoir-faire-et-territoires/:path*",
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig
